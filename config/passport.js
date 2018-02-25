@@ -22,14 +22,6 @@ module.exports = function(passport, db) {
 
     var usr = db.collection('usuarios');
 
-    usr.insert({
-        id: 1,
-        nome: 'Teste',
-        email: 'teste@teste.com',
-        admin: true,
-        senha: 'MTIz'
-    });
-
     function findById(id, fn) {
         var des = false;
         var idx;
