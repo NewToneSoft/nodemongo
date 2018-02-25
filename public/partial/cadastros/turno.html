@@ -1,0 +1,75 @@
+
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title">{{ (!campo._id) ? "Novo" : "Editar"}} Turno</h3>
+</div>
+
+<div class="modal-body">
+    <form ng-submit="salvar()" method="post" name="frmTrn">
+
+        <div class="row">
+
+            <div class="col-md-6 col-sm-6">
+                <div class="form-group" ng-class="{'has-error': !campo.nome}">
+                    <label class="control-label"><small>Turno *</small></label>
+
+                    <input class="form-control input-sm" type="text" placeholder="Turno"
+                           ng-model="campo.nome" autofocus required>
+                </div>
+            </div>
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group" ng-class="{'has-error': !campo.horaini}">
+                    <label class="control-label"> <small>Hora Inicial *</small> </label>
+
+                    <uib-timepicker ng-model="campo.horaini" show-meridian="false" show-spinners="false"
+                                    ng-change="calcula()" required></uib-timepicker>
+
+                </div>
+            </div>
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group" ng-class="{'has-error': !campo.horafim}">
+                    <label class="control-label"> <small>Hora Final *</small> </label>
+
+                    <uib-timepicker ng-model="campo.horafim" show-meridian="false" show-spinners="false" min="campo.horaini"
+                                    ng-change="calcula()" required></uib-timepicker>
+
+                </div>
+            </div>
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group">
+                    <label class="control-label"> <small>Total de Horas</small> </label>
+
+                    <input class="form-control input-sm" type="number" ng-model="campo.htotal" min="0"
+                           required readonly>
+                </div>
+            </div>
+
+
+        </div>
+
+    </form>
+</div>
+
+<div class="modal-footer">
+    <div class="pull-left">
+            <span ng-if="itens.length <= 1">
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar()" ng-disabled="frmTrn.$invalid">Salvar</button>
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar('f')" ng-disabled="frmTrn.$invalid">Salvar & Fechar</button>
+            </span>
+
+            <span ng-if="itens.length > 1">
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar('e')" ng-disabled="frmTrn.$invalid">Salvar & Editar Próximo</button>
+            </span>
+
+        <a href style="color: darkred; padding: 10px;" ng-click="cancel()">Cancelar</a>
+    </div>
+
+    <div class="pull-right">
+        <button class="btn btn-default btn-sm" type="button" ng-click="zera()" >Limpar Campos</button>
+    </div>
+</div>
+

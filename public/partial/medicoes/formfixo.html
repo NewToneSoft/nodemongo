@@ -1,0 +1,162 @@
+<div>
+
+    <strong style="color: #999; font-size: 13px;"> DADOS DO ATIVO </strong>
+
+    <table style="width: 100%; border: 1px solid black; font-size: 11px">
+
+        <tr style="height: 30px">
+
+            <td style="padding-left: 5px; width: 33%;">
+                PREFIXO: <strong> {{slide.atual.nome}} </strong>
+            </td>
+
+            <td style="padding-left: 5px; width: 33%;">
+                TIPO: <strong> {{slide.atual.tipo}} </strong>
+            </td>
+
+            <td style="padding-left: 5px; width: 34%; ">
+                DESCRIÇÃO: <strong> {{slide.atual.descricao}} </strong>
+            </td>
+
+        </tr>
+
+
+        <tr style="height: 30px">
+
+            <td style="padding-left: 5px; width: 33%;">
+                Nº CONTRATO: <strong> {{slide.atual.contrato}} </strong>
+            </td>
+
+            <td style="padding-left: 5px; width: 33%;">
+                DATA CONTRATO: <strong> {{slide.atual.data}} </strong>
+            </td>
+
+            <td style="padding-left: 5px; width: 34%; ">
+                VALOR CONTRATO: <strong> {{slide.atual.valor | currency:"R$ "}} </strong>
+            </td>
+
+        </tr>
+
+
+        <tr style="height: 30px">
+
+            <td style="padding-left: 5px;" colspan="3">
+                FORNECEDOR: <strong> {{medidor.forn.toUpperCase()}} </strong>
+            </td>
+
+        </tr>
+
+    </table>
+
+    <br/>
+
+    <strong style="color: #999; font-size: 13px;"> RESULTADO </strong>
+
+    <table style="width: 100%; font-size: 11px">
+
+        <tr style="background-color: #d9d9d9; height: 30px; font-weight: bold; border-top: 1px solid black;
+         border-bottom: 1px solid black;">
+
+            <td class="text-center" style="width: 6%;"> Item </td>
+
+            <td style="padding-left: 5px; width: 57%;"> Descrição </td>
+
+            <td class="text-center" style="width: 6%;"> Dias </td>
+
+            <td class="text-center" style="width: 11%;"> Valor Dia </td>
+
+            <td class="text-center" style="width: 11%;"> Valor Total </td>
+
+        </tr>
+
+        <tr style="height: 30px; border-bottom: 1px solid black;">
+
+            <td class="text-center"> 1 </td>
+            <td> {{slide.atual.nome}} </td>
+            <td class="text-center"> {{slide.diasTrab}} </td>
+            <td class="text-center"> {{ slide.valorBase | currency:"R$ " }} </td>
+            <td class="text-center"> {{ slide.valorTotal | currency:"R$ "}} </td>
+
+        </tr>
+
+        <tr style="height: 30px; font-weight: bold;">
+
+            <td></td>
+            <td></td>
+            <!--            <td></td>-->
+
+            <td colspan="2" style="text-align: right; padding-right: 5px; border-bottom: 1px solid black;">
+                Total da Locação
+            </td>
+
+            <td class="text-center" style="border-bottom: 1px solid black;">
+                {{ slide.valorTotal | currency:"R$ " }}
+            </td>
+
+        </tr>
+
+    </table>
+
+
+    <strong style="color: #999; font-size: 13px;"> DÉBITOS / CRÉDITOS </strong>
+
+    <table style="width: 100%; font-size: 11px">
+
+        <tr style="background-color: #d9d9d9; height: 30px; font-weight: bold; border-top: 1px solid black;
+         border-bottom: 1px solid black;">
+
+            <td class="text-center" style="width: 6%;"> Item </td>
+
+            <td style="padding-left: 5px; width: 63%;"> Descrição </td>
+
+            <td style="width: 9%;"></td>
+
+            <td class="text-center" style="width: 11%;"> Data </td>
+
+            <td class="text-center" style="width: 11%;"> Valor </td>
+
+        </tr>
+
+        <tr style="height: 30px; border-bottom: 1px solid black;" ng-repeat="dc in slide.atual.debcreds">
+
+            <td class="text-center"> {{ $index + 1 }} </td>
+            <td colspan="2"> {{ dc.descricao }} </td>
+            <td class="text-center"> {{ dc.data }} </td>
+            <td class="text-center"> {{ dc.valor | currency:"R$ " }} </td>
+
+        </tr>
+
+        <tr style="height: 30px; font-weight: bold;">
+
+            <td></td>
+            <td></td>
+
+            <td colspan="2" style="text-align: right; border-bottom: 1px solid black;">
+                Total Débitos/Créditos
+            </td>
+
+            <td class="text-center" style="border-bottom: 1px solid black;">
+                {{ slide.valorDebcred | currency:"R$ " }}
+            </td>
+
+        </tr>
+
+        <tr ng-if="slide.atual.valorDebcred != 0" style="height: 35px; font-weight: bold; font-size: 13px;">
+
+            <td></td>
+            <td></td>
+
+            <td colspan="2" style="text-align: right; padding-right: 5px; border-bottom: 1px solid black;">
+                VALOR TOTAL:
+            </td>
+
+            <td style="text-align: right; padding-right: 5px; border-bottom: 1px solid black;">
+                {{ (slide.valorTotal + slide.atual.valorDebcred) | currency:"R$ " }}
+            </td>
+
+        </tr>
+
+    </table>
+
+</div>
+

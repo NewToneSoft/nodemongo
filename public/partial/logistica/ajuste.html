@@ -1,0 +1,66 @@
+
+
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">{{ (!campo._id) ? "Novo" : "Editar"}} Lançamento de Ajuste </h3>
+    </div>
+
+    <div class="modal-body">
+        <form ng-submit="salvar()" method="post" name="frmAju">
+
+            <div class="row">
+
+                <div class="col-md-6 col-sm-6">
+                    <div class="form-group" ng-class="{'has-error': !campo.mes || !campo.ano}">
+
+                        <label class="control-label"><small>Periodo *</small></label>
+
+                        <div style="display:flex;" >
+
+                            <select ng-options="me.value as me.nome for me in pegaMes" ng-model="campo.mes" class="form-control input-sm"
+                                    style="width: 45%" required>
+                                <option value="" style="display: none">Mês</option>
+                            </select>
+
+                            <strong style="width: 10%; text-align: center; padding-top: 5px;"> / </strong>
+
+                            <select ng-options="an.value as an.ano for an in pegaAno" ng-model="campo.ano" class="form-control input-sm"
+                                    style="width: 45%" required>
+                                <option value="" style="display: none">Ano</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-6">
+                    <div class="form-group" ng-class="{'has-error': !campo.percentual}">
+                        <label class="control-label"> <small>Percentual (%)*</small> </label>
+
+                        <input class="form-control input-sm" type="number" ng-model="campo.percentual" min="0"
+                               step="0.1" required>
+                    </div>
+                </div>
+                
+            </div>
+
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <div class="pull-left">
+            <span ng-if="itens.length <= 1">
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar()" ng-disabled="frmAju.$invalid">Salvar</button>
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar('f')" ng-disabled="frmAju.$invalid">Salvar & Fechar</button>
+            </span>
+
+            <span ng-if="itens.length > 1">
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar('e')" ng-disabled="frmAju.$invalid">Salvar & Editar Próximo</button>
+            </span>
+
+            <a href style="color: darkred; padding: 10px;" ng-click="cancel()">Cancelar</a>
+        </div>
+
+        <div class="pull-right">
+            <button class="btn btn-default btn-sm" type="button" ng-click="zera()" >Limpar Campos</button>
+        </div>
+    </div>

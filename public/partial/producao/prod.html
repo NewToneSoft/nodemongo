@@ -1,0 +1,88 @@
+
+
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">{{ (!campo._id) ? "Novo" : "Editar"}} Lançamento de Produção </h3>
+    </div>
+
+    <div class="modal-body">
+        <form ng-submit="salvar()" method="post" name="frmPdc">
+
+            <div class="row">
+
+                <div class="col-md-3 col-sm-3">
+                    <div class="form-group" ng-class="{'has-error': !campo.data}">
+                        <span class="fixa fa-lg" ng-class="{'selecionado': fixados['data']}" ng-click="fixar('data')"
+                              ng-if="campo.data" title="Fixar"></span>
+
+                        <label class="control-label"><small>Data *</small></label>
+
+                        <div class="input-group">
+                            <input type="text" class="form-control input-sm" uib-datepicker-popup="dd/MM/yy"
+                                   datepicker-options="dateOptions" ng-model="campo.data" show-button-bar="false"
+                                   is-open="picker.abreDt" ng-readonly="fixados['data']" required/>
+
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-sm btn-primary" ng-click="abrePicker()"
+                                        ng-disabled="fixados['data']">
+                                    <i class="fa fa-calendar"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-3">
+                    <div class="form-group" ng-class="{'has-error': !campo.turno}">
+
+                        <label class="control-label"><small>Turno *</small></label>
+
+                        <select class="form-control input-sm" ng-model="campo.turno"
+                                ng-options="tr._id as tr.nome for tr in todos.turno | orderBy: 'nome'"
+                                ng-change="info(campo)" required>
+                            <option value="" style="display: none"> Turno </option>
+                        </select>
+
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-3" ng-if="campo.turno">
+                    <div class="form-group">
+                        <label class="control-label"> Período </label>
+                        <span class="form-control input-sm" style="border: none; box-shadow: none; padding-left: 0">
+                            {{ desc.descricao }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-3">
+                    <div class="form-group" ng-class="{'has-error': !campo.quant}">
+                        <label class="control-label"> <small>Qtd. *</small> </label>
+
+                        <input class="form-control input-sm" type="number" ng-model="campo.quant" min="0"
+                               step="0.1" required>
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <div class="pull-left">
+            <span ng-if="itens.length <= 1">
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar()" ng-disabled="frmPdc.$invalid">Salvar</button>
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar('f')" ng-disabled="frmPdc.$invalid">Salvar & Fechar</button>
+            </span>
+
+            <span ng-if="itens.length > 1">
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar('e')" ng-disabled="frmPdc.$invalid">Salvar & Editar Próximo</button>
+            </span>
+
+            <a href style="color: darkred; padding: 10px;" ng-click="cancel()">Cancelar</a>
+        </div>
+
+        <div class="pull-right">
+            <button class="btn btn-default btn-sm" type="button" ng-click="zera()" >Limpar Campos</button>
+        </div>
+    </div>

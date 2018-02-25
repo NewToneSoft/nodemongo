@@ -1,0 +1,230 @@
+
+<div>
+    <ul class="breadcrumb">
+        <li><a href="/"> Home</a></li>
+        <!--<li><a href="/equip">Locação</a></li>-->
+        <li class="active">Medição</li>
+    </ul>
+</div>
+
+<div class="padding-sm" style=";">
+
+    <div class="row" style="margin: 0 -125px;">
+
+        <div class="col-sm-12 col-md-12">
+
+            <div class="row" style="border: 1px solid #004269;">
+
+
+                <!-- MENU LATERAL -->
+                <div class="col-sm-4 col-md-4">
+
+                    <form method="post" name="frmMed">
+
+                        <div class="col-md-12 col-sm-12" style="padding: 15px 15px 5px 15px;">
+
+                            <div class="col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3" style="padding-bottom: 5px;">
+
+                                <div class="btn-group">
+                                    <label class="btn btn-primary btn-sm" ng-model="medidor.busca" uib-btn-radio="'forn'"
+                                           ng-click="limpaBusca()">Fornecedor</label>
+                                    <label class="btn btn-primary btn-sm" ng-model="medidor.busca" uib-btn-radio="'ativo'"
+                                           ng-click="limpaBusca()">Ativo</label>
+                                </div>
+
+                            </div>
+
+                            <!-- BUSCA POR NOME DO FORNECEDOR -->
+                            <div ng-if="medidor.busca == 'forn'">
+
+                                <input type="text" ng-model="medidor.forn" class="form-control input-sm" typeahead-min-length="0"
+                                       uib-typeahead="frn.nome as frn.nome for frn in todos.forn | filter: {nome: $viewValue}"
+                                       typeahead-on-select="geraMed(medidor)" placeholder="Fornecedor"
+                                       style="text-transform: uppercase;" required>
+                                <i class="fa fa-times limpa" ng-click="limpaInput()" ng-if="medidor.forn.length > 0"></i>
+
+                            </div>
+
+                            <!-- BUSCA FORNECEDOR ATRAVÉS DO ATIVO -->
+                            <div ng-if="medidor.busca == 'ativo'">
+
+                                <select class="form-control input-sm" ng-model="medidor.ativo"
+                                        ng-options="atv.id as atv.nome for atv in tmpAtivos | orderBy: 'nome'"
+                                        ng-change="pegaForn(medidor)" required>
+                                    <option value="" style="display: none"> Ativo </option>
+                                </select>
+
+
+                                <div class="alert alert-info text-center" ng-if="medidor.ativo && medidor.forn"
+                                     style="padding: 5px; margin: 5px 0 0 0;">
+                                    <strong> {{medidor.forn.toUpperCase()}} </strong>
+                                </div>
+
+                            </div>
+
+                            <hr style="margin: 10px 0 0 0;"/>
+
+                        </div>
+
+                        <div class="col-md-12 col-sm-12 text-center" style="padding: 5px 15px 15px 15px;">
+
+                            <div class="row" style="margin: 0;">
+
+                                <div class="col-md-4 col-sm-4" style="padding: 0;">
+
+                                    <div class="btn-group">
+                                        <label class="btn btn-primary btn-sm" ng-model="medidor.tipo" uib-btn-radio="'mes'"
+                                               ng-click="geraMed(medidor)">Mês</label>
+                                        <label class="btn btn-primary btn-sm" ng-model="medidor.tipo" uib-btn-radio="'periodo'"
+                                               ng-click="geraMed(medidor)">Período</label>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-md-8 col-sm-8" style="padding: 0;">
+
+                                    <div style="display:flex;" ng-if="medidor.tipo == 'mes'">
+
+                                        <select ng-options="me.value as me.nome for me in pegaMes" ng-model="medidor.fMes" class="form-control input-sm"
+                                                style="width: 45%" ng-change="geraMed(medidor)" ng-required="medidor.tipo == 'mes'">
+                                            <option value="" style="display: none">Mês</option>
+                                        </select>
+
+                                        <strong style="width: 10%; text-align: center; padding-top: 5px;"> / </strong>
+
+                                        <select ng-options="an.value as an.ano for an in pegaAno" ng-model="medidor.fAno" class="form-control input-sm"
+                                                style="width: 45%" ng-change="geraMed(medidor)" ng-required="medidor.tipo == 'mes'">
+                                            <option value="" style="display: none">Ano</option>
+                                        </select>
+                                    </div>
+
+
+                                    <div style="display:flex;" ng-if="medidor.tipo == 'periodo'">
+
+                                        <div class="input-group" style="width: 45%">
+                                            <input type="text" class="form-control input-sm" uib-datepicker-popup="dd/MM/yy" style="font-size: 11px;"
+                                                   datepicker-options="dateOptions" ng-model="medidor.dataini" show-button-bar="false"
+                                                   is-open="picker.abreIni" ng-change="geraMed(medidor)" ng-required="medidor.tipo == 'periodo'"/>
+
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-sm btn-primary" ng-click="abrePicker(true)">
+                                                    <i class="fa fa-calendar"></i></button>
+                                            </span>
+                                        </div>
+
+                                        <strong style="width: 10%; text-align: center; padding-top: 5px;"> à </strong>
+
+                                        <div class="input-group" style="width: 45%">
+                                            <input type="text" class="form-control input-sm" uib-datepicker-popup="dd/MM/yy"
+                                                   datepicker-options="dateOptions" show-button-bar="false" style="font-size: 11px;"
+                                                   ng-model="medidor.datafim" is-open="picker.abreFim" min-date="medidor.dataini"
+                                                   max-date="medidor.datamax" placeholder="Final" ng-change="geraMed(medidor)"
+                                                   ng-required="medidor.tipo == 'periodo'"/>
+
+                                             <span class="input-group-btn">
+                                                <button type="button" class="btn btn-sm btn-primary" ng-click="abrePicker()">
+                                                    <i class="fa fa-calendar"></i></button>
+                                             </span>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                    <div class="col-md-12 col-sm-12">
+
+                        <button type="button" class="btn btn-primary center-block" ng-click="savePdf()"
+                                ng-disabled="frmMed.$invalid" ng-hide="bloqueia">
+                            PDF <i class="fa fa-file-pdf-o"></i>
+                        </button>
+
+                        <!-- ALERTA -->
+                        <div class="text-center alert alert-warning" ng-if="medidor.emitido" style="margin: 10px 0 0 0;">
+                            <strong>ATENÇÃO!</strong> Medição já emitida.
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-12 col-sm-12" ng-if="medidor.gerado">
+
+                        <hr style="margin: 1px 0 10px 0;"/>
+
+                        <h5 class="text-center" style="text-decoration: underline;"> ATIVOS DA MEDIÇÃO </h5>
+
+                        <div ng-repeat="sld in tmpLista">
+
+                            <div ng-if="sld.atual" style="display: flex; border-bottom: 1px solid #D4D4D4">
+                                <input type="checkbox" ng-change="addLista(sld)" ng-model="sld.chk" style="width: 5%; margin-top: 5px;"
+                                       ng-hide="tmpLista.length == 1">
+
+                                <div style="width: 6%;">
+                                    <i class="fa fa-minus-circle fa-lg text-danger" ng-if="medidor.emitido && !sld.emitido" title="Não Emitido"></i>
+                                    <i class="fa fa-check-circle fa-lg text-success" ng-if="medidor.emitido && sld.emitido" title="Emitido"></i>
+
+                                </div>
+
+                                <h6 style="width: 44%; margin: 5px 0;">{{sld.atual.pageId}}</h6>
+
+                                <select ng-model="sld.altera" class="form-control input-sm" style="width: 45%; height: 25px; padding-top: 3px;"
+                                        ng-change="mudaMed(sld)"
+                                        ng-if="sld.chk && !sld.observa && (sld.formaMed.forma == 'HK' || sld.formaMed.forma == 'HM')">
+                                    <option value="" style="display: none">Altera Medição</option>
+                                    <option value="P">Padrão</option>
+                                    <option value="G">Garantia</option>
+                                    <option value="H">Hora Trab.</option>
+                                    <option value="D">Diária</option>
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- MEDIÇÕES -->
+                <div class="col-sm-8 col-md-8" style="border-left: 1px solid #004269; padding: 0; min-height: 400px;">
+
+                    <div ng-if="medidor.gerado">
+
+                        <div class="text-center" rn-carousel-indicators ng-if="slides.length > 1" slides="slides"
+                             rn-carousel-index="medidor.carouselIndex"></div>
+
+                        <hr style="margin: 10px 0;"/>
+
+                        <ul rn-carousel rn-carousel-controls rn-carousel-index="medidor.carouselIndex"
+                            rn-carousel-transition="none">
+                            <li ng-repeat="slide in slides track by $index">
+                                <ng-include src="slide.form"></ng-include>
+                            </li>
+                        </ul>
+
+                    </div>
+
+                    <div ng-if="!medidor.gerado" class="text-center" style="padding-top: 50px;">
+
+                        <h3> <strong>
+                            {{ (medidor.forn) ?
+                            "Nenhuma medição para esse Fornecedor no período selecionado" :
+                            "Selecione Fornecedor e Período para gerar a Medição"}}
+                        </strong></h3>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

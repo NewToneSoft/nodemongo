@@ -1,0 +1,128 @@
+
+
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title"> {{ (!campo._id) ? "Novo" : "Editar"}} Lançamento de Alimentação </h3>
+</div>
+
+
+<div class="modal-body">
+    <form ng-submit="salvar()" method="post" name="frmAli">
+
+        <div class="row">
+
+            <div class="col-md-3 col-sm-3">
+                <div class="form-group" ng-class="{'has-error': !campo.data}">
+
+                    <label class="control-label"><small>Data *</small></label>
+
+                    <div class="input-group">
+                        <input type="text" class="form-control input-sm" uib-datepicker-popup="dd/MM/yy"
+                               datepicker-options="dateOptions" ng-model="campo.data" show-button-bar="false"
+                               is-open="picker.abreDt" ng-change="pegaRef(campo)" required/>
+
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-sm btn-primary" ng-click="abrePicker()">
+                                    <i class="fa fa-calendar"></i></button>
+                            </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-3">
+
+                <div class="form-group" ng-class="{'has-error': !campo.forn}">
+
+                    <label class="control-label"><small>Refeitório *</small></label>
+
+                    <select ng-options="pq._id as pq.nome for pq in tmpForn" ng-model="campo.forn" ng-change="info(campo)"
+                            class="form-control input-sm" required>
+                        <option value="" style="display: none">Ref.</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="col-md-6 col-sm-6">
+                <div class="form-group">
+                    <label class="control-label"> &nbsp; </label>
+                        <span class="form-control input-sm" style="border: none; box-shadow: none; padding-left: 0">
+                            <h5 style="margin-top: 5px;"> <strong>{{ desc.descricao }}</strong> </h5>
+                        </span>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+
+            <div style="padding: 0 15px">
+                <table style="border: 1px solid #8C8C8C; border-radius: 5px; font-size: 11px; width: 100%">
+                    <thead style="background-color: #c9d3dd;">
+                    <tr style="height: 30px;">
+                        <th style="text-align: center;"> Itens </th>
+                        <th style="text-align: center;"> $ Unitário </th>
+                        <th style="text-align: center;"> Quantidades </th>
+                        <th style="text-align: center;"> $ Total </th>
+                    </tr>
+                    </thead>
+
+                    <tbody class="text-center" style="border-top: 1px solid #8C8C8C;">
+                    <!-- CAFÉ -->
+                    <tr ng-repeat="pr in campo.produtos">
+
+                        <td>
+                            <h5>{{ pr.nome }}</h5>
+                        </td>
+
+                        <td>
+                            <h6> {{ pr.valor | currency:"R$ "}}</h6>
+                        </td>
+
+                        <td class="no-padding">
+
+                            <input class="form-control input-sm" type="number" ng-model="pr.quant"
+                                   placeholder="Quantidades" min="0" max="100000">
+
+                        </td>
+
+                        <td>
+                            <h6> <strong> {{ pr.valor * pr.quant | currency:"R$ "}} </strong> </h6>
+                        </td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <input type="text" ng-hide="true" ng-model="nada" ng-required="campo.produtos.length == 0"/>
+
+    </form>
+</div>
+
+
+<div class="modal-footer">
+    <div class="pull-left">
+            <span ng-if="itens.length <= 1">
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar()" ng-disabled="frmAli.$invalid">Salvar</button>
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar('f')" ng-disabled="frmAli.$invalid">Salvar & Fechar</button>
+            </span>
+
+            <span ng-if="itens.length > 1">
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar('e')" ng-disabled="frmAli.$invalid">Salvar & Editar Próximo</button>
+            </span>
+
+        <a href style="color: darkred; padding: 10px;" ng-click="cancel()">Cancelar</a>
+    </div>
+
+    <div class="pull-right">
+        <button class="btn btn-default btn-sm" type="button" ng-click="zera()" >Limpar Campos</button>
+    </div>
+</div>
+
+

@@ -1,0 +1,124 @@
+
+
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">{{ (!campo._id) ? "Novo" : "Editar"}} Lançamento de Débito/Crédito</h3>
+    </div>
+
+    <div class="modal-body">
+        <form ng-submit="salvar()" method="post" name="frmDC">
+
+            <div class="row">
+
+                <div class="col-md-2 col-sm-2">
+                    <div class="form-group" ng-class="{'has-error': !campo.data}">
+                        <span class="fixa fa-lg" ng-class="{'selecionado': fixados['data']}" ng-click="fixar('data')"
+                              ng-if="campo.data" title="Fixar"></span>
+
+                        <label class="control-label"><small>Data *</small></label>
+
+                        <div class="input-group">
+                            <input type="text" class="form-control input-sm" uib-datepicker-popup="dd/MM/yy"
+                                   datepicker-options="dateOptions" ng-model="campo.data" show-button-bar="false"
+                                   is-open="picker.abreDt" ng-change="pegaAtivos(campo)" ng-readonly="fixados['data']" required/>
+
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-sm btn-primary" ng-click="abrePicker(true)"
+                                        ng-disabled="fixados['data']">
+                                    <i class="fa fa-calendar"></i></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2 col-sm-2">
+                    <div class="form-group" ng-class="{'has-error': !campo.tipo}">
+                        <span class="fixa fa-lg" ng-class="{'selecionado': fixados['tipo']}" ng-click="fixar('tipo')"
+                              ng-if="campo.tipo" title="Fixar"></span>
+
+                        <label class="control-label"> <small>Tipo * </small> </label>
+
+                        <select class="form-control input-sm" ng-model="campo.tipo" ng-disabled="fixados['tipo']" required>
+                            <option value="D">Débito</option>
+                            <option value="C">Crédito</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-3">
+                    <div class="form-group" ng-class="{'has-error': !campo.ativo}">
+                        <span class="fixa fa-lg" ng-class="{'selecionado': fixados['ativo']}" ng-click="fixar('ativo')"
+                              ng-if="campo.ativo" title="Fixar"></span>
+                        <label class="control-label"><small>Ativo *</small></label>
+
+                        <!--<div class="input-group">-->
+                            <select class="form-control input-sm" ng-model="campo.ativo"
+                                    ng-options="atv.id as atv.nome for atv in tmpAtivos | orderBy: 'nome'"
+                                    ng-change="info(campo)" ng-disabled="fixados['ativo']" required>
+                                <option value="" style="display: none"> Ativo </option>
+                            </select>
+
+<!--                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-sm btn-primary" ng-click="onFly('contrato', 'ativo')"
+                                        title="Adicionar Ativo" ng-disabled="fixados['ativo']">
+                                    <span class="fa fa-plus"></span>
+                                </button>
+                            </span>
+                        </div>-->
+                    </div>
+                </div>
+
+                <div class="col-md-5 col-sm-5">
+                    <div class="form-group">
+                        <label class="control-label"> {{desc.ctg}}</label>
+                        <span class="form-control input-sm" style="border: none; box-shadow: none; padding-left: 0">
+                            {{ desc.descricao }}
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row" ng-if="campo.ativo">
+
+                <div class="col-md-2 col-sm-2">
+                    <div class="form-group" ng-class="{'has-error': !campo.valor}">
+                        <label class="control-label"> <small>Valor *</small> </label>
+
+                        <input class="form-control input-sm" type="number" ng-model="campo.valor" min="0"
+                               step="0.1" required>
+                    </div>
+                </div>
+
+                <div class="col-md-10 col-sm-10">
+                    <div class="form-group" ng-class="{'has-error': !campo.descricao}">
+                        <label class="control-label"> <small>Descrição *</small> </label>
+
+                        <input class="form-control input-sm" type="text" ng-model="campo.descricao" required>
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <div class="pull-left">
+            <span ng-if="itens.length <= 1">
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar()" ng-disabled="frmDC.$invalid">Salvar</button>
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar('f')" ng-disabled="frmDC.$invalid">Salvar & Fechar</button>
+            </span>
+
+            <span ng-if="itens.length > 1">
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar('e')" ng-disabled="frmDC.$invalid">Salvar & Editar Próximo</button>
+            </span>
+
+            <a href style="color: darkred; padding: 10px;" ng-click="cancel()">Cancelar</a>
+        </div>
+
+        <div class="pull-right">
+            <button class="btn btn-default btn-sm" type="button" ng-click="zera()" >Limpar Campos</button>
+        </div>
+    </div>
+

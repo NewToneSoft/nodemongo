@@ -1,0 +1,463 @@
+
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title">{{ (!campo._id) ? "Novo" : "Editar"}} Contrato</h3>
+</div>
+
+<div class="modal-body">
+    <form ng-submit="salvar()" method="post" name="frmCnt">
+
+        <!-- 1ª LINHA -->
+        <div class="row">
+
+            <div class="col-md-3 col-sm-3">
+                <div class="form-group" ng-class="{'has-error': !campo.nome}">
+                    <label class="control-label"><small>Código *</small></label>
+
+                    <input class="form-control input-sm" type="text" placeholder="Contrato" style="text-transform: uppercase"
+                           ng-model="campo.nome" autofocus required>
+                </div>
+            </div>
+
+
+            <div class="col-md-3 col-sm-3">
+                <div class="form-group" ng-class="{'has-error': !campo.tipo}">
+                    <label class="control-label"><small>Tipo *</small></label>
+                    <select class="form-control input-sm" ng-model="campo.tipo" ng-options="tp.id as tp.nome for tp in itemTipo.tipo"
+                            ng-change="geraCod(campo)" required>
+                        <option value="" style="display: none"> Tipo de Contrato </option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6">
+                <div class="form-group" ng-class="{'has-error': !campo.modelo}">
+                    <label class="control-label"><small>Modelo *</small></label>
+                    <select class="form-control input-sm" ng-model="campo.modelo"
+                            ng-options="md._id as md.nome for md in todos.mdcontrato | filter: {'tipo': campo.tipo}"
+                            ng-disabled="!campo.tipo" ng-change="pegaModelo(campo)" required>
+
+                        <option value="" style="display: none"> Modelo do Contrato </option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 2ª LINHA -->
+        <div class="row" ng-if="detail.mostra">
+
+            <div class="col-md-12 col-sm-12 text-center">
+
+                <div class="well well-sm" style="margin-bottom: 10px; padding: 0; cursor: default;">
+
+                    <div class="row">
+
+                        <div class="col-md-2 col-sm-2" style="border-right: 1px solid #e3e3e3">
+                            <h6> <strong>DETALHES DO CONTRATO</strong></h6>
+                        </div>
+
+                        <div class="col-md-2 col-sm-2">
+                            <h6> PERIODICIDADE: <br/> <strong>{{detail.periodo}}</strong> </h6>
+
+                        </div>
+
+                        <div class="col-md-2 col-sm-2" ng-show="detail.forma">
+                            <h6> FORMA: <br/> <strong>{{detail.forma}}</strong> </h6>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- 3ª LINHA -->
+        <div class="row">
+
+            <div class="col-md-6 col-sm-6">
+                <div class="form-group" ng-class="{'has-error': !campo.fornFull}">
+                    <label class="control-label">
+                        <small>Fornecedor *</small>
+                    </label>
+
+                    <input type="text" ng-model="campo.fornFull" uib-typeahead="frn.nome as frn.nome for frn in todos.forn |
+                    filter: {nome: $viewValue}" class="form-control input-sm" typeahead-min-length="0" placeholder="Fornecedor">
+                    <!--ng-readonly="fixados['fornFull']"-->
+
+                </div>
+            </div>
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group" ng-class="{'has-error': !campo.dataini}">
+                    <label class="control-label"><small>Início *</small></label>
+
+                    <div class="input-group">
+                        <input type="text" class="form-control input-sm" uib-datepicker-popup="dd/MM/yy"
+                               datepicker-options="dateOptions" ng-model="campo.dataini" show-button-bar="false"
+                               is-open="picker.abreIni" ng-change="pegaDt()" ng-disabled="campo._id" required/>
+
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-sm btn-primary" ng-click="abrePicker(true)">
+                                <i class="fa fa-calendar"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2 col-sm-2">
+                <label class="control-label"><small>Duração *</small></label>
+                <div class="input-group" ng-class="{'has-error': !campo.duracao}">
+
+                    <input type="number" class="form-control input-sm" ng-model="campo.duracao" min="0"
+                           ng-change="pegaDt()" placeholder="{{campo.periodo.nome}}" required>
+
+                    <div uib-dropdown class="input-group-btn">
+                        <button  type="button" class="btn btn-sm btn-primary"> {{campo.periodo.nome}}
+                            <span class="caret"></span>
+                        </button>
+                        <ul uib-dropdown-menu role="menu" class="pull-right">
+                            <li role="menuitem" ng-repeat="pr in periodos" ng-click="pegaDt(pr)"> <a href="#">{{ pr.nome }} </a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group" ng-class="{'has-error': !campo.datafim}">
+                    <label class="control-label"><small>Final *</small></label>
+
+                    <div class="input-group">
+                        <input type="text" class="form-control input-sm" uib-datepicker-popup="dd/MM/yy"
+                               datepicker-options="dateOptions" ng-disabled="!campo._id" show-button-bar="false"
+                               ng-model="campo.datafim" is-open="picker.abreFim" min-date="campo.dataini"
+                               placeholder="Final" required/>
+
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-sm btn-primary" ng-click="abrePicker()"
+                                    ng-disabled="!campo._id">
+                                <i class="fa fa-calendar"></i></button>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 4ª LINHA -->
+        <div class="row">
+
+            <div class="col-md-12 col-sm-12">
+
+                <button type="button" class="btn btn-default btn-sm extra" ng-click="maisOp = !maisOp">
+                    {{ (maisOp) ? "Menos" : "Mais"}} Opções
+                </button>
+
+                <hr style="margin-top: 15px; margin-bottom: 15px;"/>
+
+                <div uib-collapse="!maisOp">
+
+
+                    <!-- CAMPOS DE EQUIPAMENTOS -->
+                    <div ng-if="temEquip">
+
+                        <!-- MOTORISTA -->
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label"><small>Motorista</small></label>
+                                <select class="form-control input-sm" ng-model="campo.motorista">
+                                    <option value="" style="display: none"> Responsável </option>
+                                    <option value="L">LOCADOR</option>
+                                    <option value="P">PRÓPRIO</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- COMBUSTÍVEL -->
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label"><small>Combustível</small></label>
+                                <select class="form-control input-sm" ng-model="campo.combus">
+                                    <option value="" style="display: none"> Responsável </option>
+                                    <option value="L">LOCADOR</option>
+                                    <option value="P">PRÓPRIO</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- MOBILIZAÇÃO -->
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label"><small>Mobilização</small></label>
+                                <select class="form-control input-sm" ng-model="campo.mobil">
+                                    <option value="" style="display: none"> Responsável </option>
+                                    <option value="L">LOCADOR</option>
+                                    <option value="P">PRÓPRIO</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- DESMOBILIZAÇÃO -->
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label"><small> Desmobilização</small></label>
+                                <select class="form-control input-sm" ng-model="campo.desmobil">
+                                    <option value="" style="display: none"> Responsável </option>
+                                    <option value="L">LOCADOR</option>
+                                    <option value="P">PRÓPRIO</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- CAMPOS DE CENTROS DE CUSTOS -->
+                    <div ng-if="!temEquip">
+
+                        <div class="col-md-3 col-sm-3">
+                            <div class="form-group">
+                                <label class="control-label"> <small>Centro de Custos</small> </label>
+
+                                <select class="form-control input-sm" ng-model="campo.custos"
+                                        ng-options="loc._id as loc.nome for loc in todos.custos | orderBy: 'nome'">
+                                    <option value="" style="display: none"> Custos </option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-9 col-sm-9">
+                            <label class="control-label"><small> Observação </small></label>
+                            <input type="text" class="form-control input-sm" ng-model="campo.obs">
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- 5ª LINHA -->
+        <div class="row" style="padding-top: 10px;">
+
+            <div class="col-md-12 col-sm-12">
+
+                <div class="panel panel-primary">
+
+                    <div class="panel-heading fecha" ng-click="esconde = !esconde" ng-class="{fechado: esconde}"
+                         style="cursor: pointer; padding: 5px !important"> {{ (!temProduto) ? "Ativos" : "Produtos"}} do Contrato </div>
+
+                    <div uib-collapse="esconde" class="panel-body" style="padding: 5px !important">
+
+                        <div class="table-responsive">
+
+                            <table class="table table-bordered table-condensed" style="margin: 0">
+                                <thead>
+                                <tr style="background-color: lavender">
+
+                                    <!-- ITENS DE ATIVOS -->
+
+                                    <th class="col-md-1 col-sm-1" ng-if="!temProduto && campo._id"> <small>Item *</small></th>
+
+                                    <th class="col-md-1 col-sm-1" ng-if="!temProduto"> <small>Cód *</small></th>
+
+                                    <th class="col-md-1 col-sm-1" ng-if="!temProduto && campo.tipo == 'maq'"> <small>Categoria *</small></th>
+
+                                    <th class="col-md-2 col-sm-2" ng-if="!temProduto"><small>Descrição *</small></th>
+
+                                    <th class="col-md-1 col-sm-1" ng-if="!temProduto && temCapacidade"> <small>Capacidade *</small></th>
+                                    <!-- FINAL - ITENS DE ATIVOS -->
+
+
+                                    <!-- ITENS DE PRODUTOS -->
+                                    <th class="col-md-1 col-sm-1"> <small>Data *</small></th>
+
+                                    <th class="col-md-1 col-sm-1" ng-if="temProduto"> <small>Produto *</small></th>
+
+                                    <!-- FINAL - ITENS DE PRODUTOS -->
+
+                                    <th class="col-md-1 col-sm-1" ng-if="!temProduto && (campo.tipo == 'cac' ||campo.tipo == 'vei')">
+                                        <small>Placa *</small>
+                                    </th>
+
+                                    <th class="col-md-1 col-sm-1">
+                                        <small>$ {{ (!temProduto) ? detail.pagamento : "Unitário" }} *</small>
+                                    </th>
+
+                                    <th class="col-md-1 col-sm-1 text-center no-padding" style="vertical-align: middle;">
+
+                                        <button type="button" class="btn btn-success btn-sm" ng-show="campo.modelo"
+                                                style="padding: 2px 5px;vertical-align: middle" ng-click="novoItem()">
+                                            <span class="fa fa-plus-square-o" aria-hidden="true"></span> Adiciona
+                                        </button>
+
+                                    </th>
+                                </tr>
+                                </thead>
+
+                                <tbody ng-hide="!campo.modelo">
+
+                                <tr ng-repeat="it in campo.ativos">
+
+                                    <!-- LISTA DE ATIVOS -->
+
+                                    <!-- ITEM DO CONTRATO -->
+                                    <td class="no-padding" ng-if="!temProduto && campo._id" ng-class="{'has-error': !it.item}">
+
+                                        <select class="form-control input-sm" ng-model="it.item" ng-change="pegaAtivos(campo)" required>
+                                            <option value="N">Novo Ativo</option>
+                                            <option value="A">Alteração</option>
+                                        </select>
+
+                                    </td>
+
+                                    <!-- CÓD -->
+                                    <td class="no-padding" style="width: 5%" ng-class="{'has-error': !it.nome}" ng-if="!temProduto && it.item == 'N'">
+                                        <input class="form-control input-sm" type="text" ng-model="it.nome"
+                                               style="text-align: center; text-transform: uppercase" ng-required="!temProduto && it.item == 'N'">
+                                    </td>
+
+                                    <!-- ATIVOS JÁ CADASTRADOS -->
+                                    <td class="no-padding" style="width: 5%" ng-class="{'has-error': !it.nome}" ng-if="!temProduto && it.item == 'A'">
+
+                                        <select class="form-control input-sm" ng-model="it.ativo" ng-change="pegaInfo(it)"
+                                                ng-options="ay.id as ay.nome for ay in tmpAtivos" style="text-align: center;"
+                                                ng-required="!temProduto && it.item == 'A'">
+                                            <option value="" style="display: none"> Ativo </option>
+                                        </select>
+
+                                    </td>
+
+
+                                    <!-- CATEGORIA -->
+                                    <td class="no-padding" ng-if="!temProduto && campo.tipo == 'maq'" ng-class="{'has-error': !it.categ}">
+
+                                        <select class="form-control input-sm" ng-model="it.categ"
+                                                ng-options="tm._id as tm.nome for tm in todos.tipomaq | orderBy: 'nome'"
+                                                ng-change="geraCod(campo, it)" ng-disabled="it.item == 'A'"
+                                                ng-required="!temProduto && campo.tipo == 'maq'">
+                                            <option value="" style="display: none"> Categoria </option>
+                                        </select>
+
+                                    </td>
+
+                                    <!--DESCRIÇÃO -->
+                                    <td class="no-padding" ng-class="{'has-error': !it.descricao}" ng-if="!temProduto">
+
+                                        <input class="form-control input-sm" type="text" ng-model="it.descricao"
+                                               placeholder="Descrição" ng-readonly="it.item == 'A'" ng-required="!temProduto">
+
+                                    </td>
+
+                                    <td class="no-padding" ng-class="{'has-error': !it.capacidade}" ng-if="!temProduto && temCapacidade">
+
+                                        <input class="form-control input-sm" type="number" ng-model="it.capacidade"
+                                               placeholder="Valor" min="0" ng-readonly="it.item == 'A'" ng-required="!temProduto && temCapacidade">
+
+                                    </td>
+
+                                    <!-- FINAL - LISTA DE ATIVOS -->
+
+
+                                    <!-- LISTA DE PRODUTOS -->
+
+                                    <!-- DATA -->
+                                    <td class="no-padding" ng-class="{'has-error': !it.data && (temProduto || it.item == 'A')}">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-sm" uib-datepicker-popup="dd/MM/yy"
+                                                   datepicker-options="dateOptions" ng-model="it.data" show-button-bar="false"
+                                                   is-open="it.aberto" ng-disabled="!campo._id || it.item == 'N'"
+                                                   min-date="campo.dataini" datepicker-append-to-body="true"
+                                                   ng-required="temProduto || it.item == 'A'"/>
+
+                                            <span class="input-group-btn" ng-if="campo._id && (temProduto || it.item == 'A')">
+                                                <button type="button" class="btn btn-sm btn-primary"
+                                                        ng-click="abrePickerItem(it)">
+                                                    <i class="fa fa-calendar"></i></button>
+                                            </span>
+                                        </div>
+                                    </td>
+
+                                    <!-- PRODUTO -->
+                                    <td class="no-padding" ng-class="{'has-error': !it.produto}" ng-if="temProduto">
+
+                                        <select class="form-control input-sm" ng-model="it.produto"
+                                                ng-options="pr._id as pr.nome for pr in tmpProdutos"
+                                                ng-required="temProduto">
+                                            <option value="" style="display: none"> Produto </option>
+                                        </select>
+
+                                    </td>
+
+                                    <!-- FINAL - LISTA DE PRODUTOS -->
+
+
+                                    <!-- PLACA -->
+                                    <td class="no-padding" ng-if="!temProduto && (campo.tipo == 'cac' ||campo.tipo == 'vei')" ng-class="{'has-error': !it.placa}">
+
+                                        <input class="form-control input-sm" type="text" ng-model="it.placa"
+                                               style="text-transform: uppercase;" ng-readonly="it.item == 'A'"
+                                               ui-mask="AAA-9999" ng-required="!temProduto && (campo.tipo == 'cac' ||campo.tipo == 'vei')">
+
+                                    </td>
+
+
+                                    <!-- VALOR ITEM -->
+                                    <td class="no-padding" ng-class="{'has-error': !it.valor}">
+
+                                        <input class="form-control input-sm" type="number" ng-model="it.valor"
+                                               placeholder="Valor" min="0" max="100000" required>
+
+                                    </td>
+
+                                    <!-- BOTÃO DE REMOVER ITEM -->
+                                    <td class="text-center no-padding" style="vertical-align: middle">
+
+                                        <button type="button" class="btn btn-danger btn-sm" ng-click="remItem($index)"
+                                                style="padding: 2px 5px;">
+                                            <span class="fa fa-minus-square-o" aria-hidden="true"></span> Remove
+                                        </button>
+
+                                    </td>
+                                </tr>
+
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <input type="text" ng-hide="true" ng-model="nada" ng-required="campo.ativos.length == 0"/>
+
+    </form>
+</div>
+
+<div class="modal-footer">
+    <div class="pull-left">
+            <span ng-if="itens.length <= 1">
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar()" ng-disabled="frmCnt.$invalid">Salvar</button>
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar('f')" ng-disabled="frmCnt.$invalid">Salvar & Fechar</button>
+            </span>
+
+            <span ng-if="itens.length > 1">
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar('e')" ng-disabled="frmCnt.$invalid">Salvar & Editar Próximo</button>
+            </span>
+
+        <a href style="color: darkred; padding: 10px;" ng-click="cancel()">Cancelar</a>
+    </div>
+
+    <div class="pull-right">
+        <button class="btn btn-default btn-sm" type="button" ng-click="zera()" >Limpar Campos</button>
+    </div>
+</div>

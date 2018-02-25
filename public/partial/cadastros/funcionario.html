@@ -1,0 +1,331 @@
+
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title">{{ (!campo._id) ? "Novo" : "Editar"}} Funcionário </h3>
+</div>
+
+<div class="modal-body">
+    <form ng-submit="salvar()" method="post" name="frmFun">
+
+        <!-- LINHA 1 -->
+        <div class="row">
+
+            <div class="col-md-8 col-sm-8">
+                <div class="form-group" ng-class="{'has-error': !campo.nome}">
+                    <label class="control-label"><small>Nome *</small></label>
+
+                    <input class="form-control input-sm" type="text" ng-model="campo.nome"
+                           placeholder="Nome" autofocus required>
+                </div>
+            </div>
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group">
+                    <label class="control-label"><small> CPF </small></label>
+                    <input class="form-control input-sm" style="text-align: right" ui-mask="999.999.999-99" ng-model="campo.cpf">
+                </div>
+            </div>
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group">
+                    <label class="control-label"><small> RG </small></label>
+                    <input class="form-control input-sm" type="number" min="0" style="text-align: right"
+                           placeholder="RG" ng-model="campo.rg">
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- LINHA 2-->
+        <div class="row">
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group">
+
+                    <label class="control-label"><small>CEP</small></label>
+
+                    <div class="input-group">
+                        <input class="form-control input-sm" ng-model="campo.cep" ui-mask="99.999-999"
+                               style="text-align: right" ng-keypress="($event.which === 13) ? pegaCep(campo.cep) : 0">
+
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-sm btn-primary" ng-click="pegaCep(campo.cep)">
+                                <i  class="fa fa-lg" title="Procurar CEP" ng-class="{'fa-search': !roda, 'fa-refresh': roda, 'fa-spin': roda}"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-sm-6">
+                <div class="form-group">
+                    <label class="control-label"><small>Endereço</small></label>
+                    <input class="form-control input-sm" type="text" placeholder='Endereço'
+                           ng-model="campo.endereco">
+                </div>
+            </div>
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group">
+                    <label class="control-label"><small>Número</small></label>
+                    <input class="form-control input-sm" type="number" min="0" ng-model="campo.numero" placeholder="Nº">
+                </div>
+            </div>
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group">
+                    <label class="control-label"><small>Bairro</small></label>
+                    <input class="form-control input-sm" type="text" placeholder='Bairro'
+                           ng-model="campo.bairro">
+                </div>
+            </div>
+            
+        </div>
+
+
+        <!-- LINHA 3 -->
+        <div class="row">
+
+            <div class="col-md-3 col-sm-3">
+                <div class="form-group">
+                    <label class="control-label"><small>Complemento</small></label>
+                    <input class="form-control input-sm" type="text" placeholder='Complemento'
+                           ng-model="campo.complemento">
+                </div>
+            </div>
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group">
+                    <label class="control-label"><small>Estado</small></label>
+                    <input type="text" ng-model="campo.estado" uib-typeahead="est.nome as est.nome for est in estados | orderBy: 'nome' |
+                    filter: $viewValue" class="form-control input-sm" typeahead-min-length="0" typeahead-on-select="cids($model)"
+                            placeholder="Estado">
+
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-3">
+                <div class="form-group">
+                    <label class="control-label"><small>Cidade</small></label>
+                    <input type="text" ng-model="campo.cidade" uib-typeahead="cid for cid in cidades | orderBy: 'nome' |
+                    filter: $viewValue" class="form-control input-sm" typeahead-min-length="0" ng-disabled="!campo.estado"
+                            placeholder="Cidade">
+                </div>
+            </div>
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group">
+                    <label class="control-label"><small>Telefone Fixo</small></label>
+                    <input class="form-control input-sm" style="text-align: right" ui-mask='(99) 9999-9999'
+                           ng-model="campo.fixo">
+                </div>
+            </div>
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group">
+                    <label class="control-label"><small>Celular</small></label>
+                    <input class="form-control input-sm" style="text-align: right" ui-mask='(99) 9 9999-9999'
+                           ng-model="campo.celular">
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- LINHA 4 -->
+        <div class="row">
+
+            <div class="col-md-3 col-sm-3">
+                <div class="form-group">
+                    <label class="control-label"><small>Banco</small></label>
+                    <input class="form-control input-sm" type="text" placeholder='Banco' ng-model="campo.banco">
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-3">
+                <div class="form-group">
+                    <label class="control-label"><small>Tipo de Conta</small></label>
+                    <select class="form-control input-sm" ng-model="campo.tipoconta">
+                        <option value="" style="display: none"> Conta </option>
+                        <option value="C">Corrente</option>
+                        <option value="P">Poupança</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-3">
+                <div class="form-group">
+                    <label class="control-label"><small>Agência</small></label>
+                    <input class="form-control input-sm" style="text-align: right" ng-model="campo.agencia"
+                           placeholder="Agência">
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-3">
+                <div class="form-group">
+                    <label class="control-label"><small>Conta</small></label>
+                    <input class="form-control input-sm" style="text-align: right" ng-model="campo.conta"
+                           placeholder="Conta">
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- 5ª LINHA -->
+        <div class="row" style="padding-top: 10px;">
+
+            <div class="col-md-12 col-sm-12">
+
+                <div class="panel panel-primary">
+
+                    <div class="panel-heading fecha" ng-click="esconde = !esconde" ng-class="{fechado: esconde}"
+                         style="cursor: pointer; padding: 5px !important">Cargos, Salários e Alterações</div>
+
+                    <div uib-collapse="esconde" class="panel-body" style="padding: 5px !important">
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-condensed" style="margin: 0">
+                                <thead>
+                                <tr style="background-color: lavender">
+                                    <th style="width: 25%"> <small>Situação *</small></th>
+
+                                    <th style="width: 15%"> <small>Data *</small></th>
+
+                                    <th style="width: 28%"> <small>Cargo *</small></th>
+
+                                    <th style="width: 10%"><small>Salário *</small></th>
+
+                                    <th style="width: 18%"><small>Obs</small></th>
+
+                                    <th style="vertical-align: middle; width: 4%">
+
+                                        <button type="button" class="btn btn-success btn-sm" ng-show="campo.nome || (campo.carteira.length > 0 && frmFun.$valid)"
+                                                style="padding: 2px 5px;vertical-align: middle" ng-click="novoItem()">
+                                            <span class="fa fa-plus-square-o" aria-hidden="true"></span> Adiciona
+                                        </button>
+
+                                    </th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+
+                                <tr ng-repeat="it in campo.carteira">
+
+                                    <!-- SITUAÇÃO -->
+                                    <td class="no-padding" ng-class="{'has-error': !it.situacao}">
+
+                                        <h6 class="text-center" ng-show="it.situacao == 'E'" style="margin-bottom: 0"> Entrada </h6>
+
+                                        <select class="form-control input-sm" ng-model="it.situacao" ng-required="it.situacao != 'E'"
+                                                ng-show="it.situacao != 'E'"  ng-disabled="campo.carteira.length > ($index + 1)"
+                                                ng-change="(it.situacao == 'S') ? it.cargo = campo.carteira[$index - 1].cargo : null">
+                                            <option value="" style="display: none"> Situação </option>
+                                            <option value="C">Alteração de Cargo</option>
+                                            <option value="S">Alteração de Salário</option>
+                                            <option value="D">Saída</option>
+                                        </select>
+                                    </td>
+
+
+                                    <!-- DATA -->
+                                    <td class="no-padding" ng-class="{'has-error': !it.data}">
+
+                                        <div class="input-group">
+                                            <input type="text" class="form-control input-sm" uib-datepicker-popup="dd/MM/yy"
+                                                   datepicker-options="dateOptions" ng-model="it.data" show-button-bar="false"
+                                                   is-open="it.abre" datepicker-append-to-body="true" min-date="it.min"
+                                                   ng-disabled="campo.carteira.length > ($index + 1)" required/>
+
+                                            <span class="input-group-btn">
+                                                <button type="button" class="btn btn-sm btn-primary" ng-click="it.abre = true"
+                                                        ng-hide="campo.carteira.length > ($index + 1)">
+                                                    <i class="fa fa-calendar"></i></button>
+                                            </span>
+                                        </div>
+
+                                    </td>
+
+
+                                    <!-- CARGO -->
+                                    <td class="no-padding" ng-class="{'has-error': !it.cargo && it.situacao != 'D'}">
+
+                                        <select class="form-control input-sm" ng-model="it.cargo"
+                                                ng-options="tm._id as tm.nome for tm in todos.cargos | orderBy: 'nome'"
+                                                ng-required="it.situacao != 'D'" ng-show="it.situacao != 'D'"
+                                                ng-disabled="it.situacao == 'S' || campo.carteira.length > ($index + 1)">
+                                            <option value="" style="display: none"> Cargo </option>
+                                        </select>
+
+                                    </td>
+
+
+                                    <!-- SALÁRIO -->
+                                    <td class="no-padding" ng-class="{'has-error': !it.salario && it.situacao != 'D'}">
+
+                                        <input class="form-control input-sm" type="number" ng-model="it.salario"
+                                               placeholder="Salário" ng-required="it.situacao != 'D'"
+                                               ng-show="it.situacao != 'D'" ng-disabled="campo.carteira.length > ($index + 1)"
+                                               min="{{($index > 0) ? campo.carteira[$index - 1].salario : 0}}">
+
+                                    </td>
+
+
+                                    <!--OBS -->
+                                    <td class="no-padding">
+
+                                        <input class="form-control input-sm" type="text" ng-model="it.obs"
+                                               placeholder="Observações" ng-disabled="campo.carteira.length > ($index + 1)">
+
+                                    </td>
+
+
+                                    <td class="text-center no-padding" style="vertical-align: middle">
+
+                                        <button type="button" class="btn btn-danger btn-sm" ng-click="remItem($index)"
+                                                style="padding: 2px 5px;" ng-hide="campo.carteira.length > ($index + 1)">
+                                            <span class="fa fa-minus-square-o" aria-hidden="true"></span> Remove
+                                        </button>
+
+                                    </td>
+
+                                </tr>
+
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <input type="text" ng-hide="true" ng-model="nada" ng-required="campo.carteira.length == 0"/>
+        
+    </form>
+</div>
+
+<div class="modal-footer">
+    <div class="pull-left">
+            <span ng-if="itens.length <= 1">
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar()" ng-disabled="frmFun.$invalid">Salvar</button>
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar('f')" ng-disabled="frmFun.$invalid">Salvar & Fechar</button>
+            </span>
+
+            <span ng-if="itens.length > 1">
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar('e')" ng-disabled="frmFun.$invalid">Salvar & Editar Próximo</button>
+            </span>
+
+        <a href style="color: darkred; padding: 10px;" ng-click="cancel()">Cancelar</a>
+    </div>
+
+    <div class="pull-right">
+        <button class="btn btn-default btn-sm" type="button" ng-click="zera()" >Limpar Campos</button>
+    </div>
+</div>
+

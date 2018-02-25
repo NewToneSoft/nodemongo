@@ -1,0 +1,90 @@
+
+
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">{{ (!campo._id) ? "Novo" : "Editar"}} Modelo de Contrato</h3>
+    </div>
+
+    <div class="modal-body">
+        <form ng-submit="salvar()" method="post" name="frmTpc">
+
+            <div class="row">
+
+                <div class="col-md-3 col-sm-3">
+                    <div class="form-group" ng-class="{'has-error': !campo.nome}">
+                        <label class="control-label"><small>Modelo de Contrato *</small></label>
+
+                        <input class="form-control input-sm" type="text" ng-model="campo.nome"
+                               placeholder='Modelo de Contrato' autofocus required>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-3">
+                    <div class="form-group" ng-class="{'has-error': !campo.tipo}">
+                        <label class="control-label">
+                            <span class="fixa fa-lg" ng-class="{'selecionado': fixados['tipo']}" ng-click="fixar('tipo')"
+                                  ng-if="campo.tipo" title="Fixar"></span>
+                            <small>Tipo de Contrato *</small>
+                        </label>
+                        <select class="form-control input-sm" ng-model="campo.tipo"
+                                ng-options="tp.id as tp.nome for tp in itemTipo.tipo" ng-disabled="fixados['tipo']"
+                                ng-change="med(campo.tipo)" required>
+                            <option value="" style="display: none"> Tipo de Contrato </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-3">
+                    <div class="form-group" ng-class="{'has-error': !campo.periodo}">
+                        <label class="control-label">
+                            <span class="fixa fa-lg" ng-class="{'selecionado': fixados['periodo']}" ng-click="fixar('periodo')"
+                                  ng-if="campo.periodo" title="Fixar"></span>
+                            <small>Periodicidade *</small>
+                        </label>
+                        <select class="form-control input-sm" ng-model="campo.periodo"
+                                ng-options="per.id as per.nome for per in itemTipo.periodo" ng-disabled="fixados['periodo']"
+                                required>
+                            <option value="" style="display: none"> Período do Contrato </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-3" ng-show="formaMed">
+                    <div class="form-group" ng-class="{'has-error': !campo.forma && formaMed}">
+                        <label class="control-label">
+                            <span class="fixa fa-lg" ng-class="{'selecionado': fixados['forma']}" ng-click="fixar('forma')"
+                                  ng-if="campo.forma" title="Fixar"></span>
+                            <small>Forma de Medição *</small>
+                        </label>
+                        <select class="form-control input-sm" ng-model="campo.forma"
+                                ng-options="fr.id as fr.nome for fr in itemTipo.forma" ng-disabled="fixados['forma']"
+                                ng-required="formaMed">
+                            <option value="" style="display: none"> Forma de Medição </option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <div class="pull-left">
+            <span ng-if="itens.length <= 1">
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar()" ng-disabled="frmTpc.$invalid">Salvar</button>
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar('f')" ng-disabled="frmTpc.$invalid">Salvar & Fechar</button>
+            </span>
+
+            <span ng-if="itens.length > 1">
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar('e')" ng-disabled="frmTpc.$invalid">Salvar & Editar Próximo</button>
+            </span>
+
+            <a href style="color: darkred; padding: 10px;" ng-click="cancel()">Cancelar</a>
+        </div>
+
+        <div class="pull-right">
+            <button class="btn btn-default btn-sm" type="button" ng-click="zera()" >Limpar Campos</button>
+        </div>
+    </div>
+

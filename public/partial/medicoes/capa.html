@@ -1,0 +1,272 @@
+<div>
+
+    <strong style="color: #999; font-size: 13px;"> DADOS DO FORNECEDOR </strong>
+
+    <hr style="border-color: black; margin-top: 0; margin-bottom: 5px"/>
+
+    <table style="width: 100%; font-size: 11px">
+
+        <tr>
+
+            <td style="padding-left: 5px; width: 45%;"> RAZÃO SOCIAL </td>
+
+            <td style="padding-left: 5px; width: 5%;"> </td>
+
+            <td style="padding-left: 5px; width: 25%;"> </td>
+
+            <td style="padding-left: 5px; width: 25%;"> CNPJ </td>
+
+        </tr>
+
+        <tr>
+
+            <td style="padding-left: 5px;"> <strong> {{ slide.fornece.nome.toUpperCase() }} </strong> </td>
+
+            <td style="padding-left: 5px;"> </td>
+
+            <td style="padding-left: 5px;"> </td>
+
+            <td style="padding-left: 5px;"> <strong> {{ slide.fornece.cnpj | cnpj }} </strong> </td>
+
+        </tr>
+
+        <tr style="height: 8px;"></tr>
+
+        <tr>
+
+            <td style="padding-left: 5px;"> ENDEREÇO </td>
+
+            <td style="padding-left: 5px;"> </td>
+
+            <td style="padding-left: 5px;"> BAIRRO </td>
+
+            <td style="padding-left: 5px;"> CEP </td>
+
+        </tr>
+
+        <tr>
+
+            <td style="padding-left: 5px;">
+                <strong> {{ slide.fornece.endereco.toUpperCase() + ", " +  slide.fornece.endereco.numero }} </strong>
+            </td>
+
+            <td style="padding-left: 5px;"> </td>
+
+            <td style="padding-left: 5px;"> <strong> {{ slide.fornece.bairro }} </strong> </td>
+
+            <td style="padding-left: 5px;"> <strong> {{ slide.fornece.cep | cep }} </strong> </td>
+
+        </tr>
+
+        <tr style="height: 8px;"></tr>
+
+        <tr>
+
+            <td style="padding-left: 5px;"> MUNICÍPIO </td>
+
+            <td style="padding-left: 5px;"> UF </td>
+
+            <td style="padding-left: 5px;"> FONE </td>
+
+            <td style="padding-left: 5px;"> I.E. </td>
+
+        </tr>
+
+        <tr>
+
+            <td style="padding-left: 5px;">
+                <strong> {{ slide.fornece.cidade.toUpperCase() }} </strong>
+            </td>
+
+            <td style="padding-left: 5px;"> <strong> {{ slide.fornece.estado}} </strong> </td>
+
+            <td style="padding-left: 5px;"> <strong> {{ slide.fornece.fixo | tel }} </strong> </td>
+
+            <td style="padding-left: 5px;"> <strong> {{ slide.fornece.ie }} </strong> </td>
+
+        </tr>
+
+    </table>
+
+    <br/>
+    <br/>
+
+
+    <strong style="color: #999; font-size: 13px;"> DESCRIÇÃO DO OBJETO </strong>
+
+    <table style="width: 100%; font-size: 11px">
+
+        <tr style="background-color: #d9d9d9; height: 30px; font-weight: bold; border-top: 1px solid black;
+         border-bottom: 1px solid black;">
+
+            <td class="text-center" style="width: 6%;"> Item </td>
+
+            <td style="padding-left: 5px; width: 57%;"> Descrição </td>
+
+            <td class="text-center" style="width: 20%;"> Período </td>
+
+            <td class="text-center" style="width: 6%;"> Dias </td>
+
+            <!--<td class="text-center" style="width: 11%;"> Valor Base </td>-->
+
+            <td class="text-center" style="width: 11%;"> Valor Total </td>
+
+        </tr>
+
+        <tr style="height: 30px; border-bottom: 1px solid black;" ng-repeat="eqp in slide.equips">
+
+            <td class="text-center"> {{ $index + 1 }} </td>
+            <td> {{eqp.atual.nome}} </td>
+            <td class="text-center"> {{ eqp.trabalho[0].data + " à " + eqp.trabalho[eqp.trabalho.length - 1].data }}</td>
+            <td class="text-center"> {{eqp.diasTrab}} </td>
+            <!--<td class="text-center"> {{ (eqp.valorTotal / eqp.diasTrab).toFixed(2) | currency:"R$ " }} </td>-->
+            <td style="text-align: right; padding-right: 5px;"> {{eqp.valorTotal | currency:"R$ "}} </td>
+
+        </tr>
+
+        <tr style="height: 30px; font-weight: bold;">
+
+            <td></td>
+            <td></td>
+<!--            <td></td>-->
+
+            <td colspan="2" style="text-align: right; padding-right: 5px; border-bottom: 1px solid black;">
+                Total da Locação
+            </td>
+
+            <td style="text-align: right; padding-right: 5px; border-bottom: 1px solid black;">
+                {{ slide.valorMedicao | currency:"R$ " }}
+            </td>
+
+        </tr>
+
+    </table>
+
+
+    <strong style="color: #999; font-size: 13px;"> DÉBITOS / CRÉDITOS </strong>
+
+    <table style="width: 100%; font-size: 11px">
+
+        <tr style="background-color: #d9d9d9; height: 30px; font-weight: bold; border-top: 1px solid black;
+         border-bottom: 1px solid black;">
+
+            <td class="text-center" style="width: 6%;"> Item </td>
+
+            <td style="padding-left: 5px; width: 63%;"> Descrição </td>
+
+            <td style="width: 9%;"></td>
+
+            <td class="text-center" style="width: 11%;"> Data </td>
+
+            <td class="text-center" style="width: 11%;"> Valor </td>
+
+        </tr>
+
+        <tr style="height: 30px; border-bottom: 1px solid black;" ng-repeat="dc in slide.debcreds">
+
+            <td class="text-center"> {{ $index + 1 }} </td>
+            <td colspan="2"> {{ dc.descricao }} </td>
+            <td class="text-center"> {{ dc.data }} </td>
+            <td style="text-align: right; padding-right: 5px;"> {{ dc.valor | currency:"R$ " }} </td>
+
+        </tr>
+
+        <tr style="height: 30px; font-weight: bold;">
+
+            <td></td>
+            <td></td>
+
+            <td colspan="2" style="text-align: right; border-bottom: 1px solid black;">
+                Total Débitos/Créditos
+            </td>
+
+            <td class="text-center" style="text-align: right; padding-right: 5px; border-bottom: 1px solid black;">
+                {{ slide.valorDebcred | currency:"R$ " }}
+            </td>
+
+        </tr>
+
+        <tr ng-if="slide.valorDebcred != 0" style="height: 35px; font-weight: bold; font-size: 13px;">
+
+            <td></td>
+            <td></td>
+
+            <td colspan="2" style="text-align: right; padding-right: 5px; border-bottom: 1px solid black;">
+                VALOR TOTAL:
+            </td>
+
+            <td style="text-align: right; padding-right: 5px; border-bottom: 1px solid black;">
+                {{ (slide.valorMedicao + slide.valorDebcred) | currency:"R$ " }}
+            </td>
+
+        </tr>
+
+    </table>
+
+    <br/>
+
+    <strong style="color: #999; font-size: 13px;"> DADOS PARA PAGAMENTO </strong>
+
+    <table style="width: 100%; border: 1px solid black;">
+
+        <tr style="height: 20px; font-size: 9px;">
+
+            <td style="padding-left: 5px; width: 25%; border-right: 1px solid black;"> FORMA DE PAGAMENTO: </td>
+
+            <td style="padding-left: 5px; width: 25%; border-right: 1px solid black;"> BANCO: </td>
+
+            <td style="padding-left: 5px; width: 25%; border-right: 1px solid black;"> AGÊNCIA: </td>
+
+            <td style="padding-left: 5px; width: 25%;"> CONTA: </td>
+
+        </tr>
+
+        <tr style="height: 20px; font-size: 13px;">
+
+            <td class="text-center" style="border-right: 1px solid black;"> <strong> {{ slide.fornece.formaPg }} </strong> </td>
+            <td class="text-center" style="border-right: 1px solid black;"> <strong> {{ slide.fornece.banco.toUpperCase() }} </strong> </td>
+            <td class="text-center" style="border-right: 1px solid black;"> <strong> {{ slide.fornece.agencia }} </strong> </td>
+            <td class="text-center"> <strong> {{ slide.fornece.conta }} </strong> </td>
+
+        </tr>
+
+    </table>
+
+
+    <br/>
+
+    <strong style="color: #999; font-size: 13px;"> OBSERVAÇÕES </strong>
+
+    <table style="width: 100%; border: 1px solid black; height: 70px;">
+        <tr><td>&nbsp;</td></tr>
+    </table>
+
+    <br/>
+    <br/>
+    <br/>
+
+    <table style="width: 100%; font-size: 12px;">
+
+        <tr style="text-align: center; height: 25px; font-size: 11px;">
+            <td style="border-top: 1px solid black; width: 32%;"> Responsável</td>
+            <td style="width: 2%;"></td>
+            <td style="border-top: 1px solid black; width: 32%;"> Gerente </td>
+            <td style="width: 2%;"></td>
+            <td style="border-top: 1px solid black; width: 32%;"> Diretor </td>
+
+        </tr>
+
+        <tr style="height: 5px;"></tr>
+
+        <tr style="text-align: center; vertical-align: bottom">
+            <td> _____/_____/_____ </td>
+            <td></td>
+            <td> _____/_____/_____ </td>
+            <td></td>
+            <td> _____/_____/_____ </td>
+        </tr>
+
+    </table>
+
+</div>
+

@@ -1,0 +1,271 @@
+
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title">{{ (!campo._id) ? "Novo" : "Editar"}} Fornecedor</h3>
+</div>
+
+<div class="modal-body">
+    <form ng-submit="salvar()" method="post" name="frmFrn">
+
+        <!-- LINHA 1 -->
+        <div class="row">
+
+            <div class="col-md-2 col-sm-2">
+
+                <div class="form-group" ng-class="{'has-error': !campo.pessoa}">
+                    <label class="control-label"><small>Pessoa *</small></label>
+                    <select class="form-control input-sm" ng-model="campo.pessoa" required>
+                        <option value="J">Jurídica</option>
+                        <option value="F">Física</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="col-md-6 col-sm-6">
+                <div class="form-group" ng-class="{'has-error': !campo.nome}">
+                    <label class="control-label"><small>{{ (campo.pessoa == "J") ? "Razão Social" : "Nome"}} *</small></label>
+
+                    <input class="form-control input-sm" type="text" ng-model="campo.nome"
+                           placeholder='{{ (campo.pessoa == "J") ? "Razão Social" : "Nome"}}'
+                           autofocus required>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4" ng-if="campo.pessoa == 'J'">
+                <div class="form-group">
+                    <label class="control-label"><small>Nome Fantasia</small></label>
+
+                    <input class="form-control input-sm" type="text" placeholder="Nome Fantasia"
+                           ng-model="campo.fantasia">
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- LINHA 2-->
+        <div class="row">
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group">
+                    <label class="control-label"><small>{{ (campo.pessoa == "J") ? "CNPJ" : "CPF"}}</small></label>
+                    <input class="form-control input-sm" style="text-align: right" ui-mask="99.999.999/9999-99" ng-model="campo.cnpj"
+                           ng-if="campo.pessoa == 'J'">
+
+                    <input class="form-control input-sm" style="text-align: right" ui-mask="999.999.999-99" ng-model="campo.cpf"
+                           ng-if="campo.pessoa != 'J'">
+                </div>
+            </div>
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group">
+                    <label class="control-label"><small>{{ (campo.pessoa == "J") ? "IE" : "RG"}}</small></label>
+                    <input class="form-control input-sm" type="number" min="0" style="text-align: right"
+                           placeholder='{{ (campo.pessoa == "J") ? "IE" : "RG"}}' ng-model="campo.ie">
+                </div>
+            </div>
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group">
+
+                    <label class="control-label"><small>CEP</small></label>
+
+                    <div class="input-group">
+                        <input class="form-control input-sm" ng-model="campo.cep" ui-mask="99.999-999"
+                               style="text-align: right" ng-keypress="($event.which === 13) ? pegaCep(campo.cep) : 0">
+
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-sm btn-primary" ng-click="pegaCep(campo.cep)">
+                                <i  class="fa fa-lg" title="Procurar CEP" ng-class="{'fa-search': !roda, 'fa-refresh': roda, 'fa-spin': roda}"></i>
+                                <!--<i ng-if="roda" class="fa fa-refresh fa-lg fa-spin" ng-class="{fa-refresh: roda, fa-spin: roda}"></i>-->
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5 col-sm-5">
+                <div class="form-group">
+                    <label class="control-label"><small>Endereço</small></label>
+                    <input class="form-control input-sm" type="text" placeholder='Endereço'
+                           ng-model="campo.endereco">
+                </div>
+            </div>
+
+            <div class="col-md-1 col-sm-1">
+                <div class="form-group">
+                    <label class="control-label"><small>Número</small></label>
+                    <input class="form-control input-sm" type="number" min="0" ng-model="campo.numero" placeholder="Nº">
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- LINHA 3 -->
+        <div class="row">
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group">
+                    <label class="control-label"><small>Bairro</small></label>
+                    <input class="form-control input-sm" type="text" placeholder='Bairro'
+                           ng-model="campo.bairro">
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4">
+                <div class="form-group">
+                    <label class="control-label"><small>Complemento</small></label>
+                    <input class="form-control input-sm" type="text" placeholder='Complemento'
+                           ng-model="campo.complemento">
+                </div>
+            </div>
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group">
+                    <label class="control-label"><small>Estado</small></label>
+                    <input type="text" ng-model="campo.estado" uib-typeahead="est.nome as est.nome for est in estados | orderBy: 'nome' |
+                    filter: $viewValue" class="form-control input-sm" typeahead-min-length="0" typeahead-on-select="cids($model)"
+                            placeholder="Estado">
+
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4">
+                <div class="form-group">
+                    <label class="control-label"><small>Cidade</small></label>
+                    <input type="text" ng-model="campo.cidade" uib-typeahead="cid for cid in cidades | orderBy: 'nome' |
+                    filter: $viewValue" class="form-control input-sm" typeahead-min-length="0" ng-disabled="!campo.estado"
+                            placeholder="Cidade">
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- LINHA 4 -->
+        <div class="row">
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group">
+                    <label class="control-label"><small>Contato</small></label>
+                    <input class="form-control input-sm" type="text" placeholder='Contato'
+                           ng-model="campo.contato">
+                </div>
+            </div>
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group">
+                    <label class="control-label"><small>Telefone Fixo</small></label>
+                    <input class="form-control input-sm" style="text-align: right" ui-mask='(99) 9999-9999'
+                           ng-model="campo.fixo">
+                </div>
+            </div>
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group">
+                    <label class="control-label"><small>Celular</small></label>
+                    <input class="form-control input-sm" style="text-align: right" ui-mask='(99) 9 9999-9999'
+                           ng-model="campo.celular">
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4">
+                <div class="form-group">
+                    <label class="control-label"><small>Favorecido</small></label>
+                    <input class="form-control input-sm" type="text" placeholder="Favorecido"
+                           ng-model="campo.favorecido">
+                </div>
+            </div>
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group">
+                    <label class="control-label"><small>{{ (campo.pessoa == "J") ? "CNPJ" : "CPF"}} do Favorecido</small></label>
+                    <input class="form-control input-sm" style="text-align: right" ui-mask="99.999.999/9999-99" ng-model="campo.favcnpj"
+                           ng-if="campo.pessoa == 'J'">
+
+                    <input class="form-control input-sm" style="text-align: right" ui-mask="999.999.999-99" ng-model="campo.favcpf"
+                           ng-if="campo.pessoa != 'J'">
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- LINHA 5 -->
+        <div class="row">
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group">
+                    <label class="control-label"><small>Banco</small></label>
+                    <input class="form-control input-sm" type="text" placeholder='Banco'
+                           ng-model="campo.banco">
+                </div>
+            </div>
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group">
+                    <label class="control-label"><small>Agência</small></label>
+                    <input class="form-control input-sm" style="text-align: right" ng-model="campo.agencia"
+                            placeholder="Agência">
+                </div>
+            </div>
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group">
+                    <label class="control-label"><small>Conta</small></label>
+                    <input class="form-control input-sm" style="text-align: right" ng-model="campo.conta"
+                            placeholder="Conta">
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-3">
+                <div class="form-group">
+                    <label class="control-label"><small>Tipo de Conta</small></label>
+                    <select class="form-control input-sm" ng-model="campo.tipoconta">
+                        <option value="" style="display: none"> Conta </option>
+                        <option value="C">Corrente</option>
+                        <option value="P">Poupança</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-3 col-sm-3">
+                <div class="form-group">
+                    <label class="control-label"><small>Forma de Pagamento</small></label>
+                    <select class="form-control input-sm" ng-model="campo.pagamento">
+                        <option value="" style="display: none"> Pagamento </option>
+                        <option value="V">À Vista</option>
+                        <option value="C">Cheque</option>
+                        <option value="D">Depósito</option>
+                        <option value="B">Boleto</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+</div>
+
+<div class="modal-footer">
+    <div class="pull-left">
+            <span ng-if="itens.length <= 1">
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar()" ng-disabled="frmFrn.$invalid">Salvar</button>
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar('f')" ng-disabled="frmFrn.$invalid">Salvar & Fechar</button>
+            </span>
+
+            <span ng-if="itens.length > 1">
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar('e')" ng-disabled="frmFrn.$invalid">Salvar & Editar Próximo</button>
+            </span>
+
+        <a href style="color: darkred; padding: 10px;" ng-click="cancel()">Cancelar</a>
+    </div>
+
+    <div class="pull-right">
+        <button class="btn btn-default btn-sm" type="button" ng-click="zera()" >Limpar Campos</button>
+    </div>
+</div>
+

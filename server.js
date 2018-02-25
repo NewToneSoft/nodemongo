@@ -1,108 +1,76 @@
-//  OpenShift sample Node application
-var express = require('express'),
-    app     = express(),
-    morgan  = require('morgan');
-    
-Object.assign=require('object-assign')
+/*
+ Base - servidor v1.0
+ 2016 Nilton Cruz
+ */
 
-app.engine('html', require('ejs').renderFile);
-app.use(morgan('combined'))
+'use strict';
 
-var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
-    ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
-    mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL,
-    mongoURLLabel = "";
+var express      = require('express'),
+    app          = express(),
+    mongojs      = require('mongojs'),
+    bodyParser   = require('body-parser'),
+    passport     = require('passport'),
+    cookieParser = require('cookie-parser'),
+    session      = require('express-session'),
+    flash        = require('connect-flash'),
+    ipaddress    = process.env.OPENSHIFT_NODEJS_IP,
+    porta        = process.env.OPENSHIFT_NODEJS_PORT || 8080,
+    conexao;
 
-if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
-  var mongoServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase(),
-      mongoHost = process.env[mongoServiceName + '_SERVICE_HOST'],
-      mongoPort = process.env[mongoServiceName + '_SERVICE_PORT'],
-      mongoDatabase = process.env[mongoServiceName + '_DATABASE'],
-      mongoPassword = process.env[mongoServiceName + '_PASSWORD']
-      mongoUser = process.env[mongoServiceName + '_USER'];
 
-  if (mongoHost && mongoPort && mongoDatabase) {
-    mongoURLLabel = mongoURL = 'mongodb://';
-    if (mongoUser && mongoPassword) {
-      mongoURL += mongoUser + ':' + mongoPassword + '@';
-    }
-    // Provide UI label that excludes user id and pw
-    mongoURLLabel += mongoHost + ':' + mongoPort + '/' + mongoDatabase;
-    mongoURL += mongoHost + ':' +  mongoPort + '/' + mongoDatabase;
-
-  }
+if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
+    conexao = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
+        process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
+        process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
+        process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
+        process.env.OPENSHIFT_APP_NAME;
 }
-var db = null,
-    dbDetails = new Object();
 
-var initDb = function(callback) {
-  if (mongoURL == null) return;
+var db = mongojs(conexao);
 
-  var mongodb = require('mongodb');
-  if (mongodb == null) return;
+require('./config/passport')(passport, db);
 
-  mongodb.connect(mongoURL, function(err, conn) {
-    if (err) {
-      callback(err);
-      return;
+app.use(express.static('public'));
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+app.engine('ejs', require('ejs-locals'));
+app.use(flash());
+app.use(cookieParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({ secret: 'smellycatsmellycat' }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+var terminator = function(sig){
+    if (typeof sig === "string") {
+        console.log('%s: Received %s - terminating sample app ...',
+            Date(Date.now()), sig);
+        process.exit(1);
     }
-
-    db = conn;
-    dbDetails.databaseName = db.databaseName;
-    dbDetails.url = mongoURLLabel;
-    dbDetails.type = 'MongoDB';
-
-    console.log('Connected to MongoDB at: %s', mongoURL);
-  });
+    console.log('%s: Node server stopped.', Date(Date.now()) );
 };
 
-app.get('/', function (req, res) {
-  // try to initialize the db on every request if it's not already
-  // initialized.
-  if (!db) {
-    initDb(function(err){});
-  }
-  if (db) {
-    var col = db.collection('counts');
-    // Create a document with request IP and current time of request
-    col.insert({ip: req.ip, date: Date.now()});
-    col.count(function(err, count){
-      if (err) {
-        console.log('Error running count. Message:\n'+err);
-      }
-      res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails });
-    });
-  } else {
-    res.render('index.html', { pageCountMessage : null});
-  }
+var setupTerminationHandlers = function(){
+    //  Process on exit and signals.
+    process.on('exit', function() { terminator(); });
+
+    // Removed 'SIGPIPE' from the list - bugz 852598.
+    ['SIGHUP', 'SIGINT', 'SIGQUIT', 'SIGILL', 'SIGTRAP', 'SIGABRT',
+        'SIGBUS', 'SIGFPE', 'SIGUSR1', 'SIGSEGV', 'SIGUSR2', 'SIGTERM'
+    ].forEach(function(element, index, array) {
+            process.on(element, function() { self.terminator(element); });
+        });
+};
+
+setupTerminationHandlers();
+
+
+require('./app/dtbase.js')(app, db);
+require('./app/routes.js')(app, passport, db);
+
+app.listen(porta, ipaddress, function() {
+    console.log('%s: Servidor iniciado em %s:%d ...',
+        Date(Date.now()), ipaddress, porta);
 });
-
-app.get('/pagecount', function (req, res) {
-  // try to initialize the db on every request if it's not already
-  // initialized.
-  if (!db) {
-    initDb(function(err){});
-  }
-  if (db) {
-    db.collection('counts').count(function(err, count ){
-      res.send('{ pageCount: ' + count + '}');
-    });
-  } else {
-    res.send('{ pageCount: -1 }');
-  }
-});
-
-// error handling
-app.use(function(err, req, res, next){
-  console.error(err.stack);
-  res.status(500).send('Something bad happened!');
-});
-
-initDb(function(err){
-  console.log('Error connecting to Mongo. Message:\n'+err);
-});
-
-app.listen(port, ip);
-console.log('Server running on http://%s:%s', ip, port);
-
-module.exports = app ;

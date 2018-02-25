@@ -1,0 +1,152 @@
+<div>
+
+    <strong style="color: #999; font-size: 13px;"> DADOS DO EQUIPAMENTO </strong>
+
+    <table style="width: 100%; border: 1px solid black; font-size: 11px">
+
+        <tr style="height: 30px">
+
+            <td style="padding-left: 5px; width: 33%;">
+                PREFIXO: <strong> {{slide.atual.nome}} </strong>
+            </td>
+
+            <td style="padding-left: 5px; width: 33%;">
+                TIPO: <strong> {{slide.atual.tipo}} </strong>
+            </td>
+
+            <td style="padding-left: 5px; width: 34%; ">
+                DESCRIÇÃO: <strong> {{slide.atual.descricao}} </strong>
+            </td>
+
+        </tr>
+
+
+        <tr style="height: 30px">
+
+            <td style="padding-left: 5px; width: 33%;">
+                Nº CONTRATO: <strong> {{slide.atual.contrato}} </strong>
+            </td>
+
+            <td style="padding-left: 5px; width: 33%;">
+                DATA CONTRATO: <strong> {{slide.atual.data}} </strong>
+            </td>
+
+            <td style="padding-left: 5px; width: 34%; ">
+                VALOR MENSAL: <strong> {{slide.atual.valor | currency:"R$ "}} </strong>
+            </td>
+
+        </tr>
+
+
+        <tr style="height: 30px">
+
+            <td style="padding-left: 5px; width: 33%;">
+                FORNECEDOR: <strong> {{medidor.forn.toUpperCase()}} </strong>
+            </td>
+
+            <td style="padding-left: 5px; width: 33%;">
+                VALOR DÉBITO/CRÉDITO: <strong> {{slide.valorDC | currency:"R$ "}} </strong>
+            </td>
+
+            <td style="padding-left: 5px; width: 33%;">
+                VALOR MEDIÇÃO:
+                <strong> {{ slide.valorTotal | currency:"R$ "}}
+                    <span ng-if="slide.valorDC != 0">
+                        - TOTAL: {{ (slide.valorTotal + slide.valorDC) | currency:"R$ "  }}
+                    </span>
+                </strong>
+            </td>
+
+        </tr>
+
+    </table>
+
+    <br/>
+
+    <strong style="color: #999; font-size: 13px;"> INDICADORES DE DESEMPENHO </strong>
+
+    <table style="width: 100%; border: 1px solid black; font-size: 11px">
+
+        <tr style="height: 30px">
+
+            <td style="padding-left: 5px; width: 33%; border-right: 1px solid black;">
+                HORAS TRABALHADAS: <strong> {{slide.hTrab | number:1 }} H </strong>
+            </td>
+
+            <td style="padding-left: 5px; width: 34%; border-right: 1px solid black;">
+                DIAS DO MÊS: <strong> {{slide.dias}} </strong>
+            </td>
+
+            <td style="padding-left: 5px; width: 33%;">
+                CONS. COMBUSTÍVEL: <strong> {{slide.consumo | number:1}} L </strong>
+            </td>
+
+        </tr>
+
+
+        <tr style="height: 30px">
+
+            <td style="padding-left: 5px; width: 33%; border-right: 1px solid black;">
+                HORAS GARANTIDAS: <strong> {{slide.hGarant | number:1 }} H </strong>
+            </td>
+
+            <td style="padding-left: 5px; width: 34%; border-right: 1px solid black;">
+                DIAS TRABALHADOS: <strong> {{slide.diasTrab}} </strong>
+            </td>
+
+            <td style="padding-left: 5px; width: 33%;">
+                MÉDIA CONSUMO: <strong> {{ ( (slide.hTrab == 0) ? 0 : (slide.consumo / slide.hTrab) ) | number:2 }} L/H </strong>
+            </td>
+
+        </tr>
+
+    </table>
+
+    <br/>
+
+    <strong style="color: #999; font-size: 13px;"> RESULTADO </strong>
+
+    <table style="width: 100%; font-size: 11px">
+
+        <tr class="text-center" style="background-color: #d9d9d9; height: 30px; font-weight: bold; border-top: 1px solid black;
+         border-bottom: 1px solid black;">
+
+            <td colspan="2" style="width: 16%;"> Data </td>
+
+            <td style="width: 8%;"> H Ini </td>
+
+            <td style="width: 8%;"> H Fim </td>
+
+            <td style="width: 8%;"> H Trab </td>
+
+            <td style="width: 8%;"> G Mín </td>
+
+            <td style="width: 8%;" ng-if="slide.altera == 'D'"> $ Diária </td>
+
+            <td style="width: 8%;"> Diesel </td>
+
+            <td style="width: 14%;"> Status </td>
+
+            <td style="width: 30%;"> Atividade </td>
+
+        </tr>
+
+
+        <tr class="text-center" style="height: 30px; border-bottom: 1px solid black;" ng-repeat="dia in slide.trabalho">
+
+            <td> {{ dia.data }} </td>
+            <td> {{ dia.semana }} </td>
+            <td> {{ dia.hini | number:1 }} </td>
+            <td> {{ dia.hfim | number:1 }} </td>
+            <td ng-class="{zerado: dia.htotal == 0}"> {{ dia.htotal | number:1 }} </td>
+            <td ng-class="{zerado: dia.gmin == 0}"> {{ dia.gmin | number:2 }} </td>
+            <td ng-class="{zerado: dia.diaria == 0}" ng-if="slide.altera == 'D'"> {{ dia.diaria | currency:"R$ " }} </td>
+            <td> {{ dia.diesel }} </td>
+            <td> {{ dia.status }} </td>
+            <td> {{ dia.atividade }} </td>
+
+        </tr>
+
+    </table>
+
+</div>

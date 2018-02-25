@@ -1,0 +1,197 @@
+
+<div>
+    <ul class="breadcrumb">
+        <li><a href="/"> Home</a></li>
+        <li>Logística</li>
+        <li class="active">{{logAtual.nome}}</li>
+    </ul>
+</div>
+
+<div class="row" style="margin:0; border: 1px solid #004269; background: #468cb4;">
+
+    <div class="col-md-3" style="padding:0; ">
+
+        <ul class="nav nav-pills nav-stacked">
+
+            <li ng-repeat="log in menu.logistica" ng-class="{active: log.ativo}" style="margin: 0; border-bottom: 1px solid #004269">
+                <a ng-href="{{log.link}}" style="border-radius: 0"> {{log.nome}} </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <div class="col-md-9" style="padding: 0; background: white; min-height: 400px;">
+
+        <!-- SAÍDAS -->
+        <div class="row" style="padding: 15px" ng-if="logAtual.id == 'saida' || logAtual.id == 'ajuste'">
+
+            <div class="col-md-12" style="padding: 0 20px;">
+
+                <div class="pull-left">
+                    <button type="button" class="btn btn-success btn-sm" ng-click="novo()">
+                        <span class="fa fa-plus-square-o" aria-hidden="true"></span> Novo
+                    </button>
+
+                    <button type="button" class="btn btn-warning btn-sm" ng-click="editar()" ng-disabled="atual.length == 0">
+                        <span class="fa fa-pencil-square-o" aria-hidden="true"></span> Editar
+                    </button>
+
+                    <button type="button" class="btn btn-danger btn-sm" ng-click="apagar()" ng-disabled="atual.length == 0">
+                        <span class="fa fa-minus-square-o" aria-hidden="true"></span> Apagar
+                    </button>
+
+                </div>
+
+
+                <div class="row" ng-hide="logAtual.id == 'ajuste'">
+
+                    <div class="col-md-3 col-sm-3">
+                        <select ng-options="me.id as me.nome for me in logAtual.campos" ng-model="pesquisa.campo"
+                                class="form-control input-sm" ng-change="fazFiltro(pesquisa)">
+                            <option value="" style="display: none">Campo</option>
+                        </select>
+                    </div>
+
+
+                    <div class="col-md-4 col-sm-4">
+                        <div class="has-feedback" ng-if="pesquisa.campo == 'geral'">
+                            <input class="form-control input-sm" type="search" ng-model="pesquisa.geral" placeholder="Pesquisar..."/>
+                            <span class="fa fa-search form-control-feedback" aria-hidden="true" ng-if="pesquisa.geral.length == 0"></span>
+                            <i class="fa fa-times limpa" ng-click="limpaInput('geral')" ng-if="pesquisa.geral.length > 0"></i>
+                        </div>
+
+                        <div class="has-feedback" ng-if="pesquisa.campo != 'geral' && pesquisa.tipo == 'texto'">
+                            <input class="form-control input-sm" type="search" ng-model="pesquisa.texto" placeholder="Pesquisar..."/>
+                            <span class="fa fa-search form-control-feedback" aria-hidden="true" ng-if="pesquisa.texto.length == 0"></span>
+                            <i class="fa fa-times limpa" ng-click="limpaInput('texto')" ng-if="pesquisa.texto.length > 0"></i>
+                        </div>
+
+                        <div ng-if="pesquisa.campo != 'geral' && pesquisa.tipo == 'selecao'">
+                            <select ng-options="pq.id as pq.nome for pq in pesquisa.listagem | orderBy:'nome'" ng-model="pesquisa.selecao"
+                                    class="form-control input-sm">
+                                <option value="" style="display: none">Filtro</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group" ng-if="pesquisa.campo != 'geral' && pesquisa.tipo == 'data'">
+                            <input class="form-control input-sm" uib-datepicker-popup="dd/MM/yy"
+                                   datepicker-options="dateOptions" show-button-bar="false"
+                                   ng-model="pesquisa.data" is-open="picker.abre"/>
+
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-sm btn-primary" ng-click="abrePicker()">
+                                    <i class="fa fa-calendar"></i></button>
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /SAÍDAS -->
+
+
+        <!-- CHEGADAS -->
+        <div class="row" style="padding: 15px" ng-if="logAtual.id != 'saida' && logAtual.id != 'ajuste'">
+
+            <div class="col-md-12" style="padding: 0 20px;">
+
+                <div class="pull-left">
+
+                    <button type="button" class="btn btn-success btn-sm" ng-click="salvaChega()"
+                            ng-if="logAtual.id == 'transporte'" ng-disabled="atual.length == 0">
+                        <span class="fa fa-pencil-square-o" aria-hidden="true"></span> Salvar Chegadas
+                    </button>
+
+                    <button type="button" class="btn btn-danger btn-sm" ng-click="cancelChega()"
+                            ng-if="logAtual.id == 'chegada'" ng-disabled="atual.length == 0">
+                        <span class="fa fa-minus-square-o" aria-hidden="true"></span> Cancelar Chegadas
+                    </button>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 col-sm-4" style="padding: 0 0 0 10px;">
+
+                        <div class="form-inline" ng-if="logAtual.id == 'transporte' && atual.length > 0">
+
+                            <div class="form-group">
+                                <label> <small>Chegada: </small> &nbsp;</label>
+
+                                <div class="input-group col-md-7 col-sm-7">
+                                    <input class="form-control input-sm" uib-datepicker-popup="dd/MM/yy"
+                                           datepicker-options="dateOptions" show-button-bar="false"
+                                           ng-model="pesquisa.dataChega" is-open="picker.abreChega" required/>
+
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-sm btn-primary" ng-click="abrePicker(true)">
+                                        <i class="fa fa-calendar"></i></button>
+                                </span>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-2 col-sm-2" style="padding: 0 0 0 10px;">
+                        <select ng-options="me.id as me.nome for me in logAtual.campos" ng-model="pesquisa.campo"
+                                class="form-control input-sm" ng-change="fazFiltro(pesquisa)">
+                            <option value="" style="display: none">Campo</option>
+                        </select>
+                    </div>
+
+
+                    <div class="col-md-3 col-sm-3" style="padding: 0 0 0 10px;">
+                        <div class="has-feedback" ng-if="pesquisa.campo == 'geral'">
+                            <input class="form-control input-sm" type="search" ng-model="pesquisa.geral" placeholder="Pesquisar..."/>
+                            <span class="fa fa-search form-control-feedback" aria-hidden="true" ng-if="pesquisa.geral.length == 0"></span>
+                            <i class="fa fa-times limpa" ng-click="limpaInput('geral')" ng-if="pesquisa.geral.length > 0"></i>
+                        </div>
+
+                        <div class="has-feedback" ng-if="pesquisa.campo != 'geral' && pesquisa.tipo == 'texto'">
+                            <input class="form-control input-sm" type="search" ng-model="pesquisa.texto" placeholder="Pesquisar..."/>
+                            <span class="fa fa-search form-control-feedback" aria-hidden="true" ng-if="pesquisa.texto.length == 0"></span>
+                            <i class="fa fa-times limpa" ng-click="limpaInput('texto')" ng-if="pesquisa.texto.length > 0"></i>
+                        </div>
+
+                        <div ng-if="pesquisa.campo != 'geral' && pesquisa.tipo == 'selecao'">
+                            <select ng-options="pq.id as pq.nome for pq in pesquisa.listagem" ng-model="pesquisa.selecao"
+                                    class="form-control input-sm">
+                                <option value="" style="display: none">Filtro</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group" ng-if="pesquisa.campo != 'geral' && pesquisa.tipo == 'data'">
+                            <input class="form-control input-sm" uib-datepicker-popup="dd/MM/yy"
+                                   datepicker-options="dateOptions" show-button-bar="false"
+                                   ng-model="pesquisa.data" is-open="picker.abre"/>
+
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-sm btn-primary" ng-click="abrePicker()">
+                                    <i class="fa fa-calendar"></i></button>
+                            </span>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /CHEGADAS -->
+
+
+        <div style="padding: 0 20px">
+            <div dinamico='logAtual.tab'></div>
+        </div>
+
+    </div>
+
+</div>
+
