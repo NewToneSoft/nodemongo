@@ -1,0 +1,56 @@
+
+
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">{{ (!campo._id) ? "Novo" : "Editar"}} Produto</h3>
+    </div>
+
+    <div class="modal-body">
+        <form ng-submit="salvar()" method="post" name="frmPrd">
+
+            <div class="row">
+
+                <div class="col-md-6 col-sm-6">
+                    <div class="form-group" ng-class="{'has-error': !campo.nome}">
+                        <label class="control-label"><small>Produto *</small></label>
+
+                        <input class="form-control input-sm" type="text" ng-model="campo.nome"
+                               placeholder='Produto' autofocus required>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-6">
+                    <div class="form-group" ng-class="{'has-error': !campo.categ}">
+                        <label class="control-label"><small>Categoria *</small></label>
+
+                        <select class="form-control input-sm" ng-model="campo.categ"
+                                ng-options="tm.id as tm.nome for tm in itemTipo.categoria"
+                                required>
+                            <option value="" style="display: none"> Categoria </option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <div class="pull-left">
+            <span ng-if="itens.length <= 1">
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar()" ng-disabled="frmPrd.$invalid">Salvar</button>
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar('f')" ng-disabled="frmPrd.$invalid">Salvar & Fechar</button>
+            </span>
+
+            <span ng-if="itens.length > 1">
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar('e')" ng-disabled="frmPrd.$invalid">Salvar & Editar Próximo</button>
+            </span>
+
+            <a href style="color: darkred; padding: 10px;" ng-click="cancel()">Cancelar</a>
+        </div>
+
+        <div class="pull-right">
+            <button class="btn btn-default btn-sm" type="button" ng-click="zera()" >Limpar Campos</button>
+        </div>
+    </div>

@@ -1,0 +1,56 @@
+
+<div>
+    <ul class="breadcrumb">
+        <li><a href="/"> Home</a></li>
+        <li>Pessoal</li>
+        <li class="active">{{pesAtual.nome}}</li>
+    </ul>
+</div>
+
+<div class="row" style="margin:0; border: 1px solid #004269; background: #468cb4;">
+
+    <div class="col-md-3" style="padding:0; ">
+
+        <ul class="nav nav-pills nav-stacked">
+
+            <li ng-repeat="pes in menu.pessoal" ng-class="{active: pes.ativo}" style="margin: 0; border-bottom: 1px solid #004269">
+                <a ng-href="{{pes.link}}" style="border-radius: 0"> {{pes.nome}} </a>
+            </li>
+
+        </ul>
+
+    </div>
+
+
+    <div class="col-md-9" style="padding: 0; background: white; min-height: 400px;">
+
+        <div class="row" style="padding: 15px">
+            <div class="col-md-12" style="padding: 0 20px;">
+
+                <div class="pull-left">
+                    <button type="button" class="btn btn-success btn-sm" ng-click="novo()">
+                        <span class="fa fa-plus-square-o" aria-hidden="true"></span> Novo
+                    </button>
+
+                    <button type="button" class="btn btn-warning btn-sm" ng-click="editar()" ng-disabled="atual.length == 0">
+                        <span class="fa fa-pencil-square-o" aria-hidden="true"></span> Editar
+                    </button>
+
+                    <button type="button" class="btn btn-danger btn-sm" ng-click="apagar()" ng-disabled="atual.length == 0">
+                        <span class="fa fa-minus-square-o" aria-hidden="true"></span> Apagar
+                    </button>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <div style="padding: 0 20px">
+            <div dinamico='pesAtual.tab'></div>
+        </div>
+
+    </div>
+
+</div>
+

@@ -1,0 +1,107 @@
+
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title">{{ (!campo._id) ? "Novo" : "Editar"}} Usuário</h3>
+</div>
+
+<div class="modal-body">
+    <form ng-submit="salvar()" method="post" name="frmCli">
+
+        <div class="row">
+
+            <div class="col-md-4 col-sm-4">
+                <div class="form-group" ng-class="{'has-error': !campo.nome}">
+                    <label class="control-label"><small>Usuário *</small></label>
+
+                    <input class="form-control input-sm" type="text" ng-model="campo.nome"
+                           placeholder='Usuário' autofocus required>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4">
+                <div class="form-group" ng-class="{'has-error': !campo.email}">
+                    <label class="control-label"><small>E-Mail *</small></label>
+
+                    <input class="form-control input-sm" type="email" ng-model="campo.email"
+                           placeholder='Email' autofocus required>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4">
+                <div class="form-group" ng-class="{'has-error': !campo.empresa}">
+                    <label class="control-label">
+                        <small>Empresa *</small>
+                    </label>
+                    <select class="form-control input-sm" ng-model="campo.empresa"
+                            ng-options="tp._id as tp.nome for tp in todos.clientes"
+                            required>
+                        <option value="" style="display: none"> Empresa </option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+
+            <div class="col-md-4 col-sm-4">
+                <div class="form-group" ng-class="{'has-error': !campo.senha}">
+                    <label class="control-label"><small>Senha *</small></label>
+
+                    <input class="form-control input-sm" type="password" ng-model="campo.senha"
+                           placeholder='Usuário' autofocus required>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4">
+
+                <div class="form-group">
+
+                    <label class="label-checkbox" style="padding-top: 30px;">
+                        <input type="checkbox" ng-model="campo.admin" ng-disabled="campo.dash">
+                        <span class="custom-checkbox"></span>
+                        Administrador
+                    </label>
+                </div>
+
+            </div>
+
+            <div class="col-md-4 col-sm-4">
+
+                <div class="form-group">
+
+                    <label class="label-checkbox" style="padding-top: 30px;">
+                        <input type="checkbox" ng-model="campo.dash" ng-disabled="campo.admin">
+                        <span class="custom-checkbox"></span>
+                        Apenas Dashboard
+                    </label>
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+</div>
+
+<div class="modal-footer">
+    <div class="pull-left">
+            <span ng-if="itens.length <= 1">
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar()" ng-disabled="frmCli.$invalid">Salvar</button>
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar('f')" ng-disabled="frmCli.$invalid">Salvar & Fechar</button>
+            </span>
+
+            <span ng-if="itens.length > 1">
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar('e')" ng-disabled="frmCli.$invalid">Salvar & Editar Próximo</button>
+            </span>
+
+        <a href style="color: darkred; padding: 10px;" ng-click="cancel()">Cancelar</a>
+    </div>
+
+    <div class="pull-right">
+        <button class="btn btn-default btn-sm" type="button" ng-click="zera()" >Limpar Campos</button>
+    </div>
+</div>
+

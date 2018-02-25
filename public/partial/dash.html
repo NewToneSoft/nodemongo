@@ -1,0 +1,74 @@
+
+<div>
+    <ul class="breadcrumb">
+        <li><a href>Home</a></li>
+        <li class="active">Dashboard</li>
+
+        <div class="pull-right" ng-if="usuario.dash">
+            <img class="flag" ng-click="changeLang('pt')" ng-class="{atual: lang.actual === 'pt'}" src="../img/fbra.png"
+                 alt="Portuguese" title="{{ lang.flag.pt }}"/>
+
+            <img class="flag" ng-click="changeLang('us')" ng-class="{atual: lang.actual == 'us'}" src="../img/fusa.png"
+                 alt="English" title="{{ lang.flag.us }}"/>
+        </div>
+
+    </ul>
+</div>
+
+
+<div class="padding-sm">
+
+    <div class="row" ng-if="verifica.tudoOk">
+
+        <div class="col-md-12" ng-controller="dashCtl">
+
+            <uib-tabset class="vazio" active="abas.tabAtual">
+                <uib-tab index="tab.id" ng-repeat="tab in dash.areas" heading="{{ (lang.actual == 'pt') ? tab.nome : tab.name}}"
+                         select="abaAtual(tab.id)" ng-if="tab.visible"> </uib-tab>
+            </uib-tabset>
+
+            <div class="areaDrop">
+
+                <!--                <div id="WG_{{wg.id}}" resizable="{{wg.resize}}" class="widget" ng-repeat="wg in abas.widgets" data-drag="{{wg.drag}}"
+                                     jqyoui-draggable="{placeholder: true}" data-jqyoui-options="{containment: '.areaDrop'}"
+                                     ng-style="{top: wg.top, left: wg.left, width: wg.width}" on-resize="ajusteJanela(el, wg.grafico)" ng-if="wg.visible">
+
+                                    &lt;!&ndash;GRÁFICO &ndash;&gt;
+                                    <canvas ng-if="wg.grafico" tc-chartjs chart-type="{{wg.tipo}}" chart-options="wg.options"
+                                            chart-data="wg.data"></canvas>
+
+                                    &lt;!&ndash; INFO &ndash;&gt;
+                                    <div ng-if="!wg.grafico" dinamico="wg.input"></div>
+
+                                </div>-->
+
+                <div ng-repeat="wg in abas.widgets">
+
+                    <div ng-if="wg.estilo == 'main'" class="widget-main" ng-if="wg.visible" dinamico="wg.input"
+                         ng-style="{top: wg.top, left: wg.left, 'background-color': wg.color}">
+                    </div>
+
+                    <div ng-if="wg.estilo == 'graf'" class="widget-graf" ng-style="{top: wg.top, left: wg.left, height: wg.height, width: wg.width}">
+                        <div style="padding: 5px; min-height: 30px; border-bottom: 1px solid #e7ecf1" ng-style="{color: wg.color}">
+                            <div style="float: left; display: inline-block; font-size: 15px; line-height: 20px; text-transform: uppercase;
+                            font-weight: 700;">
+                                <i class="fa fa-{{wg.icon}}"></i>
+                                <span dinamico="wg.input"></span>
+                            </div>
+                        </div>
+                        <canvas tc-chartjs chart-type="{{wg.tipo}}" chart-data="wg.data"></canvas>
+                    </div>
+
+                    <div ng-if="wg.estilo == 'tab'" class="widget-tab" ng-if="wg.visible" dinamico="wg.input"
+                         ng-style="{top: wg.top, left: wg.left, height: wg.height, width: wg.width}">
+                    </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>

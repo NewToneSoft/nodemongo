@@ -1,0 +1,141 @@
+
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="cancel()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <h3 class="modal-title"> {{ (!campo._id) ? "Novo" : "Editar"}} Lançamento de Ponto </h3>
+</div>
+
+<div class="modal-body">
+    <form ng-submit="salvar()" method="post" name="frmPnt">
+
+        <div class="row">
+
+            <div class="col-md-2 col-sm-2">
+                <div class="form-group" ng-class="{'has-error': !campo.data}">
+
+                    <label class="control-label"><small>Data *</small></label>
+
+                    <div class="input-group">
+                        <input type="text" class="form-control input-sm" uib-datepicker-popup="dd/MM/yy"
+                               datepicker-options="dateOptions" ng-model="campo.data" show-button-bar="false"
+                               is-open="picker.abreDt" ng-change="pegaPessoal(campo)" required/>
+
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-sm btn-primary" ng-click="abrePicker()">
+                                    <i class="fa fa-calendar"></i></button>
+                            </span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-3 col-sm-3" ng-if="atualTmp.length > 0">
+                <div class="form-group">
+
+                    <label class="control-label"><small>Motivo</small></label>
+
+                    <select class="form-control input-sm" ng-model="filtroTmp.motivo"
+                            ng-options="tp.id as tp.nome for tp in tipoPessoal"
+                            ng-change="filtraMotivo(filtroTmp)">
+                        <option value="" style="display: none"> Categoria </option>
+                    </select>
+                </div>
+            </div>
+
+
+        </div>
+
+
+        <div class="row">
+
+            <div style="padding: 0 15px">
+                <table class="scroll" at-table at-list="tmpPessoas">
+                    <thead ng-class="{size: tmpPessoas.length > 16}">
+                    <tr>
+
+                        <th class="text-center" style="width: 3%; margin-top: 4px">
+                        <input type="checkbox" ng-change="addTudo(selTudo)" ng-model="selTudo"
+                               ui-indeterminate="atualTmp.length > 0 && atualTmp.length != tmpPessoas.length">
+                        </th>
+
+                        <th at-attribute="nome" style="width: 31%; padding-left: 5px;">Nome</th>
+                        <th at-attribute="cargoStr" style="width: 21%">Cargo</th>
+                        <th at-attribute="motivo" style="width: 15%">Motivo</th>
+                        <th at-attribute="justifica" style="width: 18%">Justifica</th>
+                        <th at-attribute="datafim" style="width: 12%">Data Final</th>
+
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    <tr style="height: 30px;" ng-class="{bloqueado: item.block}">
+
+                        <td class="text-center" style="width: 3%; margin-top: 2px;">
+                            <input type="checkbox" ng-change="addItem(item)" ng-model="item.chk" ng-hide="item.block">
+                        </td>
+
+                        <td at-implicit at-sortable at-initial-sorting="asc" at-attribute="nome" style="width: 31%; margin-top: 8px;
+                        padding-left: 5px;"></td>
+
+                        <td at-implicit at-sortable at-attribute="cargoStr" style="width: 21%; margin-top: 8px;"></td>
+
+
+                        <td at-sortable at-attribute="motivo" style="width: 15%; margin: 0;">
+
+                            <select class="form-control input-sm" ng-model="item.motivo"
+                                    ng-options="tm.id as tm.nome for tm in tipoPessoal"
+                                    ng-change="pegaMotivo(item)" ng-disabled="item.chk || item.block" required>
+                                <option value="" style="display: none"> Categoria </option>
+                            </select>
+
+                        </td>
+
+
+                        <td at-sortable at-attribute="justifica" style="width: 18%; margin: 0;"
+                            ng-class="{'has-error': item.temJust && !item.justifica}">
+                            <input class="form-control input-sm" type="text" ng-model="item.justifica" ng-show="item.temJust"
+                                    ng-readonly="item.block">
+                        </td>
+
+
+                        <td at-sortable at-attribute="datafim" style="width: 12%; margin: 0;">
+                            <div class="input-group" ng-show="item.temData" ng-class="{'has-error': item.temData && !item.datafim}">
+                                <input class="form-control input-sm" uib-datepicker-popup="dd/MM/yy" datepicker-options="dateOptions"
+                                       show-button-bar="false" ng-model="item.datafim" is-open="item.aberto" min-date="campo.data"
+                                       datepicker-append-to-body="true" ng-readonly="item.block" ng-required="item.temData"/>
+                                <span class="input-group-btn" ng-hide="item.block">
+                                    <button type="button" class="btn btn-sm btn-primary" ng-click="abrePickerItem(item)">
+                                        <i class="fa fa-calendar"></i></button>
+                                </span>
+                            </div>
+                        </td>
+
+                    </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+
+<div class="modal-footer">
+    <div class="pull-left">
+            <span ng-if="itens.length <= 1">
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar()" ng-disabled="frmPnt.$invalid">Salvar</button>
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar('f')" ng-disabled="frmPnt.$invalid">Salvar & Fechar</button>
+            </span>
+
+            <span ng-if="itens.length > 1">
+                <button class="btn btn-primary btn-sm" type="button" ng-click="salvar('e')" ng-disabled="frmPnt.$invalid">Salvar & Editar Próximo</button>
+            </span>
+
+        <a href style="color: darkred; padding: 10px;" ng-click="cancel()">Cancelar</a>
+    </div>
+
+    <div class="pull-right">
+        <button class="btn btn-default btn-sm" type="button" ng-click="zera()" >Limpar Campos</button>
+    </div>
+</div>
