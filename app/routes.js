@@ -1,28 +1,20 @@
-/*
- módulo de Rotas - servidor v1.0
- 2016 Nilton Cruz
- */
-
 'use strict';
-
-function ensureAuthenticated(req, res, next) {
-    if (!req.isAuthenticated()) {
-        res.redirect('/login');
-    } else {
-        next();
-    }
-}
 
 module.exports = function(app, passport) {
 
-    // LOGIN
     app.get('/login', function(req, res){
         res.render('login', { user: req.user, message: req.flash('error')});
     });
 
-    app.post('/login', passport.authenticate('local', {
+    app.post('/login', passport.authenticate('local-login', {
         successRedirect: '/',
         failureRedirect: '/login',
+        failureFlash : true
+    }));
+
+    app.post('/signup', passport.authenticate('local-signup', {
+        successRedirect : '/',
+        failureRedirect : '/login',
         failureFlash : true
     }));
 
@@ -36,10 +28,10 @@ module.exports = function(app, passport) {
     });
 
     app.all('*', function(req,res,next){
-        if (req.params === '/' || req.params === '/login')
-            next();
-        else
-            ensureAuthenticated(req,res,next);
+        if (!req.isAuthenticated()) {
+            res.redirect('/login');
+        } else {
+            res.redirect('/');
+        }
     });
-
 };

@@ -1,0 +1,56 @@
+//  Teapot Site Settings
+//  -----------------------------
+// Global
+//  -----------------------------
+
+//  -----------------------------
+// Color Definitions
+//  -----------------------------
+$purple-overlay: rgba(60, 72, 89, 0.7);
+$purple: #3F599C;
+$light-gray: #bebebe;
+$dark-gray: #3C4859;
+$white: #f2f2f2;
+
+//  -----------------------------
+// Button Definitions
+//  -----------------------------
+$button-border: 1px solid $light-gray;
+$quiz-stat-border: 1px solid $light-gray;
+$large-box-inverted-border: 1px solid $purple;
+
+//  -----------------------------
+// Size Definitions
+//  -----------------------------
+$expanded: 200px;
+$collapsed: 100px;
+$collapse-button-width: 20px;
+
+//  -----------------------------
+// Font Size Definitions
+//  -----------------------------
+$large-box-font-size: 26px;
+$box-subtitle-font-size: 14px;
+$content-title-font-size: 26px;
+$content-subtitle-font-size: 24px;
+$large-font-size: 40px;
+$question-font-size: 26px;
+$medium-font-size: 24px;
+
+
+//  -----------------------------
+// Font Definitions
+//  -----------------------------
+
+$lato: 'Lato Regular';
+$FjallaOne: 'FjallaOne Regular';
+
+@font-face {
+    font-family: 'FjallaOne Regular';
+    src: url('../vendor/webfonts/FjallaOne-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Lato Regular';
+    src: url('../vendor/webfonts/Lato-Regular.ttf');
+}

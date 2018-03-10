@@ -1,97 +1,67 @@
-/*
- Módulo de Login - servidor v1.0
- 2016 Nilton Cruz
- */
-
 'use strict';
 
 var LocalStrategy = require('passport-local').Strategy;
 
-var base64 = exports;
-
-base64.encode = function (unencoded) {
-    return new Buffer(unencoded || '').toString('base64');
-};
-
-base64.decode = function (encoded) {
-    return new Buffer(encoded || '', 'base64').toString('utf8');
-};
-
+var bcrypt   = require('bcrypt-nodejs');
 
 module.exports = function(passport, db) {
 
-    var usr = db.collection('usuarios');
-
-    function findById(id, fn) {
-        var des = false;
-        var idx;
-
-        usr.find(function(err, result) {
-            if (result) {
-
-                for(var i = 0; i < result.length; i++){
-                    if(result[i].id === id){
-                        des = true;
-                        idx = i;
-                        break;
-                    }
-                }
-
-                if (des) {
-                    fn(null, result[idx]);
-                } else {
-                    fn(new Error('User ' + id + ' does not exist'));
-                }
-
-            }
-        });
-
-    }
-
-    function findByUsername(username, fn) {
-
-        usr.find(function(err, result) {
-
-            if (result) {
-
-                for (var i = 0; i < result.length; i++) {
-                    var user = result[i];
-                    if (user.email.toLowerCase() === username.toLowerCase()) {
-                        return fn(null, user);
-                    }
-                }
-                return fn(null, null);
-            }
-
-        });
-
-    }
-
-
+    var users = db.collection('users');
 
     passport.serializeUser(function(user, done) {
-        done(null, user.id);
+        done(null, user);
     });
 
-    passport.deserializeUser(function(id, done) {
-        findById(id, function(err, user) {
-            done(err, user);
-        });
+    passport.deserializeUser(function(user, done) {
+        done(null, user);
     });
 
-    passport.use(new LocalStrategy(function(username, password, done) {
-
-        process.nextTick(function () {
-
-            findByUsername(username, function(err, user) {
+    passport.use('local-login', new LocalStrategy(function(email, password, done) {
+        process.nextTick(function() {
+            users.findOne({ 'email' :  email }, function(err, user) {
                 if (err) { return done(err); }
-                if (!user) { return done(null, false, { message: 'Usuário não cadastrado: ' + username }); }
+                if (!user) { return done(null, false, { message: 'User not registered: ' + email }); }
 
-                if (base64.decode(user.senha) != password) { return done(null, false, { message: 'Senha Inválida' }); }
-                return done(null, user);
-            })
+                bcrypt.compare(password, user.password, function(err, res) {
+                    if (!res) {
+                        return done(null, false, { message: 'Incorrect password.' });
+                    } else {
+                        return done(null, user);
+                    }
+                });
+            });
         });
     }));
 
+    passport.use('local-signup', new LocalStrategy({
+        usernameField : 'newEmail',
+        passwordField : 'newPassword',
+        passReqToCallback : true
+    },
+    function(req, email, password, done) {
+        process.nextTick(function() {
+            users.findOne({ 'email' :  email }, function(err, user) {
+                if (err) { return done(err); }
+                if (user) {
+                    return done(null, false, { message: 'That user is already taken'});
+                } else {
+                    var newUser = {
+                        email     : email,
+                        firstName : req.body.firstName,
+                        lastName  : req.body.lastName
+                    };
 
+                    bcrypt.hash(password, null, null, function(err, hash) {
+                        newUser.password = hash;
+                        users.insert(newUser, function(err, res){
+                            if (err) {
+                                throw err;
+                            }
+                            return done(null, newUser);
+                        });
+                    });
+                }
+            });
+        });
+    }));
 };

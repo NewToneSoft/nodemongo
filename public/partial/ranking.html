@@ -1,0 +1,35 @@
+<div ng-controller="rankingCtl">
+    <h2>Ranking</h2>
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>
+                    Position
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Level
+                </th>
+                <th>
+                    Team
+                </th>
+            </tr>
+        </tbody>
+        <tr ng-repeat="usr in users">
+            <td>
+                {{usr.position}}
+            </td>
+            <td>
+                {{usr.firstName}} {{usr.lastName}}
+            </td>
+            <td>
+                {{usr.level}}
+            </td>
+            <td>
+                {{usr.team}}
+            </td>
+        </tr>
+    </table>
+</div>

@@ -8,9 +8,8 @@ var express       = require('express'),
     cookieParser  = require('cookie-parser'),
     session       = require('express-session'),
     flash         = require('connect-flash'),
+    db            = mongojs('hack'),
     port          = 9000;
-
-var db = mongojs('app'); // Database name
 
 require('./config/passport')(passport, db);
 
@@ -30,6 +29,6 @@ require('./app/dtbase.js')(app, db);
 require('./app/routes.js')(app, passport, db);
 
 app.listen(port, function() {
-    console.log('%s: Servidor iniciado em %s...',
-        Date(Date.now()), porta);
+    console.log('%s: Server started in %s...',
+        Date(Date.now()), port);
 });

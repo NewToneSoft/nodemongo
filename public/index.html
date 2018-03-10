@@ -3,234 +3,120 @@
 <html lang="pt-br" ng-app="wapp">
 
 <head>
-
     <base href="/">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>WebApp</title>
-
+    <title>Teapot</title>
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="img/favicon.ico" type="image/x-icon">
 
-    <link rel='stylesheet' href='//fonts.googleapis.com/css?family=Nunito:300'>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/angular-chart.js/0.10.2/angular-chart.min.css">
-
-    <link rel="stylesheet" href="css/estilos.css"/>
+    <link rel="stylesheet" href="vendor/css/fontawesome-all.min.css" />
+    <link rel="stylesheet" href="vendor/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/main.css" />
 
 </head>
 
 <body>
 
-<div class="overlay" ng-class="{'transparent': usuario}" ng-if="!verifica.tudoOk || verifica.loading">
-    <i class="overIcon fa fa-refresh fa-spin fa-2x fa-fw"></i>
-</div>
+    <div class="overlay" ng-if="!currentUser"></div>
 
-<div>
+    <div class="container-fluid">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block sidebar expanded">
+                <div class="btn-group w-100 dropright account-dropdown-wrapper">
+                    <button type="button" class="w-100 dropdown-toggle dropdown-button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown">
+                        <div class="media user-dropdown">
+                            <img class="mr-3 no-margin-on-collapsed expand-on-collapsed" src="img/avatar-male.png" alt="Avatar Image">
+                            <div class="media-body text-left hide-on-collapsed">
+                                <h5 class="mb-0 text-purple username-text">Railan</h5>
+                                <p class="font-italic mb-0 text-uppercase font-weight-bold">Level 37<img class="m-1 medal" src="img/medal.png" alt="Medal Image"></p>
+                            </div>
+                        </div>
+                    </button>
+                    <div class="dropdown-menu account-dropdown rounded-0 text-uppercase">
+                        <a class="dropdown-item" href="#">
+                            <i class="fas fa-user pr-3 py-2"></i>Account Info</a>
+                        <a class="dropdown-item" href="#">
+                            <i class="fas fa-rocket pr-3 py-2"></i>Badges</a>
+                        <a class="dropdown-item" href="#">
+                            <i class="fas fa-cog pr-3 py-2"></i>Settings</a>
+                        <a class="dropdown-item" href="/logout">
+                            <i class="fas fa-sign-out-alt pr-3 py-2"></i>Sign Out</a>
+                    </div>
+                </div>
 
-    <!-- BARRA DE NAVEGAÇÃO -->
-    <div class="navbar navbar-fixed-top">
-        <div class="container">
-
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand"> <strong>CibraApp</strong> </a>
-            </div>
-
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav" ng-cloak ng-hide="usuario.dash">
-                    <li ng-class="{active: ativo.dash}"><a href="/"> Dashboard </a></li>
-
-
-                    <li uib-dropdown ng-class="{active: ativo.prd, open: ativo.openPrd}"><a href="/prod"> Produção </a>
-
-                        <ul uib-dropdown-menu role="menu" ng-mouseover="ativo.openPrd = true" ng-mouseleave="ativo.openPrd = false">
-
-                            <li role="menuitem" ng-repeat="prd in menu.producao">
-                                <a ng-href="{{prd.link}}"> {{prd.nome}} </a>
-                            </li>
-
-                        </ul>
-
+                <ul class="nav flex-column sidebar-nav align-middle text-light-gray">
+                    <li class="nav-item">
+                        <a class="nav-link center-on-collapsed active" href="/">
+                            <i class="fas fa-home no-padding-on-collapsed"></i>
+                            <span class="hide-on-collapsed">Home</span>
+                        </a>
                     </li>
-
-
-                    <li uib-dropdown ng-class="{active: ativo.log, open: ativo.openLog}"><a href="/saida"> Logística </a>
-
-                        <ul uib-dropdown-menu role="menu" ng-mouseover="ativo.openLog = true" ng-mouseleave="ativo.openLog = false">
-
-                            <li role="menuitem" ng-repeat="log in menu.logistica">
-                                <a ng-href="{{log.link}}"> {{log.nome}} </a>
-                            </li>
-
-                        </ul>
-
+                    <li class="nav-item">
+                        <a class="nav-link center-on-collapsed" href="/practice">
+                            <i class="fas fa-gamepad no-padding-on-collapsed"></i>
+                            <span class="hide-on-collapsed">Practice</span>
+                        </a>
                     </li>
-
-
-                    <li uib-dropdown ng-class="{active: ativo.ctl, open: ativo.openCtl}"><a href="/equip"> Controles </a>
-
-                        <ul uib-dropdown-menu role="menu" ng-mouseover="ativo.openCtl = true" ng-mouseleave="ativo.openCtl = false">
-
-                            <li role="menuitem" ng-repeat="ctl in menu.controles">
-                                <a ng-href="{{ctl.link}}"> {{ctl.nome}} </a>
-                            </li>
-
-                        </ul>
-
+                    <li class="nav-item">
+                        <a class="nav-link center-on-collapsed" href="/ranking">
+                            <i class="fas fa-trophy no-padding-on-collapsed"></i>
+                            <span class="hide-on-collapsed">Ranking</span>
+                        </a>
                     </li>
-
-
-                    <li ng-class="{active: ativo.med}"><a href="/med"> Medição </a></li>
-
-
-                    <li uib-dropdown ng-class="{active: ativo.pes, open: ativo.openPes}"><a href="/ponto"> Pessoal </a>
-
-                        <ul uib-dropdown-menu role="menu" ng-mouseover="ativo.openPes = true" ng-mouseleave="ativo.openPes = false">
-
-                            <li role="menuitem" ng-repeat="pes in menu.pessoal">
-                                <a ng-href="{{pes.link}}"> {{pes.nome}} </a>
-                            </li>
-
-                        </ul>
-
+                    <li class="nav-item">
+                        <a class="nav-link center-on-collapsed" href="/documentation">
+                            <i class="fas fa-book no-padding-on-collapsed"></i>
+                            <span class="hide-on-collapsed">Documentation</span>
+                        </a>
                     </li>
-
-
-                    <li uib-dropdown ng-class="{active: ativo.cad, open: ativo.openCad}"> <a href="/contrato"> Cadastros </a>
-
-                        <ul uib-dropdown-menu role="menu" ng-mouseover="ativo.openCad = true" ng-mouseleave="ativo.openCad = false">
-
-                            <li role="menuitem" ng-repeat="cad in menu.cadastro">
-                                <a ng-href="{{cad.link}}"> {{cad.nome}} </a>
-                            </li>
-
-                        </ul>
-
+                    <li class="nav-item">
+                        <a class="nav-link center-on-collapsed" href="/contests">
+                            <i class="fas fa-flag-checkered no-padding-on-collapsed"></i>
+                            <span class="hide-on-collapsed">Contests</span>
+                        </a>
                     </li>
-
-                </ul>
-
-
-                <ul class="nav navbar-nav navbar-right" ng-cloak>
-                    <li uib-dropdown ng-hide="usuario.dash"> <a href> <span class="fa fa-cog fa-lg" ng-class="{open: ativo.cfg}"></span> </a>
-
-                        <ul uib-dropdown-menu role="menu" ng-mouseover="ativo.cfg = true" ng-mouseleave="ativo.cfg = false">
-
-                            <li role="menuitem">
-                                <a ng-href="/config"> Configurações Gerais </a>
-                            </li>
-
-                        </ul>
-
-                    </li>
-
-                    <li uib-dropdown> <a href> <span class="fa fa-user fa-lg" ng-class="{open: ativo.user}"></span> </a>
-
-                        <ul uib-dropdown-menu role="menu" ng-mouseover="ativo.user = true" ng-mouseleave="ativo.user = false">
-
-                            <li role="menuitem">
-                                <a href ng-click="alteraInfo()"> {{usuario.nome}} </a>
-                            </li>
-
-                            <li role="separator" class="divider"></li>
-
-                            <li role="menuitem">
-                                <a href ng-click="logOut()"> {{ (lang.actual === 'pt') ? "Sair" : "Exit" }} </a>
-                            </li>
-
-                        </ul>
-
+                    <li class="nav-item">
+                        <a class="nav-link center-on-collapsed" href="/about">
+                            <i class="fas fa-info-circle no-padding-on-collapsed"></i>
+                            <span class="hide-on-collapsed">About</span>
+                        </a>
                     </li>
                 </ul>
 
-            </div>
+                <div class="sidebar-logo fixed-bottom position-absolute">
+                    <img class="sidebar-logo__img" src="img/teapod-logo.png" alt="teapod-logo">
+                    <div class="sidebar-logo__text hide-on-collapsed">teapot</div>
+                </div>
+            </nav>
+            <div class="collapse-button"></div>
+            <main class="col-md-12 ml-sm-auto col-lg-12 content">
+                <div class="content__app">
+                    <div ng-view></div>
+                </div>
+            </main>
         </div>
+
     </div>
-
-</div>
-
-<div class="container" style="padding: 0 125px;">
-    <div ng-view></div>
-</div>
-
-
-<!-- JQuery -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-
-<!-- AngularJS -->
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-touch.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-resource.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></script>
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.5.5/angular-locale_pt-br.min.js"></script>
-
-<!-- Bootstrap UI -->
-<script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-1.3.3.js"></script>
-
-<!-- UI Mask-->
-<script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-mask/1.8.3/mask.min.js"></script>
-
-<!-- ChartJS -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
-<script src="js/vendor/angular-chart.min.js"></script>
-
-
-<!-- JSPdf -->
-<!--<script src="//cdnjs.cloudflare.com/ajax/libs/jspdf/1.2.61/jspdf.min.js"></script>-->
-<script src="//cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.20/pdfmake.min.js"></script>
-
-<!-- Angular-DragDrop -->
-<script src="js/vendor/angular-dragdrop.min.js"></script>
-
-<!-- Angular-Carousel -->
-<script src="js/vendor/angular-carousel.js"></script>
-
-<!-- UI Indeterminate -->
-<script src="js/vendor/indeterminate.min.js"></script>
-
-<!-- Angular Table -->
-<script src="js/vendor/angular-table.js"></script>
-
-<!-- Angular Base64 -->
-<script src="js/vendor/angular-base64.min.js"></script>
-
-<!-- Módulos -->
-<script src="js/module/modBase.js"></script>
-<script src="js/module/modDash.js"></script>
-<script src="js/module/modProducao.js"></script>
-<script src="js/module/modLogistica.js"></script>
-<script src="js/module/modContrato.js"></script>
-<script src="js/module/modConfig.js"></script>
-<script src="js/module/modCadastro.js"></script>
-<script src="js/module/modMedicao.js"></script>
-<script src="js/module/modPessoal.js"></script>
-
-<!-- Base -->
-<script src="js/main.js"></script>
-<script src="js/controller.js"></script>
-
-<!-- Controllers de Módulos -->
-<script src="js/module/ctlDash.js"></script>
-<script src="js/module/ctlProducao.js"></script>
-<script src="js/module/ctlLogistica.js"></script>
-<script src="js/module/ctlContrato.js"></script>
-<script src="js/module/ctlConfig.js"></script>
-<script src="js/module/ctlCadastro.js"></script>
-<script src="js/module/ctlMedicao.js"></script>
-<script src="js/module/ctlPessoal.js"></script>
-
+    <script src="vendor/js/jquery-3.2.1.min.js"></script>
+    <script src="vendor/js/angular.min.js"></script>
+    <script src="vendor/js/angular-route.min.js"></script>
+    <script src="vendor/js/angular-animate.min.js"></script>
+    <script src="vendor/js/angular-touch.min.js"></script>
+    <script src="vendor/js/angular-resource.min.js"></script>
+    <script src="vendor/js/popper.min.js"></script>
+    <script src="vendor/js/bootstrap.min.js"></script>
+    <script src="vendor/js/ui-bootstrap-tpls-3.0.2.min.js"></script>
+    <script src="vendor/js/sweetalert2.all.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/controller.js"></script>
+    <script src="js/managers/AnsweredQuestionMgr.js"></script>
+    <script src="js/managers/CategoryMgr.js"></script>
+    <script src="js/managers/MemberMgr.js"></script>
+    <script src="js/managers/QuestionMgr.js"></script>
+    <script src="js/managers/SprintMgr.js"></script>
+    <script src="js/managers/TeamMgr.js"></script>
 </body>
 
 </html>

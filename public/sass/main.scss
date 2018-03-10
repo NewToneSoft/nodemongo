@@ -1,0 +1,592 @@
+@import 'settings';
+@import 'practice';
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+.header {
+    height: 65px;
+    border-bottom: 1px solid red;
+    background-color: white;
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    padding: 0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.19), 0 0 5px rgba(0,0,0,0.23);
+    transition:max-width .3s linear;   
+    -moz-transition:max-width .3s linear;   
+    -webkit-transition:max-width .3s linear;
+    max-width: $expanded;
+    overflow: hidden;
+    white-space: nowrap;
+
+    &-nav {
+        font-size: 16px;
+        padding: 10px 10px 10px 15px;
+
+        a {
+            color: $light-gray;
+            font-family: $lato;
+
+            &.active,
+            &:hover {
+                color: $purple;
+            }
+        }
+
+        .fas {
+            padding-right: 5px;
+            font-size: 24px;
+            text-align: center;
+            vertical-align: middle;
+            height: 30px;
+            width: 35px;
+            box-sizing: content-box;
+        }
+    }
+}
+
+.account-dropdown-wrapper {
+    .user-dropdown {
+        padding: 30px 0 50px 15px;
+        justify-content: center;
+        height: 75px;
+        box-sizing: content-box;
+        justify-content: start;
+        overflow: hidden;
+        white-space: nowrap;
+
+
+        .username-text {
+            margin-top: 5px;
+        }
+
+        img {
+            width: 55px;
+            height: 55px;
+        }
+
+        .medal {
+            width: 13px;
+            height: 20px;
+            margin-left: 10px !important;
+        }
+    }
+
+    .dropdown-button {
+        background: transparent;
+        border: none;
+        outline: none !important;
+    
+        &.dropdown-toggle{
+            &::after {
+                content: none !important;
+            }
+        }
+    }
+
+    .account-dropdown {
+        margin-left: -1px;
+        margin-top: 20px;
+
+        .dropdown-item {
+            color: $dark-gray;
+            font-family: $lato;
+            padding: 10px 20px;
+
+            &.active,
+            &:hover {
+                color: $white;
+                background-color: $dark-gray
+            }
+
+            .fas {
+                font-size: 24px;
+                vertical-align: middle;
+            }
+        }
+    }
+} 
+
+.sidebar-logo {
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    padding-left: 20px;
+
+    .sidebar-logo__img {
+        flex-grow:0;
+        flex-shrink:0;
+        width: 80px;
+        margin-right: 20px;
+    }
+
+    .sidebar-logo__text {
+        font-weight: 500;
+        font-size: 25px;
+        font-family: $FjallaOne;
+        color: $purple;
+    }
+}
+
+.sticky-top {
+    z-index: 99; /* makes sidebar on top of header*/
+}
+
+.content {
+    padding: 50px 50px 0 50px;
+    max-width: calc(100% - #{$expanded} - #{$collapse-button-width});
+    transition:max-width .3s linear;   
+    -moz-transition:max-width .3s linear;   
+    -webkit-transition:max-width .3s linear;
+}
+
+.collapse-button {
+    cursor: pointer;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: $expanded;
+    padding: 0;
+    height: 100%;
+    width: $collapse-button-width;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: $FjallaOne;
+    transition:left .3s linear;   
+    -moz-transition:left .3s linear;   
+    -webkit-transition:left .3s linear;
+
+    &::after {
+        transition:content .3s linear;   
+        -moz-transition:content .3s linear;   
+        -webkit-transition:content .3s linear;
+        content: '<';
+    }
+}
+
+.overlay {
+    background: #eeeeee;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: -100px;
+    position: fixed;
+    z-index: 9999;
+    opacity: 1;
+
+}
+
+//  -----------------------------
+// Expanded CSS Definitions
+//  -----------------------------
+
+.expanded {
+    &.sidebar {
+        max-width: $expanded;
+    }
+
+    & ~ .content {
+        max-width: calc(100% - #{$expanded} - #{$collapse-button-width});
+    }
+
+    & ~ .collapse-button {
+        left: $expanded;
+
+        &::after {
+            content: '<';
+        }
+    }
+}
+
+//  -----------------------------
+// Collapsed CSS Definitions
+//  -----------------------------
+
+.collapse {
+    &.sidebar {
+        max-width: $collapsed;
+    }
+
+    & ~ .content {
+        max-width: calc(100% - #{$collapsed} - #{$collapse-button-width});
+    }
+
+    & ~ .collapse-button {
+        left: $collapsed;
+    }
+}
+
+.collapsed {
+    &.sidebar {
+        max-width: $collapsed;
+
+        .sidebar-nav {
+            padding: 10px 0 10px 0;
+        }
+
+        .user-dropdown {
+            padding: 30px 0 50px 0;
+            justify-content: center;
+        }
+
+        .sidebar-logo {
+            justify-content: center;
+            padding-left: 0;
+
+            .sidebar-logo__img {
+                margin-right: 0;
+            }
+        }
+    }
+
+    & ~ .content {
+        max-width: calc(100% - #{$collapsed} - #{$collapse-button-width});
+    }
+
+    & ~ .collapse-button {
+        left: $collapsed;
+
+        &::after {
+            content: '>';
+        }
+    }
+
+    .hide-on-collapsed {
+        display: none;
+    }
+
+    .expand-on-collapsed {
+        width: 100%;
+    }
+
+    .no-margin-on-collapsed {
+        margin: 0 !important;
+    }
+
+    .center-on-collapsed {
+        text-align: center;
+    }
+
+    .no-padding-on-collapsed {
+        padding: 0 !important;
+    }
+}
+
+
+
+//  -----------------------------
+// Text CSS Definitions
+//  -----------------------------
+
+.text-purple {
+    color: $purple;
+}
+
+.text-light-gray {
+    color: $light-gray;
+}
+
+.text-dark-gray {
+    color: $dark-gray;
+}
+
+.text-white {
+    color: $white;
+}
+
+.bg-purple {
+    background-color: $purple;
+}
+
+.bg-white {
+    background-color: $white;
+}
+
+.box-subtitle {
+    font-size: $box-subtitle-font-size;
+    color: $dark-gray;
+}
+
+.content-title {
+    font-size: $content-title-font-size;
+    color: $purple;
+    font-family: $lato;
+    margin: 0;
+}
+
+.content-subtitle {
+    font-size: $content-subtitle-font-size;
+    color: $light-gray;
+    font-family: $lato;
+}
+
+.horizontal-divider {
+    border-top: 1px solid $purple;
+    margin-top: 0;
+}
+
+.large-font {
+    font-size: $large-font-size;
+}
+
+.medium-font {
+    font-size: $medium-font-size;
+}
+
+.answer {
+    margin: 40px 120px;
+    @extend .text-purple;
+    font-family: $FjallaOne !important;
+    font-size: $question-font-size;
+}
+
+.question {
+    @extend .bg-purple;
+    @extend .text-white;
+    padding: 35px 140px;
+    font-family: $FjallaOne !important;
+    font-size: $question-font-size;
+}
+
+
+//  -----------------------------
+// Button and Box CSS Definitions
+//  -----------------------------
+
+.modal-button {
+    @extend .bg-purple;
+    @extend .text-white;
+    border: none;
+    height: 30px;
+    width: 150px;
+    text-transform: uppercase;
+    font-family: $lato;
+}
+
+.large-box {
+    height: 100px;
+    font-size: $large-box-font-size;
+    font-family: $lato;
+    background-color: $purple;
+    color: $white;
+    border: none;
+    padding: 0 30px;
+
+    &:hover {
+        color: $purple;
+        background-color: $white;
+        border: $large-box-inverted-border;
+    }
+}
+
+.medium-box {
+    @extend .large-box;
+    height: 70px;
+}
+
+.box-disabled {
+    background-color: $light-gray;
+}
+
+.continue-button {
+    $font-family: $FjallaOne !important;
+    text-transform: uppercase;
+}
+
+.quiz-stats {
+    max-width: 520px;
+    max-height: 110px;
+    display: flex;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.19), 0 0 5px rgba(0,0,0,0.23);
+    margin-bottom: 20px;
+    font-family: $FjallaOne;
+
+    .quiz-stat-title {
+        @extend .bg-purple;
+        @extend .text-white;
+        white-space: wrap;
+        height: 110px;
+        width: 110px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .quiz-stat-row {
+        height: 55px;
+        width: 410px;
+        display: flex;
+        @extend .text-light-gray;
+        font-size: $medium-font-size;
+        align-items: center;
+
+        .quiz-stat-text-column {
+            width: 355px;
+            height: 100%;
+            align-items: center;
+            display: flex;
+            justify-content: flex-start;
+            padding-left: 35px;
+        }
+
+        .quiz-stat-number-column {
+            width: 55px;
+            height: 100%;
+            text-align: center;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
+
+        &.quiz-stat-correct {
+            border-bottom: $quiz-stat-border;
+            @extend .text-purple;
+
+            .quiz-stat-text-column {
+                border-right: $quiz-stat-border;
+            }
+        }
+
+        &.quiz-stat-questions {
+            .quiz-stat-text-column {
+                border-right: $quiz-stat-border;
+            }
+        }
+    }
+
+}
+
+//  -----------------------------
+// Modal Window CSS Definitions
+//  -----------------------------
+
+.swal2-popup {
+    .swal2-close {
+        font-size: $medium-font-size !important;
+        right: 10px !important;
+        top: 10px !important;
+        color: $light-gray !important;
+
+        &:hover {
+            color: $dark-gray !important;
+        }
+    }
+
+    .locked-modal {
+        font-size: 70px;
+        padding: 20px 0 30px 0;
+    }
+
+    .levelup-modal {
+        margin: 0 auto 20px;
+        background-image: url('../img/star.png');
+        height: 136px;
+        width: 175px;
+        background-size: contain;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: $large-font-size;
+    }
+
+    .swal2-content {
+        font-weight: 500 !important;
+    }
+
+    .swal2-icon {
+        order: 2;
+    }
+}
+
+.swal2-container{
+    &.swal2-shown {
+        background-color: $purple-overlay !important;
+    }
+}
+
+//  -----------------------------
+// Form CSS Definitions
+//  -----------------------------
+
+
+
+.checkbox,
+.radio {
+    position: relative;
+
+    &.rounded {
+        label {
+
+            &::before,
+            &::after {
+                border-radius: 50%;
+            }
+        }
+    }
+
+    input {
+        display: none;
+
+        &:checked + label {
+            &:after {
+                transform: translate3d(0, 0, 0);
+                opacity: 1;
+            }
+        }
+    }
+
+    label {
+        cursor: pointer;
+        text-align: left;
+        padding-left: 40px;
+        vertical-align: text-top;
+
+        &:before,
+        &:after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          border-radius: 0;
+        }
+        &:before {
+          left: 0;
+          width: 30px;
+          height: 30px;
+          margin: -20px 0 0;
+          background: $white;
+          box-shadow: 0 0 1px $dark-gray;
+          border: 3px solid $purple;
+        }
+        &:after {
+          left: 7px;
+          width: 16px;
+          height: 16px;
+          margin: -13px 0 0;
+          opacity: 0;
+          background: $purple;
+          transform: translate3d(0, 0, 0);
+          transition: opacity 0.3s ease-in;
+        }
+
+        &:hover {
+            &::after {
+                opacity: 0.25;
+            }
+        }
+      }
+}

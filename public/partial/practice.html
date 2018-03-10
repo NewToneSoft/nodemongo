@@ -1,0 +1,16 @@
+<div ng-controller="practiceCtl">
+    <div class="content__header">
+        <h2>Practice</h2>
+        <div class="content__header__subtitle">
+            Choose the category you want to practice
+        </div>
+    </div>
+    <div class="row">
+        <div ng-repeat="category in lists.categories" class="col-3">
+            <div class="clearfix" ng-if="$index % 3 == 0"></div>
+            <div class="category__tile large-box">
+                {{category.title}}
+            </div>
+        </div>
+    </div>
+</div>
