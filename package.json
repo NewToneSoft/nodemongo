@@ -21,7 +21,7 @@
     "npm": "*"
   },
   "scripts": {
-    "start": "node server_local.js"
+    "start": "node server.js"
   },
   "devDependencies": {
     "eslint": "^4.18.2",
