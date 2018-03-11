@@ -1,6 +1,6 @@
 
 'use strict';
-app.service('SprintMgr', function($q, $rootScope, dtBase, TeamMgr, AnsweredQuestionMgr) {
+app.service('SprintMgr', function($q, $rootScope, dtBase) {
     var db = {db: 'sprints'};
 
     this.listSprints = function(){
@@ -14,13 +14,13 @@ app.service('SprintMgr', function($q, $rootScope, dtBase, TeamMgr, AnsweredQuest
         return deferred.promise;
     };
 
-    this.create = function(mainText, subText, startDate, endDate, answersToFinish) {
+    this.create = function(name, teams, categoryArray, startDate, endDate, answersToFinish) {
         var sprint = angular.copy(new dtBase(db));
         var parent = this;
 
         sprint.enabled = true;
-        sprint.mainText = mainText;
-        sprint.subText = subText;
+        sprint.mainText = 'Hurry up and join now!';
+        sprint.subText = 'Contest in progress';
         sprint.startDate = startDate;
         sprint.endDate = endDate;
         sprint.answersToFinish = answersToFinish;

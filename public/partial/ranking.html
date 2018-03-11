@@ -13,23 +13,17 @@
                 <th>
                     Level
                 </th>
-                <th>
-                    Team
-                </th>
             </tr>
         </tbody>
-        <tr ng-repeat="usr in lists.members">
+        <tr ng-repeat="usr in lists.members | orderBy:'-level'">
             <td>
-                {{usr.position}}
+                {{$index + 1}}
             </td>
             <td>
                 {{usr.firstName}} {{usr.lastName}}
             </td>
             <td>
                 {{usr.level}}
-            </td>
-            <td>
-                {{usr.team}}
             </td>
         </tr>
     </table>

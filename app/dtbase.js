@@ -8,18 +8,7 @@ module.exports = function(app, db) {
     colections.users = db.collection('users');
     colections.categories = db.collection('categories');
     colections.questions = db.collection('questions');
-    colections.teams = db.collection('teams');
     colections.sprints = db.collection('sprints');
-    colections.answered_questions = db.collection('answered_questions');
-
-    app.get('/clear', function (req, res) {
-        db.collection('categories').remove();
-        db.collection('questions').remove();
-        db.collection('sprints').remove();
-        res.end();
-    });
-
-
 
     // LIST
     app.get('/api/:db', function (req, res) {

@@ -419,6 +419,9 @@
 * {
   box-sizing: border-box; }
 
+.disabled {
+  cursor: not-allowed; }
+
 html, body {
   height: 100%;
   background-color: #f2f2f2; }
@@ -505,6 +508,10 @@ html, body {
     .account-dropdown-wrapper .account-dropdown .dropdown-item .fas {
       font-size: 24px;
       vertical-align: middle; }
+
+.dropdown-menu .dropdown-item:hover {
+  background: #FFFFFF;
+  cursor: pointer; }
 
 .sidebar-logo {
   height: 120px;

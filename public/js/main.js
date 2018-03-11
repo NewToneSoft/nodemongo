@@ -117,10 +117,7 @@ var app = angular.module('wapp', ['ngResource', 'ngRoute', 'ngAnimate', 'ui.boot
                     confirmButtonClass: 'modal-button',
                     confirmButtonText: 'Close',
                     allowOutsideClick: false,
-                    showCloseButton: true,
-                    onBeforeOpen: function(element) {
-                        $(element).find('.swal2-close').html('<i class="fas fa-times"></i>');
-                    }
+                    showCloseButton: false
                 }).then((result) => {
                     if (result.value) {
                         $location.path('/contests');

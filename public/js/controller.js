@@ -17,11 +17,28 @@ app
                 $scope.currentUser.answered = [];
             }
 
-            $scope.lists.questions.forEach(function(q) {
-                if (q.category === idx && $scope.currentUser.answered.indexOf(q._id) == -1) {
-                    questionsList.push(q);
+            if (idx) {
+                $scope.lists.questions.forEach(function(q) {
+                    if (q.category === idx && $scope.currentUser.answered.indexOf(q._id) == -1) {
+                        questionsList.push(q);
+                    }
+                });
+            } else {
+                while(questionsList.length < 10) {
+                    var idx = $scope.getRandomIndex($scope.lists.questions);
+
+                    if (idx != -1) {
+                        var item = $scope.lists.questions[idx];
+
+                        var idx2 = $scope.getIndexOfId(questionsList, item._id);
+
+                        if (idx2 == -1) {
+                            questionsList.push(item);
+                        }
+                    }
                 }
-            });
+            }
+
             comm.saveQuiz(questionsList);
             $location.path('/practice-quiz');
         };
@@ -80,11 +97,11 @@ app
         }
     })
 
-    .controller('rankingCtl', function($q, $scope) {
+    .controller('rankingCtl', function() {
 
     })
 
-    .controller('docCtl', function($q, $scope) {
+    .controller('docCtl', function() {
 
     })
 
@@ -118,6 +135,7 @@ app
 
         $scope.sprint = [];
         $scope.sprint.player = [];
+        $scope.sprint.questionValidation = [3, 3, 3, 3, 3, 3, 3, 3, 3, 3];
 
         if (!$scope.currentUser._id) {
             $scope.defineCurrentUserId();
@@ -146,10 +164,11 @@ app
 
         $scope.checkAnswer = function(sel) {
             if ($scope.sprint.player[0].currentQuiz.correctOption == sel) {
+                $scope.sprint.questionValidation[currentIdx] = 1;
                 $scope.modals.success();
                 $scope.sprint.player[0].points += ($scope.sprint.player[0].currentQuiz.level * 100);
                 $scope.sprint.player[0].answered.push($scope.sprint.player[0].currentQuiz._id);
-
+                currentIdx++;
                 var idx = $scope.getIndexOfId($scope.sprint.player[0].questionsList, $scope.sprint.player[0].currentQuiz._id);
 
                 if (idx != -1) {
@@ -159,12 +178,16 @@ app
                     }
                 }
             } else {
+                $scope.sprint.questionValidation[currentIdx] = 0;
                 $scope.modals.error();
+                $scope.skip();
+            
             }
             initQuiz();
         };
 
         $scope.skip = function(){
+            $scope.sprint.questionValidation[currentIdx] = 0;
             if (currentIdx == $scope.sprint.player[0].questionsList.length - 1) {
                 currentIdx = 0;
             } else {
@@ -174,53 +197,8 @@ app
         };
     })
 
-    .controller('aboutCtl', function($q, $scope, $http, CategoryMgr, QuestionMgr, SprintMgr) {
-
-        $scope.clear = function(){
-            $http.get('/clear');
-        };
-
-        $scope.gera1 = function(){
-            $http.get('js/output.json').
-                then(function onSuccess(response) {
-
-                    response.data.forEach(function(category) {
-                        CategoryMgr.create(category.name);
-                        category.questionArray.forEach(function(question) {
-                            QuestionMgr.create(
-                                question.text,
-                                question.optionArray,
-                                question.correctOption,
-                                question.level,
-                                question.level
-                            );
-
-                        });
-                    });
-                    CategoryMgr.listCategories();
-                    QuestionMgr.listQuestions();
-                    console.log('success1')
-                })
-        };
+    .controller('aboutCtl', function() {
 
 
-        $scope.gera2 = function(){
-            var temp = $scope.lists.questions;
-            var cat = $scope.lists.categories;
-
-            for (var c = cat.length-1; c >= 0; c--) {
-                for(var i = 0; i <= 10; i++) {
-                    temp[temp.length - 1].category = cat[c]._id;
-                    QuestionMgr.update(temp[temp.length - 1]);
-                    temp.splice(temp.length - 1, 1);
-                }
-            }
-            console.log('success2')
-        }
-
-        $scope.gera3 = function(){
-            SprintMgr.create("Hurry up and join now!", "Contest in progress", "10AM", "12AM", 10);
-            console.log('success3')
-        }
     });
 

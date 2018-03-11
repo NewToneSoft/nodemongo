@@ -1,5 +1,5 @@
 <div ng-controller="contestQuizCtl">
-   <div class="road">
+    <div class="road">
         <div class="start"></div>
         <div class="road-piece"></div>
         <div class="road-piece">
@@ -21,25 +21,24 @@
             <div class="square bg-green"></div>
             <div class="text-dark-gray team-text">TEAM GREEN</div>
         </div>
-        </div>
+    </div>
 
     <div class="progress-bar-contest">
-        <div class="question-point correct">1</div>
-        <div class="question-point correct">2</div>
-        <div class="question-point skiped">3</div>
-        <div class="question-point wrong">4</div>
-        <div class="question-point">5</div>
-        <div class="question-point">6</div>
-        <div class="question-point">7</div>
-        <div class="question-point">8</div>
-        <div class="question-point">9</div>
-        <div class="question-point">10</div>
+            <div class="question-point" ng-class="{'correct':sprint.questionValidation[0] == 1, 'wrong': sprint.questionValidation[0] == 0, 'skiped': sprint.questionValidation[0] == 2}">1</div>
+            <div class="question-point" ng-class="{'correct':sprint.questionValidation[1] == 1, 'wrong': sprint.questionValidation[1] == 0, 'skiped': sprint.questionValidation[1] == 2}">2</div>
+            <div class="question-point" ng-class="{'correct':sprint.questionValidation[2] == 1, 'wrong': sprint.questionValidation[2] == 0, 'skiped': sprint.questionValidation[2] == 2}">3</div>
+            <div class="question-point" ng-class="{'correct':sprint.questionValidation[3] == 1, 'wrong': sprint.questionValidation[3] == 0, 'skiped': sprint.questionValidation[3] == 2}">4</div>
+            <div class="question-point" ng-class="{'correct':sprint.questionValidation[4] == 1, 'wrong': sprint.questionValidation[4] == 0, 'skiped': sprint.questionValidation[4] == 2}">5</div>
+            <div class="question-point" ng-class="{'correct':sprint.questionValidation[5] == 1, 'wrong': sprint.questionValidation[5] == 0, 'skiped': sprint.questionValidation[5] == 2}">6</div>
+            <div class="question-point" ng-class="{'correct':sprint.questionValidation[6] == 1, 'wrong': sprint.questionValidation[6] == 0, 'skiped': sprint.questionValidation[6] == 2}">7</div>
+            <div class="question-point" ng-class="{'correct':sprint.questionValidation[7] == 1, 'wrong': sprint.questionValidation[7] == 0, 'skiped': sprint.questionValidation[7] == 2}">8</div>
+            <div class="question-point" ng-class="{'correct':sprint.questionValidation[8] == 1, 'wrong': sprint.questionValidation[8] == 0, 'skiped': sprint.questionValidation[8] == 2}">9</div>
+            <div class="question-point" ng-class="{'correct':sprint.questionValidation[9] == 1, 'wrong': sprint.questionValidation[9] == 0, 'skiped': sprint.questionValidation[9] == 2}">10</div>
         <hr class="horizontal-line" />
-        </div>
-
+    </div>
     <div class="card mt-5">
         <div class="card-header contest question">
-                {{sprint.player[0].currentQuiz.text}} - {{sprint.player[0].currentQuiz.correctOption}}
+                {{sprint.player[0].currentQuiz.text}}
         </div>
         <div class="card-body contest">
             <div class="radio answer" ng-repeat="qst in sprint.player[0].currentQuiz.optionArray track by $index">
@@ -47,8 +46,9 @@
                 <label for="radio-{{$index}}">{{qst}}</label>
             </div>
         </div>
-        </div>
+    </div>
 
     <button class="medium-box continue-button float-left mt-3" ng-click="skip()">SKIP</button>
-    <button class="medium-box continue-button box-disabled float-right mt-3" ng-class="{'box-disabled': sprint.player[0].selected == null}" ng-click="checkAnswer(sprint.player[0].selected)">Continue</button>
+    <button class="medium-box continue-button box-disabled float-right mt-3" ng-class="{'box-disabled': sprint.player[0].selected == null}"
+        ng-click="checkAnswer(sprint.player[0].selected)">Continue</button>
 </div>
