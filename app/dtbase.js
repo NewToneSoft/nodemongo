@@ -16,6 +16,7 @@ module.exports = function(app, db) {
         db.collection('users').remove();
         db.collection('categories').remove();
         db.collection('questions').remove();
+        db.collection('sprints').remove();
         res.end();
     });
 
