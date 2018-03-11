@@ -13,7 +13,6 @@ module.exports = function(app, db) {
     colections.answered_questions = db.collection('answered_questions');
 
     app.get('/clear', function (req, res) {
-        db.collection('users').remove();
         db.collection('categories').remove();
         db.collection('questions').remove();
         db.collection('sprints').remove();
