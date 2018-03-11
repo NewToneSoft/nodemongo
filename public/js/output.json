@@ -3,957 +3,135 @@
         "name": "ISML",
         "questionArray": [
             {
-                "text": "What is demandware product data hierarchy?",
+                "text": "In the Model-View-Controller (MVC) pattern, what role does the ISML play?",
                 "optionArray": [
-                    "inventory",
-                    "options",
-                    {},
-                    "isactivecontenthead",
-                    {}
-                ],
-                "correctOption": 4,
-                "level": 1
-            },
-            {
-                "text": "BM path to import site",
-                "optionArray": [
-                    {},
-                    "//domain/dw/api_type/",
-                    "productLineItems",
-                    {},
-                    "interaction continue"
-                ],
-                "correctOption": 0,
-                "level": 0
-            },
-            {
-                "text": "What is the syntax for demandware tag which includes templates into isml",
-                "optionArray": [
-                    "integer",
-                    "rich ui cartridge",
-                    "call",
-                    "^<isinclude template=\".*\"/?>$",
-                    "rich ui cartridge"
-                ],
-                "correctOption": 3,
-                "level": 0
-            },
-            {
-                "text": "Where do you need to navigate to clear cache for site named 'Training'",
-                "optionArray": [
-                    "^administration>sites>manage sites>Training>cache$",
-                    "Begin Transaction",
-                    "yes",
-                    "CurrentHttpParameterMap",
-                    {}
-                ],
-                "correctOption": 0,
-                "level": 2
-            },
-            {
-                "text": "Path to reindex site",
-                "optionArray": [
-                    "^<isinclude template=\".*\"/?>$",
-                    "transition",
-                    "^merchant tools>search>search indexes$",
-                    "Search settings",
-                    "integer"
-                ],
-                "correctOption": 2,
-                "level": 1
-            },
-            {
-                "text": "What is pipeline nodes names?",
-                "optionArray": [
-                    "UpdateObjectWithForm",
-                    "binding",
-                    "description",
-                    "start",
-                    "number"
-                ],
-                "correctOption": 3,
-                "level": 2
-            },
-            {
-                "text": "A site must have one and only one site catalog?",
-                "optionArray": [
-                    "data",
-                    "yes",
-                    "Site Preferences",
-                    "value",
-                    "value"
-                ],
-                "correctOption": 1,
-                "level": 0
-            },
-            {
-                "text": "What is search word in project key combination in eclipse?",
-                "optionArray": [
-                    "option",
-                    "^ctrl\\+h$",
-                    "value-error",
-                    "^administration>sites>manage sites>training>settings$",
-                    "isbreak"
-                ],
-                "correctOption": 1,
-                "level": 2
-            },
-            {
-                "text": "What is search file in project key combination in eclipse?",
-                "optionArray": [
-                    "^ctrl\\+shift\\+r$",
-                    "isbreak",
-                    "pipelet placeholder",
-                    "value",
-                    "isredirect"
-                ],
-                "correctOption": 0,
-                "level": 0
-            },
-            {
-                "text": "What is BM path to add cartridge into the cartridge path for the site named 'training'",
-                "optionArray": [
-                    "jump",
-                    "^administration>sites>manage sites>training>settings$",
-                    {},
-                    "isreplace",
-                    "parse-error"
-                ],
-                "correctOption": 1,
-                "level": 0
-            },
-            {
-                "text": "Storefront Cartridge is diveded into 2 cartridges what is their names?",
-                "optionArray": [
-                    "loop",
-                    "products",
-                    {},
-                    "core cartridge",
-                    "CurrentPageMetadata"
-                ],
-                "correctOption": 3,
-                "level": 1
-            }
-        ]
-    },
-    {
-        "name": "Controllers",
-        "questionArray": [
-            {
-                "text": "Diference between call and jump nodes?",
-                "optionArray": [
-                    "assign",
-                    "script",
-                    "^jump node does not return to calling pipeline after end node is reached$",
-                    "checked-value",
-                    {}
-                ],
-                "correctOption": 2,
-                "level": 2
-            },
-            {
-                "text": "what is isif statement syntax?",
-                "optionArray": [
-                    "Search settings",
-                    "Content",
-                    "^<isif condition=\".*\"></isif>$",
-                    "isbreak",
-                    "Commit Transaction"
-                ],
-                "correctOption": 2,
-                "level": 1
-            },
-            {
-                "text": "Merchandisers use Business Manager to manage:",
-                "optionArray": [
-                    "campaigns",
-                    {},
-                    "index",
-                    "Products & Catalogs",
-                    "scope"
-                ],
-                "correctOption": 3,
-                "level": 1
-            },
-            {
-                "text": "Developers use Business Manager to manage…",
-                "optionArray": [
-                    "Code & Data Replication",
-                    "//sub_domain.demandware.net/s/site_id/dw/api_type/",
-                    "Code & Data Replication",
-                    "call",
-                    {}
-                ],
-                "correctOption": 2,
-                "level": 0
-            },
-            {
-                "text": "What is the BM path to set and edit pipeline URLs?",
-                "optionArray": [
-                    "even",
-                    {},
-                    "productLineItems",
-                    "lineItemContainer",
-                    {}
-                ],
-                "correctOption": 4,
-                "level": 1
-            },
-            {
-                "text": "How to create new empty site in BM?",
-                "optionArray": [
-                    "unchecked-value",
-                    {},
-                    "isstatus",
-                    {},
-                    "data"
-                ],
-                "correctOption": 3,
-                "level": 2
-            },
-            {
-                "text": "Path IN BM to enable you to see pipeline calls(uncheck Enable Storefront URLs): ",
-                "optionArray": [
-                    {},
-                    "iscontent",
-                    "CurrentUser",
-                    "group",
-                    {}
+                    "Model",
+                    "Controller",
+                    "None",
+                    "Can be any",
+                    "View"
                 ],
                 "correctOption": 4,
                 "level": 0
             },
             {
-                "text": "A Realm is a Demandware instance used only by developers. ",
+                "text": "Which of the following ISML tags is HTTP-related?",
                 "optionArray": [
-                    "iselse",
-                    "assign",
-                    "max",
-                    {},
-                    "^false$"
-                ],
-                "correctOption": 4,
-                "level": 1
-            },
-            {
-                "text": "Catalogs are not shareable between sites within an organization. ",
-                "optionArray": [
-                    "^false$",
-                    "iscookie",
-                    "CurrentDomain",
-                    "meta",
-                    "value-error"
-                ],
-                "correctOption": 0,
-                "level": 1
-            },
-            {
-                "text": "Path in eclipse to view Demandware API",
-                "optionArray": [
-                    "^merchant tools>search>search indexes$",
-                    "discountPlan represents a set of discounts",
-                    "yes",
-                    {},
-                    "Site Development"
-                ],
-                "correctOption": 3,
-                "level": 0
-            },
-            {
-                "text": "Path in eclipse to search text in project files",
-                "optionArray": [
-                    {},
-                    "page",
-                    "Demandware",
-                    "Search settings",
-                    "isremove"
-                ],
-                "correctOption": 0,
-                "level": 0
-            }
-        ]
-    },
-    {
-        "name": "Contents Slots/Assets",
-        "questionArray": [
-            {
-                "text": "What are 3 cartridge types used in demandware?",
-                "optionArray": [
-                    {},
-                    {},
-                    "CurrentUser",
-                    "Demandware Storefront",
-                    "min-length"
-                ],
-                "correctOption": 3,
-                "level": 0
-            },
-            {
-                "text": "Path to access cartridges through WebDAV in BM",
-                "optionArray": [
-                    {},
-                    "isloop",
-                    {},
-                    "group",
-                    "step"
-                ],
-                "correctOption": 2,
-                "level": 2
-            },
-            {
-                "text": "Path to create new code version on BM",
-                "optionArray": [
-                    "CurrentOrganization",
-                    "interaction",
-                    "^administration>sites>manage sites>Training>cache$",
-                    "pipelet placeholder",
-                    {}
-                ],
-                "correctOption": 4,
-                "level": 0
-            },
-            {
-                "text": "Path to create new empty cartridge in UX studio",
-                "optionArray": [
-                    "^ctrl\\+shift\\+r$",
-                    {},
-                    "//sub_domain.demandware.net/s/site_id/dw/api_type/",
-                    "iscomment",
-                    {}
-                ],
-                "correctOption": 4,
-                "level": 1
-            },
-            {
-                "text": "Path to create new storefront cartridge in UX studio",
-                "optionArray": [
-                    "isredirect",
-                    "PIPELET_ERROR",
-                    "last",
-                    {},
-                    "join"
-                ],
-                "correctOption": 3,
-                "level": 2
-            },
-            {
-                "text": "What Storefront Toolkit tool helps you to troubleshoot pipeline execution errors?",
-                "optionArray": [
-                    {},
-                    "productLineItem is a child of LineItem",
-                    "rich ui cartridge",
-                    "UpdateFormWithObject",
-                    "masked"
-                ],
-                "correctOption": 0,
-                "level": 0
-            },
-            {
-                "text": "Syntax for current http parameter map object?",
-                "optionArray": [
-                    "CurrentUser",
-                    {},
-                    "boolean",
-                    "last",
-                    "isreplace"
-                ],
-                "correctOption": 1,
-                "level": 2
-            },
-            {
-                "text": "What is default pdict keys?",
-                "optionArray": [
-                    "isstatus",
-                    {},
-                    "CurrentDomain",
-                    "Code Versioning",
-                    "action"
-                ],
-                "correctOption": 2,
-                "level": 2
-            },
-            {
-                "text": "Eclipse steps to configure demandware pipeline dubuger",
-                "optionArray": [
-                    "CurrentSession",
-                    "iselse",
-                    "CurrentCustomer",
-                    {},
-                    "Search settings"
-                ],
-                "correctOption": 3,
-                "level": 2
-            },
-            {
-                "text": "please list all native demandware tags",
-                "optionArray": [
-                    {},
-                    "iscookie",
-                    "list",
-                    "number",
-                    "isbreak"
-                ],
-                "correctOption": 1,
-                "level": 1
-            },
-            {
-                "text": "What is isml expression syntax?",
-                "optionArray": [
-                    "pricing",
-                    "iscontent",
-                    "^<isif condition='.*'/></isif>$",
-                    {},
-                    "type"
-                ],
-                "correctOption": 3,
-                "level": 2
-            }
-        ]
-    },
-    {
-        "name": "Business Manager",
-        "questionArray": [
-            {
-                "text": "dw.web package intended to generate URLs",
-                "optionArray": [
-                    "value",
-                    {},
-                    "products",
-                    {},
-                    "CurrentRequest"
-                ],
-                "correctOption": 3,
-                "level": 2
-            },
-            {
-                "text": "Please State the arguments of isset tag",
-                "optionArray": [
-                    "<isinclude template='.*''/?>",
-                    "name",
-                    "default-value",
-                    "interaction continue",
-                    {}
-                ],
-                "correctOption": 1,
-                "level": 1
-            },
-            {
-                "text": "Please State all possible values for isset scope",
-                "optionArray": [
-                    "page",
-                    "ismodule",
-                    "isloop",
-                    "range-error",
-                    {}
-                ],
-                "correctOption": 0,
-                "level": 2
-            },
-            {
-                "text": "How to include decorated content in decorator template?",
-                "optionArray": [
-                    "iselseif",
-                    "basket",
-                    "Site Analytics",
-                    {},
-                    "CurrentRequest"
-                ],
-                "correctOption": 3,
-                "level": 2
-            },
-            {
-                "text": "ismodule tag syntax",
-                "optionArray": [
-                    "transition",
-                    "boolean",
-                    {},
-                    "name",
-                    "isscript"
-                ],
-                "correctOption": 2,
-                "level": 1
-            },
-            {
-                "text": "Corret syntax for isloop",
-                "optionArray": [
-                    "isreplace",
-                    {},
-                    {},
-                    {},
-                    "label"
-                ],
-                "correctOption": 3,
-                "level": 0
-            },
-            {
-                "text": "all demandware supporting tags for if condition",
-                "optionArray": [
-                    "isif",
-                    "basket",
-                    "format",
-                    "isredirect",
-                    "^jump node does not return to calling pipeline after end node is reached$"
-                ],
-                "correctOption": 0,
-                "level": 0
-            },
-            {
-                "text": "list isloop supporting tags",
-                "optionArray": [
-                    "isbreak",
-                    "date",
-                    "formid",
-                    "Site Analytics",
-                    "formid"
-                ],
-                "correctOption": 0,
-                "level": 1
-            },
-            {
-                "text": "all isloop status properties",
-                "optionArray": [
-                    "count",
-                    "^false$",
-                    "isobject",
-                    "folder",
-                    "description"
-                ],
-                "correctOption": 0,
-                "level": 1
-            },
-            {
-                "text": "Difference between content slots and content assets",
-                "optionArray": [
-                    "isobject",
-                    "Slots are controlled by campaigns: start/end dates, customer groups, source codes, coupons and rank are qualifiers that affect the appearance of a slot. Content Assets are reusable elements that do not have qualifiers.",
-                    "iscontinue",
-                    "isremove",
-                    "format"
-                ],
-                "correctOption": 1,
-                "level": 2
-            },
-            {
-                "text": "syntax for content slot",
-                "optionArray": [
-                    "max",
-                    "include",
-                    "rich ui cartridge",
-                    {},
-                    "global"
-                ],
-                "correctOption": 3,
-                "level": 0
-            }
-        ]
-    },
-    {
-        "name": "Logging",
-        "questionArray": [
-            {
-                "text": "how to access settings of content slot active configuration in content slot rendering template?",
-                "optionArray": [
-                    {},
-                    "request",
-                    "categories",
-                    "step",
-                    "UpdateObjectWithForm"
-                ],
-                "correctOption": 0,
-                "level": 0
-            },
-            {
-                "text": "List available contexts for content slot?",
-                "optionArray": [
-                    "Content",
-                    "^ctrl\\+shift\\+r$",
-                    "Commit Transaction",
-                    "global",
-                    "category"
-                ],
-                "correctOption": 3,
-                "level": 1
-            },
-            {
-                "text": "isprint syntax",
-                "optionArray": [
-                    "integer",
-                    "iselse",
-                    "isif",
-                    {},
-                    "iscookie"
-                ],
-                "correctOption": 3,
-                "level": 0
-            },
-            {
-                "text": "Constants to return from script which represents success and error nodes in the script",
-                "optionArray": [
-                    "^ctrl\\+shift\\+r$",
-                    "//domain/dw/api_type/",
-                    "PIPELET_NEXT",
-                    "create, search and cancel orders",
-                    "^<isif condition=\".*\"></isif>$"
+                    "<isbreak>",
+                    "<isnext>",
+                    "<iscontent>",
+                    "<isif>",
+                    "<isloop>"
                 ],
                 "correctOption": 2,
                 "level": 0
             },
             {
-                "text": "How to correctly sufix mail.properties file name to make it locale specific for en_GB locale?",
+                "text": "Which of the following is NOT a valid variable scope?",
                 "optionArray": [
-                    "first",
-                    "Demandware Business Manager Extension",
-                    {},
-                    {},
-                    "data"
+                    "Global",
+                    "Session",
+                    "Request",
+                    "Pdict",
+                    "Page"
                 ],
-                "correctOption": 3,
-                "level": 1
-            },
-            {
-                "text": "List Form metadata xml elements",
-                "optionArray": [
-                    "CurrentHttpParameterMap",
-                    "form",
-                    "campaigns",
-                    {},
-                    "Site URLs"
-                ],
-                "correctOption": 1,
-                "level": 1
-            },
-            {
-                "text": "List attributes for field form metadata element",
-                "optionArray": [
-                    "modules.isml",
-                    "session",
-                    "isremove",
-                    "formid",
-                    "masked"
-                ],
-                "correctOption": 3,
+                "correctOption": 0,
                 "level": 0
             },
             {
-                "text": "List possible type attribute value for field from metadata element",
+                "text": "What is the default scope of a variable when no scope is explicitly set?",
                 "optionArray": [
-                    "lineItemContainer",
-                    "field",
-                    {},
-                    "PIPELET_ERROR",
-                    "string"
+                    "Session",
+                    "Request",
+                    "Pdict",
+                    "Page",
+                    "None"
+                ],
+                "correctOption": 0,
+                "level": 2
+            },
+            {
+                "text": "What package is implicitly available for ISML templates?",
+                "optionArray": [
+                    "dw.web",
+                    "dw.object",
+                    "dw.catalog",
+                    "dw.global",
+                    "dw.view"
+                ],
+                "correctOption": 0,
+                "level": 2
+            },
+            {
+                "text": "What line of code is necessary to add to a template so that components can be used?",
+                "optionArray": [
+                    "<isset name=\"modules\" value=\"util/modules\">",
+                    "<iscontent type=\"text/html\" charset=\"UTF-8\" compact=\"true\" />",
+                    "<iscontentasset aid=\"components\" />",
+                    "<isinclude template=\"util/components\" />",
+                    "<isinclude template=\"util/modules\" />"
                 ],
                 "correctOption": 4,
                 "level": 2
             },
             {
-                "text": "What is the correct value for the form action parameter in Forms framework?",
+                "text": "What are the types of includes?",
                 "optionArray": [
-                    "pricing",
-                    {},
-                    "isdecorate",
-                    "campaigns",
-                    "formid"
-                ],
-                "correctOption": 1,
-                "level": 2
-            },
-            {
-                "text": "is iscache syntax",
-                "optionArray": [
-                    {},
-                    {},
-                    "Begin Transaction",
-                    "end",
-                    {}
-                ],
-                "correctOption": 1,
-                "level": 0
-            },
-            {
-                "text": "BM path to pipeline profiler",
-                "optionArray": [
-                    {},
-                    "lineItemContainer",
-                    "isbreak",
-                    {},
-                    "decision"
-                ],
-                "correctOption": 3,
-                "level": 1
-            }
-        ]
-    },
-    {
-        "name": "Replication",
-        "questionArray": [
-            {
-                "text": "Code replication path in BM",
-                "optionArray": [
-                    {},
-                    {},
-                    "scope",
-                    {},
-                    "isif"
-                ],
-                "correctOption": 3,
-                "level": 2
-            },
-            {
-                "text": "Data replication path in BM",
-                "optionArray": [
-                    "CurrentOrganization",
-                    "Code Versioning",
-                    {},
-                    "mandatory",
-                    "inventory"
-                ],
-                "correctOption": 2,
-                "level": 2
-            },
-            {
-                "text": "Job setup path in BM",
-                "optionArray": [
-                    {},
-                    "^ctrl\\+shift\\+r$",
-                    {},
-                    "UpdateFormWithObject",
-                    "isremove"
-                ],
-                "correctOption": 0,
-                "level": 0
-            },
-            {
-                "text": "BM path to create new custom object definition",
-                "optionArray": [
-                    {},
-                    "name",
-                    "odd",
-                    {},
-                    "core cartridge"
-                ],
-                "correctOption": 3,
-                "level": 2
-            },
-            {
-                "text": "BM path to create new custom object istances and edit existing ones",
-                "optionArray": [
-                    {},
-                    "isredirect",
-                    {},
-                    {},
-                    "isobject"
-                ],
-                "correctOption": 2,
-                "level": 0
-            },
-            {
-                "text": "When does Implicit transaction commit to the DB?",
-                "optionArray": [
-                    "decision",
-                    "ismodule",
-                    {},
-                    "Slots are controlled by campaigns: start/end dates, customer groups, source codes, coupons and rank are qualifiers that affect the appearance of a slot. Content Assets are reusable elements that do not have qualifiers.",
-                    "Begin Transaction"
-                ],
-                "correctOption": 2,
-                "level": 2
-            },
-            {
-                "text": "Where does custom attributes of custom object instance reside?",
-                "optionArray": [
-                    "unchecked-value",
-                    "jump",
-                    {},
-                    {},
-                    "Content"
-                ],
-                "correctOption": 3,
-                "level": 2
-            },
-            {
-                "text": "What is pipelet names for update form with object and vice versa?",
-                "optionArray": [
-                    "folder",
-                    "default-value",
-                    "inventory",
-                    "isprint",
-                    "UpdateFormWithObject"
-                ],
-                "correctOption": 4,
-                "level": 0
-            },
-            {
-                "text": "3 main transition controll options to use in Explicit transaction",
-                "optionArray": [
-                    "yes",
-                    "step",
-                    "Begin Transaction",
-                    "productLineItems",
-                    "isbreak"
-                ],
-                "correctOption": 2,
-                "level": 1
-            },
-            {
-                "text": "What is BM path to see Demandware caching metrics",
-                "optionArray": [
-                    "parse-error",
-                    {},
-                    "couponLineItems",
-                    "scope",
-                    "isreplace"
-                ],
-                "correctOption": 1,
-                "level": 1
-            },
-            {
-                "text": "What functionality dw.catalog package contain?",
-                "optionArray": [
-                    {},
-                    "Site Analytics",
-                    "products",
-                    "iscontent",
-                    {}
-                ],
-                "correctOption": 2,
-                "level": 0
-            }
-        ]
-    },
-    {
-        "name": "OCAPI",
-        "questionArray": [
-            {
-                "text": "What functionality dw.order package contain?",
-                "optionArray": [
-                    "Marketing campaigns",
-                    "basket",
-                    "integer",
-                    "group",
-                    "^<isif condition='.*'/></isif>$"
-                ],
-                "correctOption": 1,
-                "level": 1
-            },
-            {
-                "text": "What functionality dw.campaign package contain?",
-                "optionArray": [
-                    "^<isinclude template=\".*\"/?>$",
-                    "boolean",
-                    "promotion",
-                    "label",
-                    {}
-                ],
-                "correctOption": 2,
-                "level": 2
-            },
-            {
-                "text": "What are the names of Demandware REST API services?",
-                "optionArray": [
-                    "shop",
-                    "CurrentVersion",
-                    "assign",
-                    "value-error",
-                    "masked"
+                    "Local and remote",
+                    "Global and local",
+                    "Internal and external",
+                    "Imported and exported",
+                    "Lazy and eager"
                 ],
                 "correctOption": 0,
                 "level": 1
             },
             {
-                "text": "How to build OCAPI developmept URL?",
+                "text": "What does the <isobject> tag do?",
                 "optionArray": [
-                    "//sub_domain.demandware.net/s/site_id/dw/api_type/",
-                    "stop",
-                    "list",
-                    "catalogs",
-                    "global"
+                    "Collects specific object impressions/views dynamically",
+                    "Creates a content slot",
+                    "Allows collection of active data from pages with a <head> tag",
+                    "Collects category context from a page for active data collection",
+                    "Declares a custom tag"
                 ],
                 "correctOption": 0,
-                "level": 0
-            },
-            {
-                "text": "How to build OCAPI production URL?",
-                "optionArray": [
-                    "regexp",
-                    "//domain/dw/api_type/",
-                    "description",
-                    "^false$",
-                    {}
-                ],
-                "correctOption": 1,
                 "level": 2
             },
             {
-                "text": "Do Basket and Order contain lineItems?",
+                "text": "Which of the following options will correctly access a session scope variable?",
                 "optionArray": [
-                    "true",
-                    "pipelet placeholder",
-                    "regexp",
-                    "value-error",
-                    "meta"
+                    "${pdict.x}",
+                    "${session.custom.x}",
+                    "${session.x}",
+                    "${pdict.CurrentSession.x}",
+                    "${CurrentSession.custom.x}"
                 ],
-                "correctOption": 0,
+                "correctOption": 1,
+                "level": 1
+            },
+            {
+                "text": "Where are the ISML templates stored within the cartridge?",
+                "optionArray": [
+                    "templates/isml/",
+                    "views/",
+                    "templates/",
+                    "templates/default/",
+                    "templates/resources/"
+                ],
+                "correctOption": 3,
                 "level": 0
             },
             {
-                "text": "What is a difference between productLineItem and LineItem?",
+                "text": "Which of the following is not a valid ISML tag?",
                 "optionArray": [
-                    "whitespace",
-                    "productLineItem is a child of LineItem",
-                    "CurrentDomain",
-                    "products",
-                    "iscontinue"
+                    "<isdecorate>",
+                    "<isactivedatahead>",
+                    "<isremove>",
+                    "<isimport>",
+                    "<iscomponent>"
                 ],
-                "correctOption": 1,
-                "level": 0
-            },
-            {
-                "text": "What can you do with orderMngr",
-                "optionArray": [
-                    "UpdateFormWithObject",
-                    "create, search and cancel orders",
-                    "isreplace",
-                    "parse-error",
-                    "isbreak"
-                ],
-                "correctOption": 1,
-                "level": 2
-            },
-            {
-                "text": "What can discountPlan do?",
-                "optionArray": [
-                    {},
-                    "CurrentPageMetadata",
-                    "list",
-                    "iscomponent",
-                    "discountPlan represents a set of discounts"
-                ],
-                "correctOption": 4,
-                "level": 0
-            },
-            {
-                "text": "Can basket have multiple payment methods?",
-                "optionArray": [
-                    {},
-                    "yes",
-                    "format",
-                    "interaction",
-                    "index"
-                ],
-                "correctOption": 1,
-                "level": 0
-            },
-            {
-                "text": "What file you need to open in order to get custom tags syntax?",
-                "optionArray": [
-                    "pipelet placeholder",
-                    "modules.isml",
-                    "isselect",
-                    "isdecorate",
-                    "number"
-                ],
-                "correctOption": 1,
+                "correctOption": 3,
                 "level": 2
             }
         ]
