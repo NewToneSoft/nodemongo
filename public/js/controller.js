@@ -181,13 +181,13 @@ app
                 $scope.sprint.questionValidation[currentIdx] = 0;
                 $scope.modals.error();
                 $scope.skip();
-            
+
             }
             initQuiz();
         };
 
         $scope.skip = function(){
-            $scope.sprint.questionValidation[currentIdx] = 0;
+            $scope.sprint.questionValidation[currentIdx] = 2;
             if (currentIdx == $scope.sprint.player[0].questionsList.length - 1) {
                 currentIdx = 0;
             } else {
