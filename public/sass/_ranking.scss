@@ -1,0 +1,8 @@
+.table .thead-dark th {
+    background-color: $purple;
+    border-color: $purple;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(63, 89, 156, 0.16);
+}

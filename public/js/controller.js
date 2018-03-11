@@ -2,10 +2,11 @@
 
 app
 
-    .controller('mainCtl', function(QuestionMgr, CategoryMgr, MemberMgr) {
+    .controller('mainCtl', function(QuestionMgr, CategoryMgr, MemberMgr, SprintMgr) {
         CategoryMgr.listCategories();
         QuestionMgr.listQuestions();
         MemberMgr.listMembers();
+        SprintMgr.listSprints();
     })
 
     .controller('practiceCtl', function($location, $scope, comm) {
@@ -27,7 +28,7 @@ app
 
     })
 
-    .controller('practiceQuizCtl', function($scope, $location, comm, MemberMgr) {
+    .controller('practiceQuizCtl', function($scope, comm, MemberMgr) {
         function getCategory(id){
             var idx = $scope.getIndexOfId($scope.lists.categories, id);
 
@@ -63,7 +64,7 @@ app
             if ($scope.currentQuiz.correctOption == sel) {
                 $scope.modals.success();
                 $scope.quiz.correct++;
-                $scope.currentUser.level += ($scope.currentQuiz.level * 10);
+                $scope.currentUser.level += ($scope.currentQuiz.level * 50);
                 $scope.currentUser.answered.push($scope.currentQuiz._id);
                 MemberMgr.update($scope.currentUser);
 
@@ -79,19 +80,101 @@ app
         }
     })
 
-    .controller('rankingCtl', function($q, $scope, MemberMgr) {
-        MemberMgr.listMembers();
+    .controller('rankingCtl', function($q, $scope) {
+
     })
 
     .controller('docCtl', function($q, $scope) {
 
     })
 
-    .controller('contestCtl', function($q, $scope) {
+    .controller('contestCtl', function($q, $scope, $location, comm) {
+        var questionsList = [];
 
+        $scope.startSprint = function(idx, qnt) {
+
+            while(questionsList.length < qnt) {
+                var idx = $scope.getRandomIndex($scope.lists.questions);
+
+                if (idx != -1) {
+                    var item = $scope.lists.questions[idx];
+
+                    var idx2 = $scope.getIndexOfId(questionsList, item._id);
+
+                    if (idx2 == -1) {
+                        questionsList.push(item);
+                    }
+                }
+            }
+
+            comm.saveQuiz(questionsList);
+            $location.path('/contest-quiz');
+        };
     })
 
-    .controller('aboutCtl', function($q, $scope, $http, CategoryMgr, QuestionMgr) {
+    .controller('contestQuizCtl', function($q, $scope, comm) {
+        var questionsList = comm.returnQuiz();
+        var currentIdx = 0;
+
+        $scope.sprint = [];
+        $scope.sprint.player = [];
+
+        if (!$scope.currentUser._id) {
+            $scope.defineCurrentUserId();
+        }
+
+        $scope.sprint.player.push({
+            id: $scope.currentUser._id,
+            name: $scope.currentUser.firstName + ' ' + $scope.currentUser.lastName,
+            points : 0,
+            questionsList: questionsList,
+            answered: [],
+            selected: null,
+            currentQuiz: null
+        });
+
+        function initQuiz() {
+            if ($scope.sprint.player[0].questionsList.length > 0) {
+                $scope.sprint.player[0].currentQuiz = $scope.sprint.player[0].questionsList[currentIdx];
+                $scope.sprint.player[0].selected = null;
+            } else {
+                $scope.modals.finish($scope.sprint.player[0].points);
+            }
+        }
+
+        initQuiz();
+
+        $scope.checkAnswer = function(sel) {
+            if ($scope.sprint.player[0].currentQuiz.correctOption == sel) {
+                $scope.modals.success();
+                $scope.sprint.player[0].points += ($scope.sprint.player[0].currentQuiz.level * 100);
+                $scope.sprint.player[0].answered.push($scope.sprint.player[0].currentQuiz._id);
+
+                var idx = $scope.getIndexOfId($scope.sprint.player[0].questionsList, $scope.sprint.player[0].currentQuiz._id);
+
+                if (idx != -1) {
+                    $scope.sprint.player[0].questionsList.splice(idx, 1);
+                    if (currentIdx > 0 && currentIdx > ($scope.sprint.player[0].questionsList.length - 1)) {
+                        currentIdx--;
+                    }
+                }
+            } else {
+                $scope.modals.error();
+            }
+            initQuiz();
+        };
+
+        $scope.skip = function(){
+            if (currentIdx == $scope.sprint.player[0].questionsList.length - 1) {
+                currentIdx = 0;
+            } else {
+                currentIdx++;
+            }
+            initQuiz();
+        };
+    })
+
+    .controller('aboutCtl', function($q, $scope, $http, CategoryMgr, QuestionMgr, SprintMgr) {
 
         $scope.clear = function(){
             $http.get('/clear');
@@ -133,6 +216,11 @@ app
                 }
             }
             console.log('success2')
+        }
+
+        $scope.gera3 = function(){
+            SprintMgr.create("Hurry up and join now!", "Contest in progress", "10AM", "12AM", 10);
+            console.log('success3')
         }
     });
 

@@ -13,6 +13,25 @@ app.service('MemberMgr', function($q, $rootScope, dtBase) {
         return deferred.promise;
     };
 
+    this.create = function(firstName, lastName, email, password) {
+        var member = angular.copy(new dtBase(db));
+        var that = this;
+
+        member.firstName = firstName;
+        member.lastName = lastName;
+        member.email = email;
+        member.password = password;
+        member.level = 0;
+        member.team = null;
+        member.answered = [];
+
+        member.$save(db, function () {
+            that.listMembers();
+        }, function () {
+            alert('Database error');
+        });
+    };
+
     this.update = function(updatedMember) {
         var member = angular.copy(new dtBase(db));
         var that = this;

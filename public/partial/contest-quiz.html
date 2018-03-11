@@ -1,64 +1,54 @@
-<div class="road">
-    <div class="start"></div>
-    <div class="road-piece"></div>
-    <div class="road-piece">
+<div ng-controller="contestQuizCtl">
+   <div class="road">
+        <div class="start"></div>
+        <div class="road-piece"></div>
+        <div class="road-piece">
             <img class="team" src="../img/motorcycle_blue.png">
             <img class="team-2" src="../img/motorcycle_green.png">
-    </div>
-    <div class="road-piece"></div>
-    <div class="road-piece"></div>
-    <div class="road-piece"></div>
-    <div class="road-piece"></div>
-    <div class="road-piece"></div>
-    <div class="road-piece"></div>
-    <div class="road-piece"></div>
-    <div class="road-piece"></div>
-    <div class="finish"></div>
-    <div class="team-markers">
-        <div class="square bg-blue"></div>
-        <div class="text-dark-gray team-text">MY TEAM</div>
-        <div class="square bg-green"></div>
-        <div class="text-dark-gray team-text">TEAM GREEN</div>
-    </div>
-</div>
+        </div>
+        <div class="road-piece"></div>
+        <div class="road-piece"></div>
+        <div class="road-piece"></div>
+        <div class="road-piece"></div>
+        <div class="road-piece"></div>
+        <div class="road-piece"></div>
+        <div class="road-piece"></div>
+        <div class="road-piece"></div>
+        <div class="finish"></div>
+        <div class="team-markers">
+            <div class="square bg-blue"></div>
+            <div class="text-dark-gray team-text">MY TEAM</div>
+            <div class="square bg-green"></div>
+            <div class="text-dark-gray team-text">TEAM GREEN</div>
+        </div>
+        </div>
 
-<div class="progress-bar-contest">
-    <div class="question-point correct">1</div>
-    <div class="question-point correct">2</div>
-    <div class="question-point skiped">3</div>
-    <div class="question-point wrong">4</div>
-    <div class="question-point">5</div>
-    <div class="question-point">6</div>
-    <div class="question-point">7</div>
-    <div class="question-point">8</div>
-    <div class="question-point">9</div>
-    <div class="question-point">10</div>
-    <hr class="horizontal-line" />
-</div>
+    <div class="progress-bar-contest">
+        <div class="question-point correct">1</div>
+        <div class="question-point correct">2</div>
+        <div class="question-point skiped">3</div>
+        <div class="question-point wrong">4</div>
+        <div class="question-point">5</div>
+        <div class="question-point">6</div>
+        <div class="question-point">7</div>
+        <div class="question-point">8</div>
+        <div class="question-point">9</div>
+        <div class="question-point">10</div>
+        <hr class="horizontal-line" />
+        </div>
 
-<div class="card mt-5">
-    <div class="card-header contest question">
-        Some Random Long Question?
-    </div>
-    <div class="card-body contest">
-        <div class="radio answer">
-            <input type="radio" name="question-1" id="radio-1">
-            <label for="radio-1">Answer 1</label>
+    <div class="card mt-5">
+        <div class="card-header contest question">
+                {{sprint.player[0].currentQuiz.text}} - {{sprint.player[0].currentQuiz.correctOption}}
         </div>
-        <div class="radio answer">
-            <input type="radio" name="question-1" id="radio-2">
-            <label for="radio-2">Answer 2</label>
+        <div class="card-body contest">
+            <div class="radio answer" ng-repeat="qst in sprint.player[0].currentQuiz.optionArray track by $index">
+                <input type="radio" name="question-{{$index}}" id="radio-{{$index}}" ng-value="$index" ng-model="sprint.player[0].selected">
+                <label for="radio-{{$index}}">{{qst}}</label>
+            </div>
         </div>
-        <div class="radio answer">
-            <input type="radio" name="question-1" id="radio-3">
-            <label for="radio-3">Answer 3</label>
         </div>
-        <div class="radio answer">
-            <input type="radio" name="question-1" id="radio-4">
-            <label for="radio-4">Answer 4</label>
-        </div>
-    </div>
-</div>
 
-<button class="medium-box continue-button box-disabled float-left mt-3">SKIP</button>
-<button class="medium-box continue-button box-disabled float-right mt-3">Continue</button>
+    <button class="medium-box continue-button float-left mt-3" ng-click="skip()">SKIP</button>
+    <button class="medium-box continue-button box-disabled float-right mt-3" ng-class="{'box-disabled': sprint.player[0].selected == null}" ng-click="checkAnswer(sprint.player[0].selected)">Continue</button>
+</div>

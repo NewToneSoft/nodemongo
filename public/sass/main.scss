@@ -3,6 +3,8 @@
 @import 'practice';
 @import 'contest';
 @import 'quiz';
+@import 'ranking';
+@import 'about';
 
 * {
     box-sizing: border-box;
@@ -10,6 +12,11 @@
 
 html, body {
     height: 100%;
+    background-color: $bg-color;
+}
+
+.box-shadow {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.19), 0 0 5px rgba(0,0,0,0.23);
 }
 
 .header {
@@ -77,6 +84,13 @@ html, body {
         img {
             width: 55px;
             height: 55px;
+            border-radius: 50%;
+            transition: box-shadow 0.3s;
+            cursor: pointer;
+
+            &:hover {
+                box-shadow: 0 0 0 5px #e4e4e4;
+            }
         }
 
         .medal {
@@ -155,6 +169,41 @@ html, body {
     -webkit-transition:max-width .3s linear;
 }
 
+.btn {
+    position: relative;
+    overflow: hidden;
+    &:before {
+        content: "";
+        
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        
+        display: block;
+        width: 0;
+        padding-top: 0;
+          
+        border-radius: 100%;
+        
+        background-color: rgba(236, 240, 241, .3);
+        
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    &:active {
+        &:before {
+            width: 120%;
+            padding-top: 120%;
+        
+            transition: width .2s ease-out, padding-top .2s ease-out;
+        }
+    }
+}
+
 .collapse-button {
     cursor: pointer;
     position: fixed;
@@ -172,12 +221,18 @@ html, body {
     transition:left .3s linear;   
     -moz-transition:left .3s linear;   
     -webkit-transition:left .3s linear;
+    z-index: 101;
 
     &::after {
-        transition:content .3s linear;   
-        -moz-transition:content .3s linear;   
-        -webkit-transition:content .3s linear;
-        content: '<';
+        font-family: $FontAwesome;
+        font-size: $medium-font-size;
+        color: #dedede;
+    }
+
+    &:hover {
+        &::after {
+            color: $light-gray;
+        }
     }
 }
 
@@ -206,7 +261,8 @@ html, body {
     margin: 0 0 15px 0;
 }
 .suggested-question__section-left,
-.suggested-question__section-right {
+.suggested-question__section-right,
+.upcoming-contests__section {
     padding: 15px;
 }
 
@@ -218,6 +274,7 @@ html, body {
 .upcoming-contests__section {
     background-color: white;
     color: $purple;
+    width: 100%;
 }
 
 //  -----------------------------
@@ -237,7 +294,7 @@ html, body {
         left: $expanded;
 
         &::after {
-            content: '<';
+            content: '\f100';
         }
     }
 }
@@ -291,7 +348,7 @@ html, body {
         left: $collapsed;
 
         &::after {
-            content: '>';
+            content: '\f101';
         }
     }
 
@@ -395,6 +452,13 @@ html, body {
     font-size: $medium-font-size;
 }
 
+.small-font {
+    font-size: $small-font-size;
+}
+
+.small-font-important {
+    font-size: $small-font-size !important;
+}
 
 //  -----------------------------
 // Button and Box CSS Definitions
@@ -408,6 +472,39 @@ html, body {
     width: 150px;
     text-transform: uppercase;
     font-family: $lato;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    &:before {
+        content: "";
+        
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        
+        display: block;
+        width: 0;
+        padding-top: 0;
+          
+        border-radius: 100%;
+        
+        background-color: rgba(236, 240, 241, .3);
+        
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    &:active {
+        &:before {
+            width: 120%;
+            padding-top: 120%;
+        
+            transition: width .2s ease-out, padding-top .2s ease-out;
+        }
+    }
 }
 
 .large-box {
@@ -418,6 +515,38 @@ html, body {
     color: $white;
     border: none;
     padding: 0 30px;
+position: relative;
+    overflow: hidden;
+    &:before {
+        content: "";
+        
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        
+        display: block;
+        width: 0;
+        padding-top: 0;
+          
+        border-radius: 100%;
+        
+        background-color: rgba(236, 240, 241, .3);
+        
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    &:active {
+        &:before {
+            width: 120%;
+            padding-top: 120%;
+        
+            transition: width .2s ease-out, padding-top .2s ease-out;
+        }
+    }
 
     &:hover {
         color: $purple;
@@ -470,7 +599,8 @@ html, body {
 
     .locked-modal {
         font-size: 70px;
-        padding: 20px 0 30px 0;
+        padding: 0px 0 20px 0;
+        color: $locked-color;
     }
 
     .levelup-modal {

@@ -1,34 +1,94 @@
-
 <div ng-controller="mainCtl">
 
 
     <div class="content__header">
-        <h2>Main page</h2>
+        <h2 class="content-title">Home</h2>
+        <hr class="horizontal-divider" />
     </div>
     <div class="content__panel">
         <section class="section row">
             <div class="suggested-question__section-left col-3">
                 <div>YOUR DAILY CHALLENGE!</div>
-                <div>Select your focus for today (dropdown para buscar uma questao de um content especifico)</div>
-                <button class="btn">
-                    ACCEPT
-                </button>
-                <button class="btn">
-                    SKIP
-                </button>
+                <div class="mt-4">Select your focus for today
+                    <div class="dropdown mt-5 mb-5">
+                        <button class="small-box inverted text-center border border-white w-100  dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            ISML
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" href="#">Action</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button class="small-box inverted text-center border border-white small-font-important p-0 text-center col-md-5">
+                        ACCEPT
+                    </button>
+                    <button class="small-box inverted text-center border border-white small-font-important p-0 text-center col-md-5">
+                        SKIP
+                    </button>
+                </div>
             </div>
-            <div class="suggested-question__section-right col-9">
+            <div class="suggested-question__section-right col-9 bg-white">
                 Question - OCAPI
                 <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non urna at ligula tempus auctor. Nunc ligula lacus, maximus ac eros sed, sagittis dictum lorem. Nam a mattis turpis. Vivamus dolor tellus, efficitur nec tellus id, iaculis sodales nunc. Aenean sit amet venenatis tellus. Vivamus pretium urna quam, at pellentesque velit tempus eget. Nulla vestibulum, dui viverra mattis venenatis, ante neque euismod ligula, ac luctus enim ipsum vel libero. Cras tincidunt sapien at metus convallis, in vestibulum lorem aliquet. Sed tincidunt, nibh at euismod elementum, nisl nisl interdum est, sit amet semper enim ante quis risus. Quisque sed justo mi. Aliquam et dictum dolor, a cursus nisi. Fusce eget mattis orci. Integer nec lectus non nisl malesuada semper vel at urna. In cursus dolor risus, quis maximus lorem dignissim vel. Integer eu elit sed odio luctus aliquam nec et tortor
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc non urna at ligula tempus auctor. Nunc ligula lacus, maximus
+                    ac eros sed, sagittis dictum lorem. Nam a mattis turpis. Vivamus dolor tellus, efficitur nec tellus id,
+                    iaculis sodales nunc. Aenean sit amet venenatis tellus. Vivamus pretium urna quam, at pellentesque velit
+                    tempus eget. Nulla vestibulum, dui viverra mattis venenatis, ante neque euismod ligula, ac luctus enim
+                    ipsum vel libero. Cras tincidunt sapien at metus convallis, in vestibulum lorem aliquet. Sed tincidunt,
+                    nibh at euismod elementum, nisl nisl interdum est, sit amet semper enim ante quis risus. Quisque sed
+                    justo mi. Aliquam et dictum dolor, a cursus nisi. Fusce eget mattis orci. Integer nec lectus non nisl
+                    malesuada semper vel at urna. In cursus dolor risus, quis maximus lorem dignissim vel. Integer eu elit
+                    sed odio luctus aliquam nec et tortor
                 </p>
             </div>
             <div>
             </div>
         </section>
-        <section class="section row">
+        <section class="section row bg-white">
             <div class="upcoming-contests__section">
                 Upcoming contests here
+                <table class="table bg-white">
+                    <tbody>
+                        <tr>
+                            <th>
+                                Date
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Recommended Level
+                            </th>
+                            <th>
+                                Type
+                            </th>
+                            <th>
+                                Participate
+                            </th>
+                        </tr>
+                    </tbody>
+                    <tr ng-repeat="usr in lists.members">
+                        <td>
+                            {{contest.date}}
+                        </td>
+                        <td>
+                            {{contest.name}}
+                        </td>
+                        <td>
+                            {{usr.recommendedLevel}}
+                        </td>
+                        <td>
+                            {{usr.type}}
+                        </td>
+                        <td>
+                            <button class="small-box small-font-important">
+                                Participate
+                            </button>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </section>
 

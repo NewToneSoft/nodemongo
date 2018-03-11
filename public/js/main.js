@@ -41,7 +41,7 @@ $(document).ready(function () {
 
 var app = angular.module('wapp', ['ngResource', 'ngRoute', 'ngAnimate', 'ui.bootstrap', 'angular-sweetalert'])
 
-    .run(['$rootScope', '$http', '$window', 'swal', function($rootScope, $http, $window, swal){
+    .run(['$rootScope', '$http', '$window', 'swal', '$location', function($rootScope, $http, $window, swal, $location){
 
         $rootScope.lists = [];
 
@@ -58,9 +58,7 @@ var app = angular.module('wapp', ['ngResource', 'ngRoute', 'ngAnimate', 'ui.boot
 
         // LogOut
         $rootScope.logOut = function(){
-            if($window.confirm('LogOut?')){
-                $window.location.replace('/logout');
-            }
+            $rootScope.modals.logout();
         };
 
         $rootScope.getIndexOfId = function(list, item) {
@@ -89,8 +87,12 @@ var app = angular.module('wapp', ['ngResource', 'ngRoute', 'ngAnimate', 'ui.boot
                     text: 'You are in a roll of correct answers!',
                     buttonsStyling: false,
                     confirmButtonClass: 'modal-button',
-                    confirmButtonText: 'Continue'
-                  });
+                    confirmButtonText: 'Continue',
+                    showCloseButton: true,
+                    onBeforeOpen: function(element) {
+                        $(element).find('.swal2-close').html('<i class="fas fa-times"></i>');
+                    }
+                });
             },
             error: function() {
                 swal({
@@ -99,8 +101,12 @@ var app = angular.module('wapp', ['ngResource', 'ngRoute', 'ngAnimate', 'ui.boot
                     text: 'Not this time. Keep going!',
                     buttonsStyling: false,
                     confirmButtonClass: 'modal-button',
-                    confirmButtonText: 'Continue'
-                  });
+                    confirmButtonText: 'Continue',
+                    showCloseButton: true,
+                    onBeforeOpen: function(element) {
+                        $(element).find('.swal2-close').html('<i class="fas fa-times"></i>');
+                    }
+                });
             },
             finish: function(points) {
                 swal({
@@ -109,12 +115,17 @@ var app = angular.module('wapp', ['ngResource', 'ngRoute', 'ngAnimate', 'ui.boot
                     imageUrl: '../img/motorcycle.png',
                     buttonsStyling: false,
                     confirmButtonClass: 'modal-button',
-                    confirmButtonText: 'Continue',
+                    confirmButtonText: 'Close',
+                    allowOutsideClick: false,
                     showCloseButton: true,
                     onBeforeOpen: function(element) {
-                        $(element).find('.swal2-close').html('<i class="fas fa-times"></i>')
+                        $(element).find('.swal2-close').html('<i class="fas fa-times"></i>');
                     }
-                  });
+                }).then((result) => {
+                    if (result.value) {
+                        $location.path('/contests');
+                    }
+                });
             },
             levelup: function(level){
                 swal({
@@ -125,9 +136,9 @@ var app = angular.module('wapp', ['ngResource', 'ngRoute', 'ngAnimate', 'ui.boot
                     confirmButtonText: 'Continue',
                     showCloseButton: true,
                     onBeforeOpen: function(element) {
-                        $(element).find('.swal2-close').html('<i class="fas fa-times"></i>')
+                        $(element).find('.swal2-close').html('<i class="fas fa-times"></i>');
                     }
-                  });
+                });
             },
             locked: function(){
                 swal({
@@ -136,9 +147,41 @@ var app = angular.module('wapp', ['ngResource', 'ngRoute', 'ngAnimate', 'ui.boot
                     showConfirmButton: false,
                     showCloseButton: true,
                     onBeforeOpen: function(element) {
-                        $(element).find('.swal2-close').html('<i class="fas fa-times"></i>')
+                        $(element).find('.swal2-close').html('<i class="fas fa-times"></i>');
                     }
                   });
+            },
+            registerd: function() {
+                swal({
+                    type: 'success',
+                    title: 'Your registration is complete',
+                    text: 'Now wait for the event to start. Good luck!',
+                    buttonsStyling: false,
+                    confirmButtonClass: 'modal-button',
+                    confirmButtonText: 'Close',
+                    showCloseButton: true,
+                    onBeforeOpen: function(element) {
+                        $(element).find('.swal2-close').html('<i class="fas fa-times"></i>');
+                    }
+                });
+            },
+            logout: function() {
+                swal({
+                    title: 'Sign out',
+                    html: 'Are you sure?',
+                    type: 'question',
+                    buttonsStyling: false,
+                    confirmButtonClass: 'modal-button',
+                    confirmButtonText: "Confirm",
+                    showCloseButton: true,
+                    onBeforeOpen: function(element) {
+                        $(element).find('.swal2-close').html('<i class="fas fa-times"></i>');
+                    }
+                }).then((result) => {
+                    if(result.value){
+                        $window.location.replace('/logout');
+                    }
+                });
             }
         }
 
@@ -167,6 +210,7 @@ var app = angular.module('wapp', ['ngResource', 'ngRoute', 'ngAnimate', 'ui.boot
             .when('/practice-quiz', {templateUrl: 'partial/practice-quiz.html'})
             .when('/practice', {templateUrl: 'partial/practice.html'})
             .when('/contests', {templateUrl: 'partial/contests.html'})
+            .when('/contest-quiz', {templateUrl: 'partial/contest-quiz.html'})
             .when('/ranking', {templateUrl: 'partial/ranking.html'})
             .when('/documentation', {templateUrl: 'partial/documentation.html'})
             .when('/about', {templateUrl: 'partial/about.html'})

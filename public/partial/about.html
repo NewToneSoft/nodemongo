@@ -1,19 +1,104 @@
-   
-<div ng-controller="aboutCtl" class="col-sm-12 col-md-11 col-lg-11">
+<div ng-controller="aboutCtl" class="col-sm-12 col-md-12 col-lg-12">
     <h2 class="content-title">About</h2>
     <hr class="horizontal-divider" />
     <p class="content-text">
-        Mussum Ipsum, cacilds vidis litro abertis. Tá deprimidis, eu conheço uma cachacis que pode alegrar sua vidis. Copo furadis é disculpa de bebadis, arcu quam euismod magna. 
+        <em>Error 418: I'm a Teapot</em> is proud to present <strong>The Teapot Center</strong>. Here you can study Salesforce Commerce Cloud (SFCC) while being motivated and challenged in a gamificated experience.
     </p>
-    <h2 class="content-title">The team</h2>
-    <hr class="horizontal-divider" />
     <p class="content-text">
-        Mussum Ipsum, cacilds vidis litro abertis. Tá deprimidis, eu conheço uma cachacis que pode alegrar sua vidis. Copo furadis é disculpa de bebadis, arcu quam euismod magna. 
+        The project is divided in six sections:
     </p>
+    <ul>
+        <li>Home: This page lists the daily challenge and the upcoming contest events.</li>
+        <li>Practice: Here you can answer questions about different topics of SFCC. Practice and score!</li>
+        <li>Contests: In this page you will compete against different users in a racing game while answering challenging questions.</li>
+        <li>Ranking: Do you want to know how you are compared with the others players? Check the ranking page for that.</li>
+        <li>Documentation: Here you can search for SFCC topics to study.</li>
+        <li>About: You are here! Now meet our team just below.</li>
+    </ul>
 
-    <button ng-click="clear()">Limpa</button>
+    <h2 class="content-title mt-5">The team</h2>
+    <hr class="horizontal-divider" />
 
-    <button ng-click="gera1()">Gera1</button>
+    <div class="row">
+        <div class="col-lg-12 card-columns text-center about-team">
+            <div class="card" style="width: 20rem;">
+                <img class="card-img-top" src="img/about_fabio.jpg" alt="fabio quixada">
+                <div class="card-body">
+                    <p class="card-text">
+                        Fabio Quixada
+                    </p>
+                    <p class="card-text">
+                    <span>Back-end developer</span>
+                        fabio.quixada@osf-commerce.com
+                    </p>
+                </div>
+            </div>
 
-    <button ng-click="gera2()">Gera2</button>
+            <div class="card" style="width: 20rem;">
+                <img class="card-img-top" src="img/about_michael.jpg" alt="michael mucelin">
+                <div class="card-body">
+                    <p class="card-text">
+                        Michael Mucelin
+                    </p>
+                    <p class="card-text">
+                        <span>Front-end developer</span>
+                        michael.mucelin@osf-commerce.com
+                    </p>
+                </div>
+            </div>
+
+            <div class="card" style="width: 20rem;">
+                <img class="card-img-top" src="img/about_nilton.jpg" alt="nilton cruz">
+                <div class="card-body">
+                    <p class="card-text">
+                        Nilton Cruz
+                    </p>
+                    <p class="card-text">
+                        <span>Back-end developer</span>
+                        nilton.cruz@osf-commerce.com
+                    </p>
+                </div>
+            </div>
+
+            <div class="card" style="width: 20rem;">
+                <img class="card-img-top" src="img/about_railan.jpg" alt="railan barbosa">
+                <div class="card-body">
+                    <p class="card-text">
+                        Railan Barbosa
+                    </p>
+                    <p class="card-text">
+                        <span>Front-end developer</span>
+                        railan.barbosa@osf-commerce.com
+                    </p>
+                </div>
+            </div>
+
+            <div class="card" style="width: 20rem;">
+                <img class="card-img-top" src="img/about_victor.jpg" alt="victor medeiros">
+                <div class="card-body">
+                    <p class="card-text">
+                        Victor Medeiros
+                    </p>
+                    <p class="card-text">
+                        <span>Front-end developer</span>
+                        victor.medeiros@osf-commerce.com
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            "Gambis temporaris"
+        </div>
+        <button ng-click="clear()">Limpa</button>
+
+        <button ng-click="gera1()">Gera1</button>
+
+        <button ng-click="gera2()">Gera2</button>
+
+        <button ng-click="gera3()">Gera3</button>
+    </div>
 </div>
