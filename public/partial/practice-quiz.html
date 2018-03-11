@@ -1,33 +1,39 @@
 <div ng-controller="practiceQuizCtl">
-<div class="quiz-stats">
-    <h2 class="content-title quiz-stat-title">QUIZ STATS</h2>
-    <div class="quiz-stat-table">
-        <div class="quiz-stat-row text-purple quiz-stat-correct">
-            <div class="quiz-stat-text-column">correct answers</div>
-            <div class="quiz-stat-number-column">{{quiz.correct}}</div>
-        </div>
-        <div class="quiz-stat-row quiz-stat-questions">
-            <div class="quiz-stat-text-column">questions answered</div>
-            <div class="quiz-stat-number-column">{{quiz.answered}}</div>
-        </div>
-    </div>
-</div>
-
-<h1 class="content-title">Practice</h1>
-<hr class="horizontal-divider" />
-<h2 class="content-subtitle">Category question: {{currentCategory.name}}</h2>
-<div class="card mt-5">
-    <div class="card-header question">
-        {{currentQuiz.text}}
-    </div>
-    <div class="card-body">
-        <div class="radio answer" ng-repeat="qst in currentQuiz.optionArray track by $index">
-            <input type="radio" name="question-{{$index}}" id="radio-{{$index}}" ng-value="$index" ng-model="quiz.selected">
-            <label for="radio-{{$index}}">{{qst}}</label>
+    <div ng-if="questionsList.length > 0">
+        <div class="quiz-stats">
+            <h2 class="content-title quiz-stat-title">QUIZ STATS</h2>
+            <div class="quiz-stat-table">
+                <div class="quiz-stat-row text-purple quiz-stat-correct">
+                    <div class="quiz-stat-text-column">correct answers</div>
+                    <div class="quiz-stat-number-column">{{quiz.correct}}</div>
+                </div>
+                <div class="quiz-stat-row quiz-stat-questions">
+                    <div class="quiz-stat-text-column">questions answered</div>
+                    <div class="quiz-stat-number-column">{{quiz.answered}}</div>
+                </div>
+            </div>
         </div>
 
+        <h1 class="content-title">Practice</h1>
+        <hr class="horizontal-divider" />
+        <h2 class="content-subtitle">Category question: {{currentCategory.name}}</h2>
+        <div class="card mt-5">
+            <div class="card-header question">
+                {{currentQuiz.text}}
+            </div>
+            <div class="card-body">
+                <div class="radio answer" ng-repeat="qst in currentQuiz.optionArray track by $index">
+                    <input type="radio" name="question-{{$index}}" id="radio-{{$index}}" ng-value="$index" ng-model="quiz.selected">
+                    <label for="radio-{{$index}}">{{qst}}</label>
+                </div>
+
+            </div>
+        </div>
+        <button class="medium-box continue-button float-right mt-3" ng-class="{'box-disabled': quiz.selected == null}" ng-click="checkAnswer(quiz.selected)">Continue</button>
     </div>
-</div>
-<button class="medium-box continue-button float-right mt-3" ng-class="{'box-disabled': quiz.selected == null}" ng-click="checkAnswer(quiz.selected)">Continue</button>
+
+    <div ng-if="questionsList.length == 0">
+        <h1>We don't have any questions here for you today! Try another category</h1>
+    </div>
 </div>
 

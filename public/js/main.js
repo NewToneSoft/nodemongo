@@ -39,71 +39,9 @@ $(document).ready(function () {
     });
 });
 
-var SweetAlertModals = {
-    sucess: function() {
-        swal({
-            type: 'success',
-            title: 'Correct Answer!',
-            text: 'You are in a roll of correct answers!',
-            buttonsStyling: false,
-            confirmButtonClass: 'modal-button',
-            confirmButtonText: 'Continue'
-          });
-    },
-    error: function() {
-        swal({
-            type: 'error',
-            title: 'Wrong Answer!',
-            text: 'Not this time. Keep going!',
-            buttonsStyling: false,
-            confirmButtonClass: 'modal-button',
-            confirmButtonText: 'Continue'
-          });
-    },
-    finish: function(points) {
-        swal({
-            title: 'Contest finished!',
-            text: 'You got '+points+' points!',
-            imageUrl: '../img/motorcycle.png',
-            buttonsStyling: false,
-            confirmButtonClass: 'modal-button',
-            confirmButtonText: 'Continue',
-            showCloseButton: true,
-            onBeforeOpen: function(element) {
-                $(element).find('.swal2-close').html('<i class="fas fa-times"></i>')
-            }
-          });
-    },
-    levelup: function(level){
-        swal({
-            title: 'Congratulations!',
-            html: '<div class="levelup-modal">'+level+'</div>You leveled up!',
-            buttonsStyling: false,
-            confirmButtonClass: 'modal-button',
-            confirmButtonText: 'Continue',
-            showCloseButton: true,
-            onBeforeOpen: function(element) {
-                $(element).find('.swal2-close').html('<i class="fas fa-times"></i>')
-            }
-          });
-    },
-    locked: function(){
-        swal({
-            title: 'Item Locked',
-            html: '<div class="locked-modal"><i class="fas fa-lock"></i></div>Reach level 10 to unlock',
-            showConfirmButton: false,
-            showCloseButton: true,
-            onBeforeOpen: function(element) {
-                $(element).find('.swal2-close').html('<i class="fas fa-times"></i>')
-            }
-          });
-    }
-}
+var app = angular.module('wapp', ['ngResource', 'ngRoute', 'ngAnimate', 'ui.bootstrap', 'angular-sweetalert'])
 
-
-var app = angular.module('wapp', ['ngResource', 'ngRoute', 'ngAnimate', 'ui.bootstrap'])
-
-    .run(['$rootScope', '$http', '$window', function($rootScope, $http, $window){
+    .run(['$rootScope', '$http', '$window', 'swal', function($rootScope, $http, $window, swal){
 
         $rootScope.lists = [];
 
@@ -131,10 +69,83 @@ var app = angular.module('wapp', ['ngResource', 'ngRoute', 'ngAnimate', 'ui.boot
             }).indexOf(item);
         };
 
+        $rootScope.getRandomIndex = function(list) {
+            return Math.floor(Math.random() * list);
+        };
+
+        $rootScope.defineCurrentUserId = function() {
+            var idx = $rootScope.lists.members.map(function(e){ return e.email; }).indexOf($rootScope.currentUser.email);
+
+            if (idx != -1){
+                $rootScope.currentUser._id = $rootScope.lists.members[idx]._id;
+            }
+        };
+
+        $rootScope.modals = {
+            success: function() {
+                swal({
+                    type: 'success',
+                    title: 'Correct Answer!',
+                    text: 'You are in a roll of correct answers!',
+                    buttonsStyling: false,
+                    confirmButtonClass: 'modal-button',
+                    confirmButtonText: 'Continue'
+                  });
+            },
+            error: function() {
+                swal({
+                    type: 'error',
+                    title: 'Wrong Answer!',
+                    text: 'Not this time. Keep going!',
+                    buttonsStyling: false,
+                    confirmButtonClass: 'modal-button',
+                    confirmButtonText: 'Continue'
+                  });
+            },
+            finish: function(points) {
+                swal({
+                    title: 'Contest finished!',
+                    text: 'You got '+points+' points!',
+                    imageUrl: '../img/motorcycle.png',
+                    buttonsStyling: false,
+                    confirmButtonClass: 'modal-button',
+                    confirmButtonText: 'Continue',
+                    showCloseButton: true,
+                    onBeforeOpen: function(element) {
+                        $(element).find('.swal2-close').html('<i class="fas fa-times"></i>')
+                    }
+                  });
+            },
+            levelup: function(level){
+                swal({
+                    title: 'Congratulations!',
+                    html: '<div class="levelup-modal">'+level+'</div>You leveled up!',
+                    buttonsStyling: false,
+                    confirmButtonClass: 'modal-button',
+                    confirmButtonText: 'Continue',
+                    showCloseButton: true,
+                    onBeforeOpen: function(element) {
+                        $(element).find('.swal2-close').html('<i class="fas fa-times"></i>')
+                    }
+                  });
+            },
+            locked: function(){
+                swal({
+                    title: 'Item Locked',
+                    html: '<div class="locked-modal"><i class="fas fa-lock"></i></div>Reach level 10 to unlock',
+                    showConfirmButton: false,
+                    showCloseButton: true,
+                    onBeforeOpen: function(element) {
+                        $(element).find('.swal2-close').html('<i class="fas fa-times"></i>')
+                    }
+                  });
+            }
+        }
+
     }])
 
     .factory('dtBase', function($resource){
-        return $resource('/api/:db/:id/',{},{});
+        return $resource('/api/:db/',{},{});
     })
 
     .service('comm', function() {

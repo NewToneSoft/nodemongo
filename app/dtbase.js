@@ -12,8 +12,13 @@ module.exports = function(app, db) {
     colections.sprints = db.collection('sprints');
     colections.answered_questions = db.collection('answered_questions');
 
-    db.collection('categories').remove();
-    db.collection('questions').remove();
+    app.get('/clear', function (req, res) {
+        db.collection('categories').remove();
+        db.collection('questions').remove();
+        res.end();
+    });
+
+
 
     // LIST
     app.get('/api/:db', function (req, res) {
@@ -32,8 +37,8 @@ module.exports = function(app, db) {
 
         delete final.db;
 
-        if (!req.body._id ){
-            cat.insert( final, function(err, result){
+        if (!req.body._id){
+            cat.insert(final, function(err, result){
                 if (err) {res.send(err);}
                 if (result) {
                     res.end();
@@ -44,6 +49,12 @@ module.exports = function(app, db) {
             cat.update({_id: new ObjectID(req.body._id) }, final, function(err, result){
                 if (err){res.send(err);}
                 if (result) {
+                    if (req.params.db == 'users'){
+                        req.login(final, function(err) {
+                            if (err){res.send(err);}
+                            res.end();
+                        });
+                    }
                     res.end();
                 }
             });

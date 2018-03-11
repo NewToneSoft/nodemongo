@@ -3,7 +3,6 @@ app.service('MemberMgr', function($q, $rootScope, dtBase) {
     var db = {db: 'users'};
 
     this.listMembers = function(){
-
         var deferred = $q.defer();
 
         dtBase.query(db, function (data) {
@@ -14,13 +13,18 @@ app.service('MemberMgr', function($q, $rootScope, dtBase) {
         return deferred.promise;
     };
 
-    this.create = function(name) {
+    this.update = function(updatedMember) {
         var member = angular.copy(new dtBase(db));
         var that = this;
 
-        member.name = name;
-        member.points = 0;
-        member.team = null;
+        member._id = updatedMember._id;
+        member.firstName = updatedMember.firstName;
+        member.lastName = updatedMember.lastName;
+        member.email = updatedMember.email;
+        member.password = updatedMember.password;
+        member.level = updatedMember.level;
+        member.team = updatedMember.team;
+        member.answered = updatedMember.answered;
 
         member.$save(db, function () {
             that.listMembers();
@@ -29,24 +33,4 @@ app.service('MemberMgr', function($q, $rootScope, dtBase) {
         });
     };
 
-    this.update = function(updatedMember) {
-        var member = angular.copy(updatedMember);
-        var that = this;
-
-        member.$save(db, function () {
-            that.listMembers();
-        }, function () {
-            alert('Database error');
-        });
-    };
-
-    this.addPoints = function(member, pts) {
-        member.points += pts;
-        this.update(member);
-    };
-
-    this.setTeam = function(member, team) {
-        member.team = team;
-        this.update(member);
-    };
 });

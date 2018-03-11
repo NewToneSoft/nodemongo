@@ -24,6 +24,7 @@ app.service('QuestionMgr', function($q, $rootScope, dtBase) {
         question.correctOption = correctOption;
         question.level = level || 0;
         question.points = points || 0;
+        question.category = null;
 
         question.$save(db, function () {
             that.listQuestions();
@@ -49,27 +50,5 @@ app.service('QuestionMgr', function($q, $rootScope, dtBase) {
         }, function () {
             alert('Database error');
         });
-    };
-
-    this.presentToUser = function(question) {
-        console.log(question.text + ' ' + question.correctOption);
-        question.optionArray.forEach(function(option) {
-            console.log(option);
-        });
-    };
-
-    this.checkSelectedOption = function(question, selectedOption) {
-        return selectedOption === question.correctOption;
-    };
-
-    this.setCategory = function(question, category) {
-        if (!question.category) {
-            question.category = category._id;
-            this.update(question);
-        }
-    };
-
-    this.printText = function(question) {
-        console.log(`${question.text} || answer: ${question.correctOption} || level: ${question.level}`);
     };
 });

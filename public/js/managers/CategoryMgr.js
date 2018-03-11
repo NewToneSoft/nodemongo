@@ -18,7 +18,6 @@ app.service('CategoryMgr', function($q, $rootScope, dtBase, QuestionMgr) {
         var that = this;
 
         category.name = name;
-        category.questionArray = [];
 
         category.$save(db, function () {
             that.listCategories();
@@ -33,20 +32,12 @@ app.service('CategoryMgr', function($q, $rootScope, dtBase, QuestionMgr) {
 
         category._id = updatedCategory._id;
         category.name = updatedCategory.name;
-        category.questionArray = updatedCategory.questionArray;
-
 
         category.$save(db, function () {
             that.listCategories();
         }, function () {
             alert('Database error ');
         });
-    };
-
-    this.addQuestion = function(category, question) {
-        QuestionMgr.setCategory(question, category);
-        category.questionArray.push(question._id);
-        this.update(category);
     };
 });
 
