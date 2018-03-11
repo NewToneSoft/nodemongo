@@ -125,16 +125,35 @@ var app = angular.module('wapp', ['ngResource', 'ngRoute', 'ngAnimate', 'ui.boot
             }
         };
 
+        $rootScope.getIndexOfId = function(list, item) {
+            return list.map(function(e) {
+                return e._id;
+            }).indexOf(item);
+        };
+
     }])
 
     .factory('dtBase', function($resource){
         return $resource('/api/:db/:id/',{},{});
     })
 
+    .service('comm', function() {
+
+        this.saveQuiz = function(item) {
+            this.quiz = item;
+        };
+
+        this.returnQuiz = function() {
+            return this.quiz;
+        };
+
+    })
+
     .config(function($routeProvider, $locationProvider) {
 
         $routeProvider.when('/', {templateUrl: 'partial/main.html'})
 
+            .when('/practice-quiz', {templateUrl: 'partial/practice-quiz.html'})
             .when('/practice', {templateUrl: 'partial/practice.html'})
             .when('/contests', {templateUrl: 'partial/contests.html'})
             .when('/ranking', {templateUrl: 'partial/ranking.html'})

@@ -194,6 +194,33 @@ html, body {
 }
 
 //  -----------------------------
+// Homepage Stylings (Main.html)
+//  -----------------------------
+
+.section {
+    border: 1px solid $purple;
+    border-radius: 0;
+    height: 100%;
+    color: $purple;
+    font-weight: 500;
+    margin: 0 0 15px 0;
+}
+.suggested-question__section-left,
+.suggested-question__section-right {
+    padding: 15px;
+}
+
+.suggested-question__section-left {
+    background-color: $purple;
+    color: white;
+}
+
+.upcoming-contests__section {
+    background-color: white;
+    color: $purple;
+}
+
+//  -----------------------------
 // Expanded CSS Definitions
 //  -----------------------------
 

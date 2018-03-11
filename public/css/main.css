@@ -498,6 +498,26 @@ html, body {
   z-index: 9999;
   opacity: 1; }
 
+.section {
+  border: 1px solid #3F599C;
+  border-radius: 0;
+  height: 100%;
+  color: #3F599C;
+  font-weight: 500;
+  margin: 0 0 15px 0; }
+
+.suggested-question__section-left,
+.suggested-question__section-right {
+  padding: 15px; }
+
+.suggested-question__section-left {
+  background-color: #3F599C;
+  color: white; }
+
+.upcoming-contests__section {
+  background-color: white;
+  color: #3F599C; }
+
 .expanded.sidebar {
   max-width: 200px; }
 

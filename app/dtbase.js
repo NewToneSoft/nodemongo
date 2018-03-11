@@ -12,6 +12,9 @@ module.exports = function(app, db) {
     colections.sprints = db.collection('sprints');
     colections.answered_questions = db.collection('answered_questions');
 
+    db.collection('categories').remove();
+    db.collection('questions').remove();
+
     // LIST
     app.get('/api/:db', function (req, res) {
         var cat = colections[req.params.db];
