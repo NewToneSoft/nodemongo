@@ -36,25 +36,22 @@ app
             }
         }
 
-        function initQuiz(check) {
+        function initQuiz() {
             if (!$scope.currentUser._id) {
                 $scope.defineCurrentUserId();
             }
 
             if ($scope.questionsList.length > 0) {
                 currentIdx = $scope.getRandomIndex($scope.questionsList);
+                $scope.currentQuiz = $scope.questionsList[currentIdx];
+                getCategory($scope.currentQuiz.category);
             }
 
             $scope.quiz.selected = null;
-            $scope.currentQuiz = $scope.questionsList[currentIdx];
-            getCategory($scope.currentQuiz.category);
         }
 
         $scope.questionsList = comm.returnQuiz();
         var currentIdx;
-        if ($scope.questionsList.length > 0) {
-            currentIdx = $scope.getRandomIndex($scope.questionsList);
-        }
         $scope.quiz = {};
         $scope.quiz.answered = 0;
         $scope.quiz.correct = 0;

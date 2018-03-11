@@ -70,7 +70,7 @@ var app = angular.module('wapp', ['ngResource', 'ngRoute', 'ngAnimate', 'ui.boot
         };
 
         $rootScope.getRandomIndex = function(list) {
-            return Math.floor(Math.random() * list);
+            return Math.floor(Math.random() * list.length);
         };
 
         $rootScope.defineCurrentUserId = function() {
