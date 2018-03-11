@@ -1,12 +1,12 @@
 
 'use strict';
-
 app.service('SprintMgr', function($q, $rootScope, dtBase, TeamMgr, AnsweredQuestionMgr) {
+    var db = {db: 'sprints'};
 
     this.listSprints = function(){
         var deferred = $q.defer();
 
-        dtBase.query({db: 'sprints'}, function (data) {
+        dtBase.query(db, function (data) {
             $rootScope.lists.sprints = data;
             deferred.resolve();
         });
@@ -14,9 +14,8 @@ app.service('SprintMgr', function($q, $rootScope, dtBase, TeamMgr, AnsweredQuest
         return deferred.promise;
     };
 
-    this.create = function(name, teams, categoryArray, startDate, endDate, updateSprint) {
-        var db = {db: 'sprints'};
-        var sprint = (updateSprint) ? angular.copy(updateSprint) : angular.copy(new dtBase(db));
+    this.create = function(name, teams, categoryArray, startDate, endDate) {
+        var sprint = angular.copy(new dtBase(db));
         var parent = this;
 
         sprint.ranking = null;
@@ -46,14 +45,14 @@ app.service('SprintMgr', function($q, $rootScope, dtBase, TeamMgr, AnsweredQuest
         sprint.$save(db, function () {
             parent.listSprints();
         }, function () {
-            alert('Erro no Banco de Dados');
+            alert('Database error');
         });
     };
 
     this.startCategory = function(sprint, team, category) {
         if (sprint.isRunning()) {
-            sprint.currentCategoryName[team] = category.getName();
-            sprint.flatQuestionArray[team] = category.getQuestions();
+            sprint.currentCategoryName[team] = category.name;
+            sprint.flatQuestionArray[team] = category.questionArray;
             sprint.loadQuestionFor(team, sprint.flatQuestionArray[team][0]);
         } else {
             console.log('Sprint not running!');
@@ -73,15 +72,15 @@ app.service('SprintMgr', function($q, $rootScope, dtBase, TeamMgr, AnsweredQuest
         const answeredQuestion = AnsweredQuestionMgr.create(team, currentQuestion, selectedOption, sprint);
 
         sprint.remove(currentQuestion);
-        team.addAnsweredQuestion(answeredQuestion);
+        TeamMgr.addAnsweredQuestion(team, answeredQuestion);
 
         // TODO DB
 
         if(team.finishedCurrentCategory()) {
-            TeamMgr.finishCategory(team, currentQuestion.getCategory());
+            TeamMgr.finishCategory(team, currentQuestion.category);
         }
 
-        if (team.finishedCurrentSprint()) {
+        if (TeamMgr.finishedCurrentSprint(team)) {
             // TODO
         } else {
             sprint.loadQuestionFor(team, sprint.getNewQuestion());
@@ -101,7 +100,7 @@ app.service('SprintMgr', function($q, $rootScope, dtBase, TeamMgr, AnsweredQuest
         const that = sprint;
 
         sprint.categoryArray.forEach(function(it) {
-            if (it.getName() === that.currentCategoryName[team]) {
+            if (it.name === that.currentCategoryName[team]) {
                 result = it;
             }
         });
@@ -113,7 +112,7 @@ app.service('SprintMgr', function($q, $rootScope, dtBase, TeamMgr, AnsweredQuest
         let result = null;
 
         sprint.categoryArray.forEach(function(it) {
-            if (it.getName() == categoryName) {
+            if (it.name == categoryName) {
                 result = it;
             }
         });

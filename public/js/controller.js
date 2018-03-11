@@ -2,41 +2,73 @@
 
 app
 
-    .controller('mainCtl', function($q, $scope, dtBase) {
-
-    })
-
-    .controller('practiceCtl', function($q, $scope, dtBase, CategoryMgr) {
-
+    .controller('mainCtl', function($q, $scope, $http, CategoryMgr, QuestionMgr) {
         CategoryMgr.listCategories();
-
-    })
-
-    .controller('rankingCtl', function($q, $scope, dtBase) {
-
-        var deferred = $q.defer();
-
-        dtBase.query({db: 'users'}, function (data) {
-            $scope.users = data;
-            deferred.resolve();
-        });
-    })
-
-    .controller('docCtl', function($q, $scope, dtBase, QuestionMgr) {
-
         QuestionMgr.listQuestions();
+        $scope.gera = function(){
+        $http.get('js/output.json').
+            then(function onSuccess(response) {
+                response.data.forEach(function(category) {
+                    CategoryMgr.create(category.name);
 
-        $scope.save = function(text, number){
-            QuestionMgr.create(text, number);
-        };
+
+                    category.questionArray.forEach(function(question) {
+                        QuestionMgr.create(
+                            question.text, 
+                            question.options, 
+                            question.correctOption, 
+                            question.level, 
+                            question.level,
+                            category.name
+                        );
+
+                       
+                    });
+                });
+                console.log('sucess')
+            });
+        }
+    })
+
+    .controller('practiceCtl', function($q, $scope, QuestionMgr,CategoryMgr) {
+
+
+        $scope.gera = function(){
+            var temp = $scope.lists.questions;
+            var cat = $scope.lists.categories;
+    
+    for (var c = cat.length-1; c >= 0; c--) {
+        for(var i = 0; i <= 10; i++) {
+            CategoryMgr.addQuestion(cat[c], temp[temp.length - 1]);
+            temp.splice(temp.length - 1, 1);
+        }
+        }
+    }
+    })
+
+    .controller('rankingCtl', function($q, $scope, MemberMgr) {
+        MemberMgr.listMembers();
+    })
+
+    .controller('docCtl', function($q, $scope, QuestionMgr, CategoryMgr) {
+        
+   
+
+    
+ 
+                    
+         
+            
+
+                
 
     })
 
-    .controller('contestCtl', function($q, $scope, dtBase) {
+    .controller('contestCtl', function($q, $scope) {
 
     })
 
-    .controller('aboutCtl', function($q, $scope, dtBase) {
+    .controller('aboutCtl', function($q, $scope) {
 
     });
 

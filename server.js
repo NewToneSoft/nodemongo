@@ -37,7 +37,7 @@ var db = mongojs(mongoURL);
 
 require('./config/passport')(passport, db);
 
-app.use(express.static('public'));
+app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.engine('ejs', require('ejs-locals'));

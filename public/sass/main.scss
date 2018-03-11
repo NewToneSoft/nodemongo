@@ -1,5 +1,8 @@
 @import 'settings';
+@import 'login';
 @import 'practice';
+@import 'contest';
+@import 'quiz';
 
 * {
     box-sizing: border-box;
@@ -308,12 +311,24 @@ html, body {
     color: $white;
 }
 
+.text-no-decoration {
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
 .bg-purple {
     background-color: $purple;
 }
 
 .bg-white {
     background-color: $white;
+}
+
+.bg-dark-gray {
+    background-color: $dark-gray;
 }
 
 .box-subtitle {
@@ -334,6 +349,12 @@ html, body {
     font-family: $lato;
 }
 
+.content-text {
+    @extend .content-subtitle;
+    font-size: $content-text-font-size;
+    color: $dark-gray;
+}
+
 .horizontal-divider {
     border-top: 1px solid $purple;
     margin-top: 0;
@@ -345,21 +366,6 @@ html, body {
 
 .medium-font {
     font-size: $medium-font-size;
-}
-
-.answer {
-    margin: 40px 120px;
-    @extend .text-purple;
-    font-family: $FjallaOne !important;
-    font-size: $question-font-size;
-}
-
-.question {
-    @extend .bg-purple;
-    @extend .text-white;
-    padding: 35px 140px;
-    font-family: $FjallaOne !important;
-    font-size: $question-font-size;
 }
 
 
@@ -391,6 +397,18 @@ html, body {
         background-color: $white;
         border: $large-box-inverted-border;
     }
+
+    &.inverted {
+        color: $purple;
+        background-color: $white;
+        border: $large-box-inverted-border;
+
+        &:hover {
+            background-color: $purple;
+            color: $white;
+            border: none;
+        }
+    }
 }
 
 .medium-box {
@@ -398,77 +416,13 @@ html, body {
     height: 70px;
 }
 
+.small-box {
+    @extend .large-box;
+    height: 40px;
+}
+
 .box-disabled {
     background-color: $light-gray;
-}
-
-.continue-button {
-    $font-family: $FjallaOne !important;
-    text-transform: uppercase;
-}
-
-.quiz-stats {
-    max-width: 520px;
-    max-height: 110px;
-    display: flex;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.19), 0 0 5px rgba(0,0,0,0.23);
-    margin-bottom: 20px;
-    font-family: $FjallaOne;
-
-    .quiz-stat-title {
-        @extend .bg-purple;
-        @extend .text-white;
-        white-space: wrap;
-        height: 110px;
-        width: 110px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-    }
-
-    .quiz-stat-row {
-        height: 55px;
-        width: 410px;
-        display: flex;
-        @extend .text-light-gray;
-        font-size: $medium-font-size;
-        align-items: center;
-
-        .quiz-stat-text-column {
-            width: 355px;
-            height: 100%;
-            align-items: center;
-            display: flex;
-            justify-content: flex-start;
-            padding-left: 35px;
-        }
-
-        .quiz-stat-number-column {
-            width: 55px;
-            height: 100%;
-            text-align: center;
-            align-items: center;
-            display: flex;
-            justify-content: center;
-        }
-
-        &.quiz-stat-correct {
-            border-bottom: $quiz-stat-border;
-            @extend .text-purple;
-
-            .quiz-stat-text-column {
-                border-right: $quiz-stat-border;
-            }
-        }
-
-        &.quiz-stat-questions {
-            .quiz-stat-text-column {
-                border-right: $quiz-stat-border;
-            }
-        }
-    }
-
 }
 
 //  -----------------------------
@@ -508,6 +462,7 @@ html, body {
         font-weight: 500 !important;
     }
 
+    .swal2-image,
     .swal2-icon {
         order: 2;
     }
@@ -522,8 +477,6 @@ html, body {
 //  -----------------------------
 // Form CSS Definitions
 //  -----------------------------
-
-
 
 .checkbox,
 .radio {

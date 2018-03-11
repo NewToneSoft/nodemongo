@@ -9,8 +9,10 @@
         <div ng-repeat="category in lists.categories" class="col-3">
             <div class="clearfix" ng-if="$index % 3 == 0"></div>
             <div class="category__tile large-box">
-                {{category.title}}
+                {{category.name}}
             </div>
         </div>
     </div>
+
+    <button ng-click="gera()">Gera</button>
 </div>

@@ -1,0 +1,201 @@
+.join-contest {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+
+    &.active {
+        .small-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            color: $purple;
+            background-color: $white;
+            border: $large-box-inverted-border;
+            text-decoration: none;
+            font-family: $FjallaOne;
+
+            &:hover {
+                color: $purple;
+                background-color: $white;
+                border: $large-box-inverted-border;
+                text-decoration: none;
+            }
+        }
+        
+        .medium-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 80px;
+            width: 100%;
+            color: $white;
+            background-color: $purple;
+            border: none;
+            text-decoration: none;
+            font-family: $FjallaOne;
+
+            &:hover {
+                color: $white;
+                background-color: $purple;
+                border: none;
+                text-decoration: none;
+            }
+        }
+
+        &:hover {
+            .small-box {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                color: $white;
+                background-color: $purple;
+                border: none;
+                text-decoration: none;
+                font-family: $FjallaOne;
+    
+                &:hover {
+                    color: $white;
+                    background-color: $purple;
+                    border: none;
+                    text-decoration: none;
+                }
+            }
+            
+            .medium-box {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 80px;
+                width: 100%;
+                color: $purple;
+                background-color: $white;
+                border: $large-box-inverted-border;
+                text-decoration: none;
+                font-family: $FjallaOne;
+    
+                &:hover {
+                    color: $purple;
+                    background-color: $white;
+                    border: $large-box-inverted-border;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    .small-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        color: $white;
+        background-color: $purple;
+        border: none;
+        text-decoration: none;
+        font-family: $FjallaOne;
+
+        &:hover {
+            color: $white;
+            background-color: $purple;
+            border: none;
+            text-decoration: none;
+        }
+    }
+    
+    .medium-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 80px;
+        width: 100%;
+        color: $purple;
+        background-color: $white;
+        border: $large-box-inverted-border;
+        text-decoration: none;
+        font-family: $FjallaOne;
+
+        &:hover {
+            color: $purple;
+            background-color: $white;
+            border: $large-box-inverted-border;
+            text-decoration: none;
+        }
+    }
+}
+
+.last-winners {
+    width: 190px;
+
+    a {
+        text-decoration: none;
+    }
+
+    .trophy {
+        height: 50px;
+        width: 50px;
+    }
+
+    .small-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        color: $dark-gray;
+        background-color: $light-gray;
+        border: none;
+        text-decoration: none;
+        font-family: $FjallaOne;
+
+        &:hover {
+            color: $dark-gray;
+            background-color: $light-gray;
+            border: none;
+            text-decoration: none;
+        }
+
+        &.inverted {
+            background-color: $white;
+            border: 1px solid $light-gray;
+            
+            &:hover {
+                background-color: $white;
+                border: 1px solid $light-gray;
+            }
+        }
+    }
+    
+    .medium-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 80px;
+        width: 100%;
+        color: $purple;
+        background-color: $white;
+        border: 1px solid $light-gray;
+        text-decoration: none;
+        font-family: $FjallaOne;
+
+        .points {
+            font-family: $FjallaOne;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: $medium-font-size;
+
+        }
+
+        &:hover {
+            color: $purple;
+            background-color: $white;
+            border: 1px solid $light-gray;
+            text-decoration: none;
+        }
+    }
+}

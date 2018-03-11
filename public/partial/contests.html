@@ -1,3 +1,37 @@
-<div ng-controller="contestCtl">
-    <h2>Contests</h2>
+<div ng-controller="contestCtl" class="col-sm-12 col-md-11 col-lg-11">
+    <h2 class="content-title">Contest</h2>
+    <hr class="horizontal-divider" />
+    <p class="content-text">
+        After mastering the practice it is time to participate in the contest. The rules are very similar but you will compete against
+        others teams in the period of time specified. Your progress will be displayed in the road map while the progress
+        bar keeps track of your answers.
+    </p>
+    <div class="image-container mt-5">
+        <img src="../img/contest_instructions.png" />
+    </div>
+    <p class="content-text mt-5">You are able to register until 15 minutes before the starting time. Are you ready for the next contest? </p>
+    <div class="active join-contest mt-5">
+        <a class="text-no-decoration" href="#">
+            <div class="medium-box">Hurry up and join now!</div>
+            <div class="small-box text-uppercase">Contest in progress</div>
+            <div class="medium-box text-uppercase">10AM - 12AM</div>
+        </a>
+    </div>
+
+    <h2 class="content-title mt-5">Best team</h2>
+    <hr class="horizontal-divider" />
+
+    <div class="last-winners">
+        <a href="/ranking">
+            <div class="medium-box bg-white pr-0 pl-2">
+                <img class="trophy" src="../img/trophy.png">
+                <span class="text-purple pl-1 points">1000 points</span>
+            </div>
+            <div class="small-box text-uppercase">Teapot Team</div>
+            <div class="small-box text-uppercase inverted bg-white"></div>
+        </a>
+    </div>
+
+
+
 </div>

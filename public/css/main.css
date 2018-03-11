@@ -6,12 +6,355 @@
   font-family: 'Lato Regular';
   src: url("../vendor/webfonts/Lato-Regular.ttf"); }
 
+.login-page {
+  font-family: "FjallaOne Regular";
+  padding-top: 200px; }
+  .login-page .hide {
+    display: none; }
+  .login-page .form-control {
+    margin-bottom: 25px; }
+  .login-page .sidebar-logo {
+    height: 120px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px; }
+    .login-page .sidebar-logo .sidebar-logo__text {
+      font-size: 30px;
+      margin-right: 30px; }
+  .login-page .button-group {
+    display: flex;
+    justify-content: space-between; }
+  .login-page .btn {
+    background-color: #3F599C;
+    border-color: #424f63;
+    color: white;
+    border-radius: 0px; }
+  .login-page .btn-block {
+    margin-bottom: 25px; }
+  .login-page input {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0; }
+
 .category__tile {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 30px;
   cursor: pointer; }
+
+.join-contest {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto; }
+  .join-contest.active .small-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    color: #3F599C;
+    background-color: #f2f2f2;
+    border: 1px solid #3F599C;
+    text-decoration: none;
+    font-family: "FjallaOne Regular"; }
+    .join-contest.active .small-box:hover {
+      color: #3F599C;
+      background-color: #f2f2f2;
+      border: 1px solid #3F599C;
+      text-decoration: none; }
+  .join-contest.active .medium-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    width: 100%;
+    color: #f2f2f2;
+    background-color: #3F599C;
+    border: none;
+    text-decoration: none;
+    font-family: "FjallaOne Regular"; }
+    .join-contest.active .medium-box:hover {
+      color: #f2f2f2;
+      background-color: #3F599C;
+      border: none;
+      text-decoration: none; }
+  .join-contest.active:hover .small-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    color: #f2f2f2;
+    background-color: #3F599C;
+    border: none;
+    text-decoration: none;
+    font-family: "FjallaOne Regular"; }
+    .join-contest.active:hover .small-box:hover {
+      color: #f2f2f2;
+      background-color: #3F599C;
+      border: none;
+      text-decoration: none; }
+  .join-contest.active:hover .medium-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    width: 100%;
+    color: #3F599C;
+    background-color: #f2f2f2;
+    border: 1px solid #3F599C;
+    text-decoration: none;
+    font-family: "FjallaOne Regular"; }
+    .join-contest.active:hover .medium-box:hover {
+      color: #3F599C;
+      background-color: #f2f2f2;
+      border: 1px solid #3F599C;
+      text-decoration: none; }
+  .join-contest .small-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    color: #f2f2f2;
+    background-color: #3F599C;
+    border: none;
+    text-decoration: none;
+    font-family: "FjallaOne Regular"; }
+    .join-contest .small-box:hover {
+      color: #f2f2f2;
+      background-color: #3F599C;
+      border: none;
+      text-decoration: none; }
+  .join-contest .medium-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    width: 100%;
+    color: #3F599C;
+    background-color: #f2f2f2;
+    border: 1px solid #3F599C;
+    text-decoration: none;
+    font-family: "FjallaOne Regular"; }
+    .join-contest .medium-box:hover {
+      color: #3F599C;
+      background-color: #f2f2f2;
+      border: 1px solid #3F599C;
+      text-decoration: none; }
+
+.last-winners {
+  width: 190px; }
+  .last-winners a {
+    text-decoration: none; }
+  .last-winners .trophy {
+    height: 50px;
+    width: 50px; }
+  .last-winners .small-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    color: #3C4859;
+    background-color: #bebebe;
+    border: none;
+    text-decoration: none;
+    font-family: "FjallaOne Regular"; }
+    .last-winners .small-box:hover {
+      color: #3C4859;
+      background-color: #bebebe;
+      border: none;
+      text-decoration: none; }
+    .last-winners .small-box.inverted {
+      background-color: #f2f2f2;
+      border: 1px solid #bebebe; }
+      .last-winners .small-box.inverted:hover {
+        background-color: #f2f2f2;
+        border: 1px solid #bebebe; }
+  .last-winners .medium-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    width: 100%;
+    color: #3F599C;
+    background-color: #f2f2f2;
+    border: 1px solid #bebebe;
+    text-decoration: none;
+    font-family: "FjallaOne Regular"; }
+    .last-winners .medium-box .points {
+      font-family: "FjallaOne Regular";
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 24px; }
+    .last-winners .medium-box:hover {
+      color: #3F599C;
+      background-color: #f2f2f2;
+      border: 1px solid #bebebe;
+      text-decoration: none; }
+
+.answer {
+  margin: 40px 120px;
+  font-family: "FjallaOne Regular" !important;
+  font-size: 26px; }
+
+.question {
+  padding: 35px 140px;
+  font-family: "FjallaOne Regular" !important;
+  font-size: 26px; }
+
+.continue-button {
+  text-transform: uppercase; }
+
+.quiz-stats {
+  max-width: 520px;
+  max-height: 110px;
+  display: flex;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.19), 0 0 5px rgba(0, 0, 0, 0.23);
+  margin-bottom: 20px;
+  font-family: "FjallaOne Regular"; }
+  .quiz-stats .quiz-stat-title {
+    white-space: wrap;
+    height: 110px;
+    width: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center; }
+  .quiz-stats .quiz-stat-row {
+    height: 55px;
+    width: 410px;
+    display: flex;
+    font-size: 24px;
+    align-items: center; }
+    .quiz-stats .quiz-stat-row .quiz-stat-text-column {
+      width: 355px;
+      height: 100%;
+      align-items: center;
+      display: flex;
+      justify-content: flex-start;
+      padding-left: 35px; }
+    .quiz-stats .quiz-stat-row .quiz-stat-number-column {
+      width: 55px;
+      height: 100%;
+      text-align: center;
+      align-items: center;
+      display: flex;
+      justify-content: center; }
+    .quiz-stats .quiz-stat-row.quiz-stat-correct {
+      border-bottom: 1px solid #bebebe; }
+      .quiz-stats .quiz-stat-row.quiz-stat-correct .quiz-stat-text-column {
+        border-right: 1px solid #bebebe; }
+    .quiz-stats .quiz-stat-row.quiz-stat-questions .quiz-stat-text-column {
+      border-right: 1px solid #bebebe; }
+
+.road {
+  display: flex;
+  width: 100%;
+  position: relative;
+  margin: -50px 0 0; }
+  .road .team {
+    position: absolute;
+    transform: rotate(90deg);
+    z-index: 1;
+    width: 30px;
+    left: 0;
+    right: 0;
+    margin: 15px auto 0; }
+    .road .team-2 {
+      position: absolute;
+      transform: rotate(90deg);
+      z-index: 1;
+      width: 30px;
+      left: 0;
+      right: 0;
+      margin: 65px auto 0; }
+  .road .start,
+  .road .finish {
+    position: relative;
+    height: 150px;
+    width: 36px;
+    background-image: url("../img/start_end.jpg");
+    background-repeat: no-repeat; }
+  .road .road-piece {
+    position: relative;
+    flex-grow: 1;
+    background-image: url("../img/road.jpg");
+    width: auto;
+    background-size: 100% 150px;
+    background-repeat: no-repeat; }
+  .road .team-markers {
+    position: absolute;
+    bottom: 10px;
+    left: 40px;
+    display: flex;
+    z-index: 2;
+    align-items: center; }
+    .road .team-markers .square {
+      height: 20px;
+      width: 20px;
+      border: 1px solid black; }
+    .road .team-markers .team-text {
+      padding: 0 40px 0 10px; }
+    .road .team-markers .bg-blue {
+      background-color: #2f95d0; }
+    .road .team-markers .bg-green {
+      background-color: #82cc00; }
+
+.progress-bar-contest {
+  position: relative;
+  display: flex;
+  width: 90%;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px auto; }
+  .progress-bar-contest .horizontal-line {
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    border-top: 2px solid #3C4859;
+    width: 100%;
+    position: absolute;
+    top: 30px; }
+  .progress-bar-contest .question-point {
+    font-family: "Lato Regular";
+    font-size: 22px;
+    position: relative;
+    margin: 50px 0 0; }
+    .progress-bar-contest .question-point:first-of-type {
+      margin-left: 0; }
+    .progress-bar-contest .question-point:last-of-type {
+      margin-right: 0; }
+    .progress-bar-contest .question-point::before {
+      background-color: #ffffff;
+      z-index: 2;
+      position: absolute;
+      top: -40px;
+      left: -10px;
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      content: '';
+      border: 4px solid #3C4859; }
+    .progress-bar-contest .question-point.correct::before {
+      background-color: #3090cc; }
+    .progress-bar-contest .question-point.skiped::before {
+      background-color: #bebebe; }
+    .progress-bar-contest .question-point.wrong::before {
+      background-color: #ff5662; }
+
+.contest .answer.checkbox label, .contest .answer.radio label {
+  color: #3C4859; }
+  .contest .answer.checkbox label::before, .contest .answer.radio label::before {
+    border-color: #3C4859 !important; }
+  .contest .answer.checkbox label::after, .contest .answer.radio label::after {
+    background: #3C4859 !important; }
 
 * {
   box-sizing: border-box; }
@@ -211,7 +554,7 @@ html, body {
 .collapsed .no-padding-on-collapsed {
   padding: 0 !important; }
 
-.text-purple, .answer, .quiz-stats .quiz-stat-row.quiz-stat-correct {
+.text-purple, .answer, .quiz-stats .quiz-stat-row.quiz-stat-correct, .progress-bar-contest .question-point {
   color: #3F599C; }
 
 .text-light-gray, .quiz-stats .quiz-stat-row {
@@ -220,14 +563,22 @@ html, body {
 .text-dark-gray {
   color: #3C4859; }
 
-.text-white, .question, .modal-button, .quiz-stats .quiz-stat-title {
+.text-white, .question, .quiz-stats .quiz-stat-title, .modal-button {
   color: #f2f2f2; }
 
-.bg-purple, .question, .modal-button, .quiz-stats .quiz-stat-title {
+.text-no-decoration {
+  text-decoration: none; }
+  .text-no-decoration:hover {
+    text-decoration: none; }
+
+.bg-purple, .question, .quiz-stats .quiz-stat-title, .modal-button {
   background-color: #3F599C; }
 
 .bg-white {
   background-color: #f2f2f2; }
+
+.bg-dark-gray, .contest.question {
+  background-color: #3C4859; }
 
 .box-subtitle {
   font-size: 14px;
@@ -239,10 +590,14 @@ html, body {
   font-family: "Lato Regular";
   margin: 0; }
 
-.content-subtitle {
+.content-subtitle, .content-text {
   font-size: 24px;
   color: #bebebe;
   font-family: "Lato Regular"; }
+
+.content-text {
+  font-size: 16px;
+  color: #3C4859; }
 
 .horizontal-divider {
   border-top: 1px solid #3F599C;
@@ -254,16 +609,6 @@ html, body {
 .medium-font {
   font-size: 24px; }
 
-.answer {
-  margin: 40px 120px;
-  font-family: "FjallaOne Regular" !important;
-  font-size: 26px; }
-
-.question {
-  padding: 35px 140px;
-  font-family: "FjallaOne Regular" !important;
-  font-size: 26px; }
-
 .modal-button {
   border: none;
   height: 30px;
@@ -271,7 +616,7 @@ html, body {
   text-transform: uppercase;
   font-family: "Lato Regular"; }
 
-.large-box, .medium-box {
+.large-box, .medium-box, .small-box {
   height: 100px;
   font-size: 26px;
   font-family: "Lato Regular";
@@ -279,61 +624,27 @@ html, body {
   color: #f2f2f2;
   border: none;
   padding: 0 30px; }
-  .large-box:hover, .medium-box:hover {
+  .large-box:hover, .medium-box:hover, .small-box:hover {
     color: #3F599C;
     background-color: #f2f2f2;
     border: 1px solid #3F599C; }
+  .large-box.inverted, .inverted.medium-box, .inverted.small-box {
+    color: #3F599C;
+    background-color: #f2f2f2;
+    border: 1px solid #3F599C; }
+    .large-box.inverted:hover, .inverted.medium-box:hover, .inverted.small-box:hover {
+      background-color: #3F599C;
+      color: #f2f2f2;
+      border: none; }
 
 .medium-box {
   height: 70px; }
 
+.small-box {
+  height: 40px; }
+
 .box-disabled {
   background-color: #bebebe; }
-
-.continue-button {
-  text-transform: uppercase; }
-
-.quiz-stats {
-  max-width: 520px;
-  max-height: 110px;
-  display: flex;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.19), 0 0 5px rgba(0, 0, 0, 0.23);
-  margin-bottom: 20px;
-  font-family: "FjallaOne Regular"; }
-  .quiz-stats .quiz-stat-title {
-    white-space: wrap;
-    height: 110px;
-    width: 110px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center; }
-  .quiz-stats .quiz-stat-row {
-    height: 55px;
-    width: 410px;
-    display: flex;
-    font-size: 24px;
-    align-items: center; }
-    .quiz-stats .quiz-stat-row .quiz-stat-text-column {
-      width: 355px;
-      height: 100%;
-      align-items: center;
-      display: flex;
-      justify-content: flex-start;
-      padding-left: 35px; }
-    .quiz-stats .quiz-stat-row .quiz-stat-number-column {
-      width: 55px;
-      height: 100%;
-      text-align: center;
-      align-items: center;
-      display: flex;
-      justify-content: center; }
-    .quiz-stats .quiz-stat-row.quiz-stat-correct {
-      border-bottom: 1px solid #bebebe; }
-      .quiz-stats .quiz-stat-row.quiz-stat-correct .quiz-stat-text-column {
-        border-right: 1px solid #bebebe; }
-    .quiz-stats .quiz-stat-row.quiz-stat-questions .quiz-stat-text-column {
-      border-right: 1px solid #bebebe; }
 
 .swal2-popup .swal2-close {
   font-size: 24px !important;
@@ -361,6 +672,7 @@ html, body {
 .swal2-popup .swal2-content {
   font-weight: 500 !important; }
 
+.swal2-popup .swal2-image,
 .swal2-popup .swal2-icon {
   order: 2; }
 

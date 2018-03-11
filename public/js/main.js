@@ -60,6 +60,20 @@ var SweetAlertModals = {
             confirmButtonText: 'Continue'
           });
     },
+    finish: function(points) {
+        swal({
+            title: 'Contest finished!',
+            text: 'You got '+points+' points!',
+            imageUrl: '../img/motorcycle.png',
+            buttonsStyling: false,
+            confirmButtonClass: 'modal-button',
+            confirmButtonText: 'Continue',
+            showCloseButton: true,
+            onBeforeOpen: function(element) {
+                $(element).find('.swal2-close').html('<i class="fas fa-times"></i>')
+            }
+          });
+    },
     levelup: function(level){
         swal({
             title: 'Congratulations!',
@@ -90,6 +104,8 @@ var SweetAlertModals = {
 var app = angular.module('wapp', ['ngResource', 'ngRoute', 'ngAnimate', 'ui.bootstrap'])
 
     .run(['$rootScope', '$http', '$window', function($rootScope, $http, $window){
+
+        $rootScope.lists = [];
 
         // LogIn
         $http.get('/userData').then(function(resp) {

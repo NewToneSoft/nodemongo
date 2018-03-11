@@ -29,8 +29,10 @@
                         <div class="media user-dropdown">
                             <img class="mr-3 no-margin-on-collapsed expand-on-collapsed" src="img/avatar-male.png" alt="Avatar Image">
                             <div class="media-body text-left hide-on-collapsed">
-                                <h5 class="mb-0 text-purple username-text">Railan</h5>
-                                <p class="font-italic mb-0 text-uppercase font-weight-bold">Level 37<img class="m-1 medal" src="img/medal.png" alt="Medal Image"></p>
+                                <h5 class="mb-0 text-purple username-text">{{ currentUser.firstName }}</h5>
+                                <p class="font-italic mb-0 text-uppercase font-weight-bold">Level {{ currentUser.level }}
+                                    <img class="m-1 medal" src="img/medal.png" alt="Medal Image">
+                                </p>
                             </div>
                         </div>
                     </button>
@@ -60,6 +62,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link center-on-collapsed" href="/contests">
+                            <i class="fas fa-flag-checkered no-padding-on-collapsed"></i>
+                            <span class="hide-on-collapsed">Contests</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link center-on-collapsed" href="/ranking">
                             <i class="fas fa-trophy no-padding-on-collapsed"></i>
                             <span class="hide-on-collapsed">Ranking</span>
@@ -69,12 +77,6 @@
                         <a class="nav-link center-on-collapsed" href="/documentation">
                             <i class="fas fa-book no-padding-on-collapsed"></i>
                             <span class="hide-on-collapsed">Documentation</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link center-on-collapsed" href="/contests">
-                            <i class="fas fa-flag-checkered no-padding-on-collapsed"></i>
-                            <span class="hide-on-collapsed">Contests</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -117,6 +119,7 @@
     <script src="js/managers/QuestionMgr.js"></script>
     <script src="js/managers/SprintMgr.js"></script>
     <script src="js/managers/TeamMgr.js"></script>
+    <script src="js/output.json"></script>
 </body>
 
 </html>

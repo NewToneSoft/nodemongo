@@ -3,56 +3,60 @@
 <head>
     <title>WebApp - Login</title>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
 </head>
-<body style="background-color: #eeeeee; padding-top: 40px;">
-
-<div class="container">
+<body>
+<div class="container login-page">
     <div class="row">
         <div class="col-sm-offset-4 col-sm-4">
+            <div class="sidebar-logo">
+                <img class="sidebar-logo__img" src="img/teapod-logo.png" alt="teapod-logo">
+                <div class="sidebar-logo__text">teapot</div>
+            </div>
 
-            <h2 class="text-center">WebApp - Login</h2>
-
-            <form class="form-horizontal" method="POST" action="/login" accept-charset="UTF-8">
+            <form class="form-login form-horizontal" method="POST" action="/login" accept-charset="UTF-8">
                 <% if (message) { %>
                 <h3 class="badge badge-important text-center"><%= message %></h3>
                 <% } %>
-                <div class="form-group" style="font-size: 16px;">
-                    <input class="form-control" type="email" id="username"  name="username" placeholder="Email"
-                            style="margin-bottom: -1px; border-bottom-right-radius: 0; border-bottom-left-radius: 0;" autofocus>
+                <div class="">
+                    <input class="form-control" type="email" id="username"  name="username" placeholder="Email" autofocus>
 
-                    <input class="form-control" type="password" id="password"  name="password" placeholder="Senha"
-                            style="border-top-left-radius: 0; border-top-right-radius: 0;">
+                    <input class="form-control" type="password" id="password"  name="password" placeholder="Password">
                 </div>
+                <button type="submit" name="submit" class="btn btn-lg btn-block">Log In</button>
 
-                <button type="submit" name="submit" class="btn btn-lg btn-block"
-                        style="background-color: #424f63; border-color: #424f63; color: white">Entrar</button>
-
+                <div class="btn btn-lg btn-block show-signup">Sign Up</div>
             </form>
 
+            <form class="form-signup form-horizontal hide" method="POST" action="/signup" accept-charset="UTF-8">
+                <div class="">
+                    <input class="form-control" type="text" id="firstName" name="firstName" placeholder="First Name" autofocus>
 
-            <form class="form-horizontal" method="POST" action="/signup" accept-charset="UTF-8">
+                    <input class="form-control" type="text" id="lastName"  name="lastName" placeholder="Last Name">
 
-                <div class="form-group" style="font-size: 16px;">
-                    <input class="form-control" type="text" id="firstName" name="firstName" placeholder="First Name"
-                        style="margin-bottom: -1px; border-bottom-right-radius: 0; border-bottom-left-radius: 0;" autofocus>
+                    <input class="form-control" type="email" id="newEmail"  name="newEmail" placeholder="Email">
 
-                    <input class="form-control" type="text" id="lastName"  name="lastName" placeholder="Last Name"
-                        style="margin-bottom: -1px; border-bottom-right-radius: 0; border-bottom-left-radius: 0;">
-
-                    <input class="form-control" type="email" id="newEmail"  name="newEmail" placeholder="Email"
-                            style="margin-bottom: -1px; border-bottom-right-radius: 0; border-bottom-left-radius: 0;">
-
-                    <input class="form-control" type="password" id="newPassword"  name="newPassword" placeholder="Password"
-                            style="border-top-left-radius: 0; border-top-right-radius: 0;">
+                    <input class="form-control" type="password" id="newPassword"  name="newPassword" placeholder="Password">
                 </div>
-
-                <button type="submit" name="submit" class="btn btn-lg btn-block"
-                        style="background-color: #424f63; border-color: #424f63; color: white">New User</button>
+                <div class="button-group">
+                    <a class="btn btn-lg back-tologin">Back to login</a>
+                    <button type="submit" name="submit" class="btn btn-lg">Register</button>
+                </div>
 
             </form>
         </div>
     </div>
 </div>
-
+<script src="vendor/js/jquery-3.2.1.min.js"></script>
+<script>
+    $('.show-signup').on('click', function (){
+        $('.form-login').addClass('hide');
+        $('.form-signup').removeClass('hide');
+    });
+    $('.back-tologin').on('click', function (){
+        $('.form-signup').addClass('hide');
+        $('.form-login').removeClass('hide');
+    });
+</script>
 </body>
 </html>

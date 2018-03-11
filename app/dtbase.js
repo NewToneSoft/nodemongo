@@ -8,6 +8,9 @@ module.exports = function(app, db) {
     colections.users = db.collection('users');
     colections.categories = db.collection('categories');
     colections.questions = db.collection('questions');
+    colections.teams = db.collection('teams');
+    colections.sprints = db.collection('sprints');
+    colections.answered_questions = db.collection('answered_questions');
 
     // LIST
     app.get('/api/:db', function (req, res) {
@@ -35,7 +38,6 @@ module.exports = function(app, db) {
             });
         } else {
             delete final._id;
-
             cat.update({_id: new ObjectID(req.body._id) }, final, function(err, result){
                 if (err){res.send(err);}
                 if (result) {

@@ -48,7 +48,8 @@ module.exports = function(passport, db) {
                     var newUser = {
                         email     : email,
                         firstName : req.body.firstName,
-                        lastName  : req.body.lastName
+                        lastName  : req.body.lastName,
+                        level     : 0
                     };
 
                     bcrypt.hash(password, null, null, function(err, hash) {

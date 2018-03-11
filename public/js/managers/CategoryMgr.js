@@ -1,14 +1,12 @@
 'use strict';
-
-var db = {db: 'categories'};
-
 app.service('CategoryMgr', function($q, $rootScope, dtBase, QuestionMgr) {
+    var db = {db: 'categories'};
 
     this.listCategories = function(){
         var deferred = $q.defer();
 
         dtBase.query(db, function (data) {
-            $rootScope.lists.questions = data;
+            $rootScope.lists.categories = data;
             deferred.resolve();
         });
 
@@ -17,29 +15,38 @@ app.service('CategoryMgr', function($q, $rootScope, dtBase, QuestionMgr) {
 
     this.create = function(name) {
         var category = angular.copy(new dtBase(db));
+        var that = this;
 
         category.name = name;
         category.questionArray = [];
 
-        category.$save(db, function (data) {
-            console.log(data);
+        category.$save(db, function () {
+            that.listCategories();
         }, function () {
-            alert('Erro no Banco de Dados');
+            alert('Database error');
+        });
+    };
+
+    this.update = function(updatedCategory) {
+        var category = angular.copy(new dtBase(db));
+        var that = this;
+
+        category._id = updatedCategory._id;
+        category.name = updatedCategory.name;
+        category.questionArray = updatedCategory.questionArray;
+
+
+        category.$save(db, function () {
+            that.listCategories();
+        }, function () {
+            alert('Database error ');
         });
     };
 
     this.addQuestion = function(category, question) {
-        question.setCategory(category);
-        category.addQuestion(question);
-
-        category.$save(db, function (data) {
-            console.log(data);
-        }, function () {
-            alert('Erro no Banco de Dados');
-        });
-
-        // TODO update question
-
+        QuestionMgr.setCategory(question, category);
+        category.questionArray.push(question._id);
+        this.update(category);
     };
 });
 
